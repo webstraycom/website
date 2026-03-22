@@ -1,0 +1,36 @@
+---
+title: Changelog
+description: Latest updates and announcements.
+---
+
+## March 2026 – Migration to Next.js
+
+We have completely migrated the platform from Express/EJS to a modern Next.js architecture. This isn't just a UI refresh – it’s a total rewrite focused on performance and user experience.
+
+- App Router & RSC: Leveraging Next.js App Router and React Server Components for faster page loads and seamless navigation.
+- Shadcn/ui Integration: The entire interface has been rebuilt using shadcn/ui and Tailwind CSS, providing a consistent, accessible, and polished look.
+- Documentation via Velite: Our documentation is now powered by Velite and MDX, allowing for type-safe content management and interactive code examples.
+- Client-Side Interactivity: Replaced static EJS templates with dynamic React components, enabling a much richer user experience.
+
+## March 2026 – WebStray Authenticator Release
+
+We are excited to announce the official release of [WebStray Authenticator](/authenticator) – a next-generation desktop password manager built with a "local-first" philosophy.
+
+#### Engineering a Modern Experience
+
+Using a reactive stack powered by React 19, Vite 7, and NW.js, we’ve created an interface that feels as fluid as a native application while maintaining the flexibility of the web. The entire UI is built on shadcn/ui and tailwindcss, delivering a polished, accessible, and hardware-accelerated experience that instantly responds to user interaction.
+
+#### Privacy Without Compromise
+
+WebStray Authenticator employs a Zero-Knowledge model, meaning your master password and sensitive data never leave your machine. Every database is cryptographically bound to your specific Machine ID using AES-256-GCM encryption. This hardware-level tie ensures that even if your database file is compromised, it remains an unreadable cipher on any unauthorized device.
+
+#### Built for Power Users
+
+Efficiency is at the heart of our design. With the integrated Command Palette, execute global actions through a keyboard-centric workflow. Furthermore, the core is engineered for extensibility; a robust Plugin System implementing Dependency Injection allows developers to build custom modules, making WebStray Authenticator not just a tool, but a platform for secure data management.
+
+#### Get Started
+
+The official installer is now available for Windows. For power users on macOS and Linux, you can easily build WebStray Authenticator from source using `nw-builder`.
+
+- [Download for Windows](/authenticator)
+- [Build for any platform](/docs/authenticator#manual-build-windows-macos-linux)

@@ -1,0 +1,57 @@
+import { ArrowDownIcon } from 'lucide-react';
+import { Hero } from '@/components/shared/Hero';
+import { Button } from '@/components/ui/button';
+import { AuthenticatorBentoGrid } from '@/components/features/authenticator/AuthenticatorBentoGrid';
+
+const title = 'WebStray Authenticator';
+const description =
+  'Secure, hardware-bound desktop password manager. Built for privacy. Engineered for extensibility. Powered by NW.js.';
+
+export async function generateMetadata() {
+  return {
+    title: title,
+    openGraph: {
+      title: title,
+      description: description,
+      images: [
+        `/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`,
+      ],
+    },
+  };
+}
+
+export default function AuthenticatorPage() {
+  return (
+    <div className="flex flex-col justify-center">
+      <Hero
+        announcement={{
+          text: 'Build and install on any platform',
+          link: '/docs/authenticator#installation',
+        }}
+        title={title}
+        description={description}
+        className="pt-10 !pb-8"
+      >
+        <div className="flex w-full flex-col gap-2 min-[375px]:w-fit min-[375px]:flex-row">
+          <Button variant="outline" asChild size="default">
+            <a href="https://github.com/webstraycom/authenticator" target="_blank" rel="noreferrer">
+              Open on GitHub
+            </a>
+          </Button>
+          <Button asChild size="default" className="gap-1">
+            <a
+              href="/authenticator/setup.exe"
+              download="setup.exe"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ArrowDownIcon />
+              Download for Windows
+            </a>
+          </Button>
+        </div>
+      </Hero>
+      <AuthenticatorBentoGrid />
+    </div>
+  );
+}

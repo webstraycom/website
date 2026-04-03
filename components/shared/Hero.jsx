@@ -14,10 +14,10 @@ export const Hero = ({ announcement = {}, title, description, children }) => {
           </Link>
         </Badge>
       )}
-      <h1 className="text-primary leading-tighter max-w-4xl text-center text-3xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter">
+      <h1 className="text-primary leading-tighter text-center text-3xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter">
         {title}
       </h1>
-      <p className="text-primary max-w-4xl max-w-xl text-center text-base text-balance sm:text-lg">
+      <p className="text-primary max-w-xl text-center text-base text-balance sm:text-lg">
         {description}
       </p>
       <div className="flex w-full justify-center">{children}</div>

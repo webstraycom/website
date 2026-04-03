@@ -16,7 +16,7 @@ export function DocsSidebar({ folder }) {
         <div key={section.title} className="flex flex-col gap-3 text-[0.8rem]">
           <h4 className="text-sm font-medium tracking-tight capitalize">{section.title}</h4>
 
-          <ul className="flex flex-col gap-2 border-neutral-200 dark:border-neutral-800">
+          <ul className="flex flex-col gap-3 border-neutral-200 dark:border-neutral-800">
             {section.items.map((item) => {
               const isActive = pathname === item.href;
 

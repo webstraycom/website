@@ -25,7 +25,7 @@ export function TableOfContents({ toc }) {
             {item.title}
           </a>
           {item.items?.length > 0 && (
-            <ul className="flex flex-col gap-2 pl-4">
+            <ul className="flex flex-col gap-3 pl-4">
               {item.items.map((subItem) => (
                 <li key={subItem.url}>
                   <a

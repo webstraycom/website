@@ -25,7 +25,7 @@ export function DocsSidebar({ folder }) {
                   <Link
                     href={item.href}
                     className={cn(
-                      'group flex w-full items-center gap-2 rounded-md border border-transparent text-[0.8rem]',
+                      'group flex w-full items-center gap-2 rounded-md text-[0.8rem] leading-4',
                       isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
                     )}
                   >

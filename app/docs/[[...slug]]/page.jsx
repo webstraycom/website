@@ -1,4 +1,5 @@
 import { docs } from '@content';
+import { docsConfig } from '@/config/docs';
 import { Mdx } from '@/components/mdx-components';
 import { DocsSidebar } from '@/components/mdx/docs-sidebar';
 import { TableOfContents } from '@/components/mdx/toc';
@@ -11,15 +12,28 @@ import { Footer } from '@/components/layout/Footer';
 
 const DEFAULT_ROOT = 'general';
 
-const getDocFromParams = (slug) => {
-  const targetSlug = slug && slug.length > 0 ? slug.join('/') : DEFAULT_ROOT;
+const getSlugPath = (slug) => Array.isArray(slug) ? slug.join('/') : (slug || '');
 
-  return docs.find((d) => d.slug === targetSlug);
+const getDocFromSlug = (slugPath) => {
+  const target = slugPath || DEFAULT_ROOT;
+  return docs.find((d) => d.slug === target);
+};
+
+const getDocNeighbours = (currentFolder, slugPath) => {
+  const currentSection = docsConfig[currentFolder] || [];
+  const flatItems = currentSection.flatMap(group => group.items);
+  
+  const currentIndex = flatItems.findIndex(item => item.href === `/docs/${slugPath}`);
+  
+  return {
+    prevDoc: flatItems[currentIndex - 1] ?? null,
+    nextDoc: flatItems[currentIndex + 1] ?? null
+  };
 };
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const doc = getDocFromParams(slug);
+  const doc = getDocFromSlug(getSlugPath(slug));
 
   if (!doc) return {};
 
@@ -43,24 +57,18 @@ export async function generateMetadata({ params }) {
 
 export default async function DocPage({ params }) {
   const { slug } = await params;
+  
+  const slugPath = getSlugPath(slug);
+  const currentFolder = (Array.isArray(slug) && slug[0]) || DEFAULT_ROOT;
 
-  const slugPath = slug ? (Array.isArray(slug) ? slug.join('/') : slug) : '';
-
-  if (slugPath === 'general' || slugPath === '') {
+  if (!slugPath || slugPath === 'general') {
     redirect('/docs/general/changelog');
   }
 
-  const doc = getDocFromParams(slug);
+  const doc = getDocFromSlug(slugPath);
+  if (!doc) notFound();
 
-  if (!doc) return notFound();
-
-  const currentFolder = slug && slug.length > 0 ? slug[0] : DEFAULT_ROOT;
-
-  const folderDocs = docs.filter((d) => d.slug.startsWith(currentFolder));
-  const currentIndex = folderDocs.findIndex((d) => d.slug === doc.slug);
-
-  const prevDoc = folderDocs[currentIndex - 1];
-  const nextDoc = folderDocs[currentIndex + 1];
+  const { prevDoc, nextDoc } = getDocNeighbours(currentFolder, slugPath);
 
   return (
     <div className="flex flex-1 flex-col xl:px-6">
@@ -86,25 +94,21 @@ export default async function DocPage({ params }) {
             </div>
             <Mdx code={doc.content} />
             <div className="flex flex-col items-center justify-between gap-2 md:flex-row">
-              {prevDoc ? (
+              {prevDoc && (
                 <Button asChild variant="secondary" className="w-full md:w-fit">
-                  <Link href={`/docs/${prevDoc.slug}`}>
+                  <Link href={prevDoc.href}>
                     <ArrowLeft className="h-4 w-4" />
                     {prevDoc.title}
                   </Link>
                 </Button>
-              ) : (
-                <div />
               )}
-              {nextDoc ? (
-                <Button asChild variant="secondary" className="w-full md:w-fit">
-                  <Link href={`/docs/${nextDoc.slug}`}>
+              {nextDoc && (
+                <Button asChild variant="secondary" className="w-full md:w-fit md:ml-auto">
+                  <Link href={nextDoc.href}>
                     {nextDoc.title}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
-              ) : (
-                <div />
               )}
             </div>
             <Footer className="!p-0" />

@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
 
 export const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
   return (
-    <div className='flex items-center gap-1.5'>
+    <div className='flex items-start md:items-center gap-1.5'>
       <CopyPageButton doc={currentDoc} />
       {prevDoc && (
         <Button asChild variant="secondary" size='icon-sm' className="size-8 md:size-7">
@@ -95,7 +95,7 @@ export default async function DocPage({ params }) {
 
   return (
     <div className="flex flex-1 flex-col xl:px-6">
-      <main className="mt-14 max-w-7xl px-5 lg:grid lg:grid-cols-[240px_1fr] lg:gap-10 xl:mx-auto xl:grid-cols-[240px_720px_240px] xl:px-0">
+      <main className="mt-14 max-w-7xl px-5 lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 xl:mx-auto xl:grid-cols-[240px_minmax(0,720px)_240px] xl:px-0">
         <aside className="relative hidden text-sm lg:block">
           <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] w-[240px] overflow-y-auto py-8 xl:flex">
             <DocsSidebar folder={currentFolder} />
@@ -108,8 +108,8 @@ export default async function DocPage({ params }) {
         <article className="flex w-full min-w-0 flex-col gap-6 py-8 text-neutral-800 dark:text-neutral-300">
           <div className="flex w-full flex-col gap-6 md:mx-auto md:max-w-[40rem]">
             <div className="flex flex-col gap-2">
-              <div className='flex justify-between'>
-                <h1 className="!m-0 !text-3xl font-semibold tracking-tight sm:text-3xl">
+              <div className='flex gap-4 justify-between'>
+                <h1 className="!m-0 !text-3xl font-semibold tracking-tight sm:text-3xl break-words min-w-0">
                   {doc.title}
                 </h1>
                 <PageButtons currentDoc={doc} prevDoc={prevDoc} nextDoc={nextDoc} />

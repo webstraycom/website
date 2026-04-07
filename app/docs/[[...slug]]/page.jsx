@@ -9,6 +9,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/layout/Footer';
+import { CopyPageButton } from '@/components/mdx/copy-button';
 
 const DEFAULT_ROOT = 'general';
 
@@ -55,6 +56,28 @@ export async function generateMetadata({ params }) {
   };
 }
 
+export const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
+  return (
+    <div className='flex items-center gap-1.5'>
+      <CopyPageButton doc={currentDoc} />
+      {prevDoc && (
+        <Button asChild variant="secondary" size='icon-sm' className="size-8 md:size-7">
+          <Link href={prevDoc.href}>
+            <ArrowLeft />
+          </Link>
+        </Button>
+      )}
+      {nextDoc && (
+        <Button asChild variant="secondary" size='icon-sm' className="size-8 md:size-7">
+          <Link href={nextDoc.href}>
+            <ArrowRight />
+          </Link>
+        </Button>
+      )}
+    </div>
+  )
+}
+
 export default async function DocPage({ params }) {
   const { slug } = await params;
   
@@ -85,9 +108,12 @@ export default async function DocPage({ params }) {
         <article className="flex w-full min-w-0 flex-col gap-6 py-8 text-neutral-800 dark:text-neutral-300">
           <div className="flex w-full flex-col gap-6 md:mx-auto md:max-w-[40rem]">
             <div className="flex flex-col gap-2">
-              <h1 className="!m-0 !text-3xl font-semibold tracking-tight sm:text-3xl">
-                {doc.title}
-              </h1>
+              <div className='flex justify-between'>
+                <h1 className="!m-0 !text-3xl font-semibold tracking-tight sm:text-3xl">
+                  {doc.title}
+                </h1>
+                <PageButtons currentDoc={doc} prevDoc={prevDoc} nextDoc={nextDoc} />
+              </div>
               <p className="text-muted-foreground text-[1.05rem] sm:text-base sm:text-balance md:max-w-[80%]">
                 {doc.description}
               </p>

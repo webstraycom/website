@@ -37,6 +37,15 @@ export default defineConfig({
         content: s.mdx(),
         toc: s.toc(),
         date: s.string().optional(),
+        raw: s.raw(),
+      })
+      .transform((data, { meta }) => {
+        const path = meta.path.replace(/\\/g, '/').replace(/.*content\//, 'content/');
+        return {
+          ...data,
+          githubUrl: `https://github.com/webstraycom/website/blob/main/${path}`,
+          historyUrl: `https://github.com/webstraycom/website/commits/main/${path}`
+        };
       }),
     },
   },

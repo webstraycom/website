@@ -12,9 +12,9 @@ export function TableOfContents({ toc }) {
   const activeId = useActiveItem(itemIds);
 
   return (
-    <ul className="flex flex-col gap-3 text-[0.8rem] overflow-y-auto no-scrollbar">
+    <ul className="flex flex-col gap-2 text-[0.8rem] overflow-y-auto no-scrollbar">
       {toc.map((item) => (
-        <li key={item.url} className="flex flex-col gap-3">
+        <li key={item.url} className="flex flex-col gap-2">
           <a
             href={item.url}
             className={cn(
@@ -25,7 +25,7 @@ export function TableOfContents({ toc }) {
             {item.title}
           </a>
           {item.items?.length > 0 && (
-            <ul className="flex flex-col gap-3 pl-4">
+            <ul className="flex flex-col gap-2 pl-4">
               {item.items.map((subItem) => (
                 <li key={subItem.url}>
                   <a

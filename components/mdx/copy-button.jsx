@@ -31,7 +31,7 @@ export const CopyPageButton = ({ doc }) => {
   };
 
   const viewAsMdx = () => {
-    const blob = new Blob([getPageContent()], { type: 'text/markdown' });
+    const blob = new Blob([getPageContent()], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     window.open(url, '_blank');
   };

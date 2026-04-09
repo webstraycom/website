@@ -11,7 +11,7 @@ export function DocsSidebar({ folder }) {
   const sidebar = docsConfig[folder] || [];
 
   return (
-    <nav className="flex flex-col items-start gap-3">
+    <nav className="flex flex-col items-start gap-3 overflow-y-auto no-scrollbar">
       {sidebar.map((section) => (
         <div key={section.title} className="flex flex-col gap-3 text-[0.8rem]">
           <h4 className="text-sm font-medium tracking-tight capitalize">{section.title}</h4>

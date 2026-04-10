@@ -26,7 +26,7 @@ export const Header = () => {
           <NavigationMenu className="hidden items-center gap-2 md:flex">
             <NavigationMenuList className="gap-1">
               <NavigationMenuItem>
-                <Link href="/" className="flex flex-row items-center gap-2 py-1 pr-2.5">
+                <Link href="/" className="flex flex-row items-center gap-2 py-1.5 pr-2.5">
                   <Logo className="size-4" />
                   <span>WebStray</span>
                 </Link>
@@ -37,7 +37,7 @@ export const Header = () => {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   asChild
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1')}
+                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
                 >
                   <Link href="/authenticator">Authenticator</Link>
                 </NavigationMenuLink>
@@ -45,7 +45,7 @@ export const Header = () => {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   asChild
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1')}
+                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
                 >
                   <Link href="/starlight">Starlight</Link>
                 </NavigationMenuLink>
@@ -53,18 +53,17 @@ export const Header = () => {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   asChild
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1')}
+                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
                 >
-                  <a href="https://github.com/webstraycom" target="_blank" rel="noreferrer">
-                    Database
-                  </a>
+                  <Link href="/cli">CLI</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1')}
+                  asChild
+                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
                 >
-                  Other
+                  <Link href="/docs">Docs</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>

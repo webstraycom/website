@@ -3,6 +3,59 @@ title: Changelog
 description: Latest updates and announcements.
 ---
 
+## April 2026 – WebStray CLI Release
+
+We are proud to introduce [WebStray CLI](/cli) – the official command-line interface for the WebStray ecosystem.
+Designed primarily for developers and power users who prioritize speed, keyboard-centric workflows, and automation.
+
+WebStray CLI currently ships with the following product-specific interfaces:
+
+#### WebStray Authenticator CLI
+
+Command-line interface for [WebStray Authenticator](/authenticator).
+
+- Adding Plugins: The `add` command provides an interactive way to discover and add plugins directly from the [registry](/authenticator/plugins).
+- Creating Plugins: The `create` command generates a new plugin template in seconds, including all necessary metadata.
+- Interactive Mode: If no options or arguments are provided, the CLI will automatically prompt for the required information.
+
+#### WebStray Starlight CLI
+
+Command-line interface for [WebStray Starlight](/starlight).
+
+- Getting Repository Preview: The `get` command starts generating the preview on the server using the Starlight API, then fetches the result and saves it to the desktop.
+- Deep Customization: Supports various flags for styling, including light theme (`--light`), custom border radius (`--radius`), monochrome progress bars (`--styled`), and more.
+
+#### Documentation
+
+Ready to dive in? The full documentation for WebStray CLI, including detailed command references and installation guides, is now available.
+
+[View WebStray CLI Documentation](/docs/cli)
+
+## April 2026 – Plugin Registry Launch
+
+We have officially launched the [Plugin Registry](/authenticator/plugins) — a centralized repository for official and community-driven plugins for [WebStray Authenticator](/authenticator).
+
+#### Open Ecosystem
+
+The registry is entirely open-source and hosted on [GitHub](https://github.com/webstraycom/authenticator-plugin-registry). We invite developers to contribute by submitting Pull Requests. Check out the [official documentation](/docs/authenticator/plugins#contributing) and help make WebStray Authenticator even more flexible and powerful for everyone.
+
+#### Effortless Plugin Management
+
+We've made plugin management as simple and convenient as possible.
+
+- CLI-Driven: Use [WebStray CLI](/cli) for interactive plugin [setup](/docs/cli/authenticator#add) and [creation](/docs/cli/authenticator#create).
+- Manual Control: Add or create plugins manually without the CLI by simply dropping folders into the application’s plugins directory.
+
+#### Security & Responsibility
+
+Using any plugin, including those marked as "Official," involves inherent security risks. Please refer to the [disclaimer](/docs/authenticator/plugins#disclaimer) in the documentation for more information on security and risks.
+
+#### Documentation
+
+Ready to start building or using plugins? Check out the full documentation for the Plugin Registry, including guides on contributing, CLI commands, and manual setup.
+
+[View Plugin Registry Documentation](/docs/authenticator/plugins)
+
 ## March 2026 – Migration to Next.js
 
 We have completely migrated the platform from Express/EJS to a modern Next.js architecture. This isn't just a UI refresh – it’s a total rewrite focused on performance and user experience.
@@ -11,6 +64,12 @@ We have completely migrated the platform from Express/EJS to a modern Next.js ar
 - Shadcn/ui Integration: The entire interface has been rebuilt using shadcn/ui and Tailwind CSS, providing a consistent, accessible, and polished look.
 - Documentation via Velite: Our documentation is now powered by Velite and MDX, allowing for type-safe content management and interactive code examples.
 - Client-Side Interactivity: Replaced static EJS templates with dynamic React components, enabling a much richer user experience.
+
+#### Documentation
+
+Interested in how we built this? The full documentation for the WebStray website, detailing our technology stack, is now available.
+
+[View WebStray Website Documentation](/docs/general/website)
 
 ## March 2026 – WebStray Authenticator Release
 
@@ -34,3 +93,9 @@ The official installer is now available for Windows. For power users on macOS an
 
 - [Download for Windows](/authenticator)
 - [Build for any platform](/docs/authenticator#manual-build-windows-macos-linux)
+
+#### Documentation
+
+Need help getting started? The comprehensive guide to WebStray Authenticator is now available.
+
+[View WebStray Authenticator Documentation](/docs/authenticator)

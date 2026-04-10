@@ -32,7 +32,7 @@ const getDocNeighbours = (currentFolder, slugPath) => {
   };
 };
 
-export async function generateMetadata({ params }) {
+export const generateMetadata = async ({ params }) => {
   const { slug } = await params;
   const doc = getDocFromSlug(getSlugPath(slug));
 

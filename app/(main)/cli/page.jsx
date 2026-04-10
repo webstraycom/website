@@ -9,7 +9,7 @@ const RELEASES_URL = `https://github.com/${CONFIG.USER}/${CONFIG.REPO}/releases/
 const title = 'WebStray CLI';
 const description = 'Unified command-line interface for WebStray products. Instant. Interactive. Scriptable. Powered by Node.js.';
 
-export async function generateMetadata() {
+export const generateMetadata = () => {
   return {
     title: title,
     openGraph: {

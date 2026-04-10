@@ -7,7 +7,7 @@ const title = 'WebStray Authenticator';
 const description =
   'Secure, hardware-bound desktop password manager. Built for privacy. Engineered for extensibility. Powered by NW.js.';
 
-export async function generateMetadata() {
+export const generateMetadata = () => {
   return {
     title: title,
     openGraph: {

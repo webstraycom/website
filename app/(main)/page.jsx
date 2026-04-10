@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 const title = 'WebStray Open Source';
 const description = `At WebStray, we focus on creating open source technologies. We develop primarily web and cloud technologies, but we're not limited to them. All our products are open source.`;
 
-export async function generateMetadata() {
+export const generateMetadata = () => {
   return {
     title: title,
     openGraph: {

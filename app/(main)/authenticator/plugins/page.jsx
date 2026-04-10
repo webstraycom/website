@@ -8,7 +8,7 @@ const title = 'Plugin Registry';
 const description =
   'The official plugin registry for WebStray Authenticator. Installation is available using WebStray CLI or manually.';
 
-export async function generateMetadata() {
+export const generateMetadata = () => {
   return {
     title: title,
     openGraph: {

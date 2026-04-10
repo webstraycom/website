@@ -2,7 +2,7 @@ import { Hero } from '@/components/shared/Hero';
 import { Button } from '@/components/ui/button';
 import { StarlightPlaygroundDialog } from '@/components/features/starlight/StarlightPlaygroundDialog';
 
-export async function generateMetadata() {
+export const generateMetadata = () => {
   const title = 'Starlight';
   const description =
     'Starlight is a web application designed to generate preview images for GitHub repositories.';

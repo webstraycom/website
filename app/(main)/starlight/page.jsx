@@ -1,6 +1,7 @@
 import { Hero } from '@/components/shared/Hero';
 import { Button } from '@/components/ui/button';
 import { StarlightPlaygroundDialog } from '@/components/features/starlight/StarlightPlaygroundDialog';
+import { REPOSITORIES } from '@/config/github';
 
 export const generateMetadata = () => {
   const title = 'Starlight';
@@ -25,7 +26,7 @@ export default function StarlightPage() {
       <Hero
         announcement={{
           text: "Starlight is out! See what's new",
-          link: 'https://github.com/webstraycom/starlight',
+          link: "/docs/starlight",
         }}
         title="Starlight by WebStray"
         description="Starlight is a web application designed to generate preview images for GitHub repositories."
@@ -33,7 +34,7 @@ export default function StarlightPage() {
         <div className="flex gap-2">
           <StarlightPlaygroundDialog />
           <Button asChild size="default">
-            <a href="https://github.com/webstraycom/starlight" target="_blank" rel="noreferrer">
+            <a href={REPOSITORIES.STARLIGHT} target="_blank" rel="noreferrer">
               Open on GitHub
             </a>
           </Button>

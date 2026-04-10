@@ -2,6 +2,7 @@ import { defineConfig, s } from 'velite';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { rehypePreMetadata } from '@/lib/rehype-pre-metadata.mjs';
+import { REPOSITORIES } from './config/github';
 
 export default defineConfig({
   root: 'content',
@@ -43,8 +44,8 @@ export default defineConfig({
         const path = meta.path.replace(/\\/g, '/').replace(/.*content\//, 'content/');
         return {
           ...data,
-          githubUrl: `https://github.com/webstraycom/website/blob/main/${path}`,
-          historyUrl: `https://github.com/webstraycom/website/commits/main/${path}`
+          githubUrl: `${REPOSITORIES.WEBSITE}/blob/main/${path}`,
+          historyUrl: `${REPOSITORIES.WEBSITE}/commits/main/${path}`
         };
       }),
     },

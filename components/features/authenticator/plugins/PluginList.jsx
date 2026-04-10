@@ -1,7 +1,7 @@
 import { CircleAlertIcon } from 'lucide-react';
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import { PluginListClient } from '@/components/features/authenticator/plugins/PluginListClient';
-import { REGISTRY_URL } from '@/components/features/authenticator/plugins/config';
+import { REPOSITORIES } from '@/config/github';
 
 const ErrorMessage = () => (
   <Empty className="w-full">
@@ -19,7 +19,7 @@ const ErrorMessage = () => (
 
 export const PluginList = async () => {
   try {
-    const response = await fetch(REGISTRY_URL);
+    const response = await fetch(REPOSITORIES.PLUGIN_REGISTRY.REGISTRY_URL);
 
     if (!response.ok) return (
       <ErrorMessage />

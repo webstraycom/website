@@ -7,7 +7,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger, } from "@/components/ui/
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { PLUGIN_BASE_URL } from '@/components/features/authenticator/plugins/config';
+import { REPOSITORIES } from '@/config/github';
 
 const PluginItem = ({ plugin }) => (
   <Item className='p-0'>
@@ -31,7 +31,7 @@ const PluginItem = ({ plugin }) => (
     </ItemContent>
     <ItemActions>
       <Button asChild variant='outline'>
-        <a href={`${PLUGIN_BASE_URL}/${plugin.id}`} target="_blank" rel="noopener noreferrer">
+        <a href={`${REPOSITORIES.PLUGIN_REGISTRY.PLUGIN_BASE_URL}/${plugin.id}`} target="_blank" rel="noopener noreferrer">
           Open
         </a>
       </Button>

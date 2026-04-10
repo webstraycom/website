@@ -13,6 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { MobileSheet } from '@/components/shared/MobileSheet';
 import { cn } from '@/lib/utils';
+import { GITHUB_BASE } from '@/config/github';
 
 export const Header = () => {
   return (
@@ -74,7 +75,7 @@ export const Header = () => {
           <ThemeToggle />
           <Separator orientation="vertical" className="mr-2" />
           <Button asChild className="gap-1">
-            <a href="https://github.com/webstraycom" target="_blank" rel="noreferrer">
+            <a href={GITHUB_BASE} target="_blank" rel="noreferrer">
               Open on GitHub
               <ArrowRight />
             </a>

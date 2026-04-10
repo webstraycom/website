@@ -2,6 +2,7 @@ import { ArrowDownIcon } from 'lucide-react';
 import { Hero } from '@/components/shared/Hero';
 import { Button } from '@/components/ui/button';
 import { AuthenticatorBentoGrid } from '@/components/features/authenticator/AuthenticatorBentoGrid';
+import { REPOSITORIES } from '@/config/github';
 
 const title = 'WebStray Authenticator';
 const description =
@@ -34,7 +35,7 @@ export default function AuthenticatorPage() {
       >
         <div className="flex w-full flex-col gap-2 min-[375px]:w-fit min-[375px]:flex-row">
           <Button variant="outline" asChild size="default">
-            <a href="https://github.com/webstraycom/authenticator" target="_blank" rel="noreferrer">
+            <a href={REPOSITORIES.AUTHENTICATOR} target="_blank" rel="noreferrer">
               Open on GitHub
             </a>
           </Button>

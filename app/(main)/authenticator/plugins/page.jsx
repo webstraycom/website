@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Hero } from '@/components/shared/Hero';
 import { PluginList } from '@/components/features/authenticator/plugins/PluginList';
+import { REPOSITORIES } from '@/config/github';
 
 const title = 'Plugin Registry';
 const description =
@@ -35,7 +36,7 @@ export default function PluginsPage() {
       >
         <div className="flex w-full flex-col gap-2 min-[375px]:w-fit min-[375px]:flex-row">
           <Button variant="outline" asChild size="default">
-            <a href="https://github.com/webstraycom/authenticator-plugin-registry" target="_blank" rel="noreferrer">
+            <a href={REPOSITORIES.PLUGIN_REGISTRY.REPOSITORY_URL} target="_blank" rel="noreferrer">
               Open on GitHub
             </a>
           </Button>

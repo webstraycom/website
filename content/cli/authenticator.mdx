@@ -1,0 +1,101 @@
+---
+title: WebStray Authenticator CLI
+description: Command-line interface for WebStray Authenticator.
+---
+
+## Usage
+
+Use the `webstray authenticator` command to manage [WebStray Authenticator](/authenticator) [plugins](/authenticator/plugins).
+
+<Callout>
+  **Note:** If no options or arguments are provided, the CLI will automatically prompt you for the required information.
+</Callout>
+
+#### Options
+
+```bash
+Usage: webstray authenticator [options] [command]
+
+WebStray Authenticator CLI
+
+Options:
+  -h, --help               Display help for command
+
+Commands:
+  add [options]            Add new plugins from the registry
+  create [options] [slug]  Creates a new plugin template locally
+  help [command]           Display help for command
+```
+
+## add
+
+Use the `add` command to add new plugins.
+
+#### Examples
+
+##### **Single Mode**
+
+Single mode allows you to select and add one plugin at a time with a detailed view of its description and metadata.
+
+Add plugins in single mode:
+
+```bash
+webstray authenticator add --single
+```
+
+##### **Multi Mode**
+
+Multi mode allows you to select multiple plugins from a list for bulk setup without viewing full details.
+
+Add plugins in multi mode:
+
+```bash
+webstray authenticator add --multi
+```
+
+#### Options
+
+```bash
+Usage: webstray authenticator add [options]
+
+Add new plugins
+
+Options:
+  -s, --single  Select one plugin with full details (default)
+  -m, --multi   Select multiple plugins for bulk setup
+  -h, --help    Display help for command
+```
+
+## create
+
+Use the `create` command to create a new plugin template.
+
+#### Examples
+
+Create a plugin with a specific name:
+
+```bash
+webstray authenticator create my-plugin
+```
+
+Create a plugin with a custom label and author:
+
+```bash
+webstray authenticator create my-plugin --label "My Plugin" --author "John Doe"
+```
+
+#### Options
+
+```bash
+Usage: webstray authenticator create [options] [slug]
+
+Creates a new plugin template
+
+Arguments:
+  slug                   Unique plugin ID and directory name
+
+Options:
+  -l, --label <label>    Human-readable name of the plugin
+  -a, --author <author>  Author's name
+  -h, --help             Display help for command
+```

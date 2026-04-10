@@ -1,0 +1,138 @@
+---
+title: WebStray CLI
+description: Unified command-line interface for WebStray products. Instant. Interactive. Scriptable. Powered by Node.js.
+---
+
+## About
+
+**WebStray CLI** is the official command-line interface for the WebStray ecosystem. Designed for developers and power users who prioritize speed, keyboard-centric workflows, and automation.
+
+## Repository
+
+The official WebStray CLI repository is available on [GitHub](https://github.com/webstraycom/cli).
+
+## Key Features
+
+- **Command-Driven Navigation:** Built on **commander.js**, providing an industry-standard syntax for subcommands, flags, and automated help generation.
+- **Interactive Prompts:** Enhanced user experience powered by **@clack/prompts** for elegant terminal inputs, selections, and progress indicators.
+- **Optimized Performance:** Minimal cold-start latency, ensuring the CLI feels snappy and responsive.
+- **Headless Integration:** Designed to be easily wrapped into **bash/zsh** scripts or integrated into CI/CD pipelines.
+- **Visual Feedback:** High-contrast, colorized output using **picocolors** for clear distinction between logs, warnings, and data.
+- **Formatted Data:** Clean structured layouts for maximum readability in any terminal emulator.
+
+## Built With
+
+WebStray CLI leverages a lightweight, modern stack focused on speed and reliability:
+
+- **[commander.js](https://github.com/tj/commander.js/tree/master)** – Powerful and intuitive framework for creating command-line interfaces.
+- **[@clack/prompts](https://github.com/bombshell-dev/clack)** – Modern, interactive prompts for building elegant command-line workflows.
+- **[picocolors](https://github.com/alexeyraspopov/picocolors)** – Ultra-lightweight library for high-contrast and colorized terminal output.
+- **[axios](https://github.com/axios/axios)** – Promise-based HTTP client for the browser and Node.js.
+- **[fs-extra](https://github.com/jprichardson/node-fs-extra)** – Enhanced file system operations with built-in promise support and recursive actions.
+- **[esbuild](https://github.com/evanw/esbuild)** – An extremely fast JavaScript and CSS bundler and minifier.
+
+## Installation
+
+### Desktop Application
+
+Official installers are now available for **all platforms**. You can download them from the [official download page](/cli).
+
+### Manual Build
+
+<Steps>
+
+#### Clone the repository
+
+```bash
+git clone https://github.com/webstraycom/cli.git
+cd cli
+```
+
+#### Install dependencies
+
+```bash
+npm install
+```
+
+#### Build standalone binaries
+
+```bash
+npm run build
+```
+
+#### Make it global
+
+After the build, find your platform-specific binary in the `./build` directory. To use the `webstray` command from any terminal:
+
+**Windows:**
+
+1.  Rename `webstray-cli-windows-x64.exe` to `webstray.exe`.
+2.  Move it to a folder (e.g., `C:\bin`).
+3.  Add that folder to your **System PATH** environment variable.
+
+**macOS / Linux:**
+
+1. Make the binary executable.
+2. Move it to `/usr/local/bin` and rename it to `webstray`.
+
+To do this, run the following commands:
+
+```bash
+# macOS (Apple Silicon)
+chmod +x ./build/webstray-cli-macos-arm64
+sudo mv ./build/webstray-cli-macos-arm64 /usr/local/bin/webstray
+
+# macOS (Intel)
+chmod +x ./build/webstray-cli-macos-x64
+sudo mv ./build/webstray-cli-macos-x64 /usr/local/bin/webstray
+
+# Linux
+chmod +x ./build/webstray-cli-linux-x64
+sudo mv ./build/webstray-cli-linux-x64 /usr/local/bin/webstray
+```
+
+**Please note**:
+Since the binary is manually built and not signed, macOS may block it. To allow execution, run `xattr -d com.apple.quarantine /usr/local/bin/webstray`.
+
+#### Done!
+
+You've successfully installed **WebStray CLI** on your PC. You can now use the `webstray` command from any terminal window.
+
+</Steps>
+
+## Quick Start
+
+Verify the installation by running:
+
+```bash
+webstray help
+```
+
+### Authenticator CLI
+
+Manage and create plugins for the [WebStray Authenticator](/authenticator) desktop app:
+
+```bash
+# Interactively add new plugins
+webstray authenticator add
+
+# Generate a new plugin template
+webstray authenticator create
+```
+
+[Learn more about WebStray Authenticator CLI](/docs/cli/authenticator)
+
+### Starlight CLI
+
+Generate and download repository preview images using [WebStray Starlight](/starlight) API:
+
+```bash
+# Download a preview for a specific repository
+webstray starlight get webstraycom cli
+```
+
+[Learn more about WebStray Starlight CLI](/docs/cli/starlight)
+
+## License
+
+This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/webstraycom/cli/blob/main/LICENSE) file for details.

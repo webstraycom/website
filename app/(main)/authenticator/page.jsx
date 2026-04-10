@@ -26,8 +26,8 @@ export default function AuthenticatorPage() {
     <div className="flex flex-col justify-center">
       <Hero
         announcement={{
-          text: 'Build and install on any platform',
-          link: '/docs/authenticator#installation',
+          text: 'Authenticator Plugin Registry',
+          link: '/authenticator/plugins',
         }}
         title={title}
         description={description}

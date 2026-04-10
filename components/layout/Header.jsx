@@ -16,6 +16,13 @@ import { cn } from '@/lib/utils';
 import { GITHUB_BASE } from '@/config/github';
 
 export const Header = () => {
+  const navItems = [
+    { href: '/authenticator', label: 'Authenticator' },
+    { href: '/starlight', label: 'Starlight' },
+    { href: '/cli', label: 'CLI' },
+    { href: '/docs', label: 'Docs' },
+  ];
+
   return (
     <header className="bg-background fixed top-0 left-0 right-0 z-100 flex h-14 justify-center px-4 text-sm md:px-6 lg:px-6">
       <div className="flex max-w-7xl flex-1 items-center justify-between">
@@ -35,38 +42,18 @@ export const Header = () => {
               <NavigationMenuItem>
                 <Separator orientation="vertical" className="mx-1 h-5" />
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  asChild
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
-                >
-                  <Link href="/authenticator">Authenticator</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  asChild
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
-                >
-                  <Link href="/starlight">Starlight</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  asChild
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
-                >
-                  <Link href="/cli">CLI</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  asChild
-                  className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
-                >
-                  <Link href="/docs">Docs</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+              {navItems.map((item) => (
+                <NavigationMenuItem key={item.href}>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
+                  >
+                    <Link href={item.href}>
+                      {item.label}
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
         </div>

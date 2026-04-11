@@ -18,7 +18,7 @@ export const generateMetadata = () => {
       ],
     },
   };
-}
+};
 
 export default function StarlightPage() {
   return (
@@ -26,7 +26,7 @@ export default function StarlightPage() {
       <Hero
         announcement={{
           text: "Starlight is out! See what's new",
-          link: "/docs/starlight",
+          link: '/docs/starlight',
         }}
         title="Starlight by WebStray"
         description="Starlight is a web application designed to generate preview images for GitHub repositories."

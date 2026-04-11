@@ -1,11 +1,18 @@
-"use client"
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown, Copy, } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
-import { ButtonGroup } from "@/components/ui/button-group";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/mdx/icons";
+import { useEffect, useRef, useState } from 'react';
+import { Check, ChevronDown, Copy } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ButtonGroup } from '@/components/ui/button-group';
+import { Button } from '@/components/ui/button';
+import { Icons } from '@/components/mdx/icons';
 
 export const CopyPageButton = ({ doc }) => {
   const timeoutRef = useRef(null);
@@ -17,7 +24,8 @@ export const CopyPageButton = ({ doc }) => {
     };
   }, []);
 
-  const getPageContent = () => `---\ntitle: ${doc.title}\ndescription: ${doc.description}\n---\n\n${doc.raw}`;
+  const getPageContent = () =>
+    `---\ntitle: ${doc.title}\ndescription: ${doc.description}\n---\n\n${doc.raw}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(getPageContent());
@@ -36,28 +44,20 @@ export const CopyPageButton = ({ doc }) => {
     window.open(url, '_blank');
   };
 
-  const openUrl = (url) => window.open(url, "_blank", "noopener,noreferrer");
+  const openUrl = (url) => window.open(url, '_blank', 'noopener,noreferrer');
 
   return (
-    <ButtonGroup className='hidden md:flex'>
-      <Button
-        size="sm"
-        variant="secondary"
-        onClick={handleCopy}
-        className='gap-2 border-r-0'
-      >
+    <ButtonGroup className="hidden md:flex">
+      <Button size="sm" variant="secondary" onClick={handleCopy} className="gap-2 border-r-0">
         {isCopied ? <Check /> : <Copy />}
         Copy Page
       </Button>
-      <div className="flex items-center bg-secondary w-px h-7 border-y border-background">
-        <div className="bg-primary/10 w-px h-4"></div>
+      <div className="bg-secondary border-background flex h-7 w-px items-center border-y">
+        <div className="bg-primary/10 h-4 w-px"></div>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            size="icon-sm"
-            variant="secondary"
-          >
+          <Button size="icon-sm" variant="secondary">
             <ChevronDown />
           </Button>
         </DropdownMenuTrigger>
@@ -80,5 +80,5 @@ export const CopyPageButton = ({ doc }) => {
         </DropdownMenuContent>
       </DropdownMenu>
     </ButtonGroup>
-  )
-}
+  );
+};

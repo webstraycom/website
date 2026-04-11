@@ -4,7 +4,7 @@ export const GITHUB_BASE = `https://github.com/${USERNAME}`;
 
 const RAW_BASE = `https://raw.githubusercontent.com/${USERNAME}`;
 
-const PLUGIN_REGISTRY_NAME = `authenticator-plugin-registry`
+const PLUGIN_REGISTRY_NAME = `authenticator-plugin-registry`;
 
 export const REPOSITORIES = {
   AUTHENTICATOR: `${GITHUB_BASE}/authenticator`,
@@ -14,6 +14,6 @@ export const REPOSITORIES = {
   PLUGIN_REGISTRY: {
     REPOSITORY_URL: `${GITHUB_BASE}/${PLUGIN_REGISTRY_NAME}`,
     REGISTRY_URL: `${RAW_BASE}/${PLUGIN_REGISTRY_NAME}/main/registry.json`,
-    PLUGIN_BASE_URL: `${GITHUB_BASE}/${PLUGIN_REGISTRY_NAME}/tree/main/plugins/`
-  }
-}
+    PLUGIN_BASE_URL: `${GITHUB_BASE}/${PLUGIN_REGISTRY_NAME}/tree/main/plugins/`,
+  },
+};

@@ -12,7 +12,7 @@ export function TableOfContents({ toc }) {
   const activeId = useActiveItem(itemIds);
 
   return (
-    <ul className="flex flex-col gap-2 text-[0.8rem] overflow-y-auto no-scrollbar">
+    <ul className="no-scrollbar flex flex-col gap-2 overflow-y-auto text-[0.8rem]">
       {toc.map((item) => (
         <li key={item.url} className="flex flex-col gap-2">
           <a

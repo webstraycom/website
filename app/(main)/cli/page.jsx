@@ -2,12 +2,13 @@ import { ArrowRight } from 'lucide-react';
 import { Hero } from '@/components/shared/Hero';
 import { Button } from '@/components/ui/button';
 
-const CONFIG = { USER: 'webstraycom', REPO: 'cli', };
+const CONFIG = { USER: 'webstraycom', REPO: 'cli' };
 const REPOSITORY_URL = `https://github.com/${CONFIG.USER}/${CONFIG.REPO}`;
 const RELEASES_URL = `https://github.com/${CONFIG.USER}/${CONFIG.REPO}/releases/latest`;
 
 const title = 'WebStray CLI';
-const description = 'Unified command-line interface for WebStray products. Instant. Interactive. Scriptable. Powered by Node.js.';
+const description =
+  'Unified command-line interface for WebStray products. Instant. Interactive. Scriptable. Powered by Node.js.';
 
 export const generateMetadata = () => {
   return {
@@ -20,14 +21,14 @@ export const generateMetadata = () => {
       ],
     },
   };
-}
+};
 
 export default function CliPage() {
   return (
     <div className="flex flex-1 flex-col justify-center">
       <Hero
         announcement={{
-          text: "CLI Documentation",
+          text: 'CLI Documentation',
           link: '/docs/cli',
         }}
         title={title}

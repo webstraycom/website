@@ -24,7 +24,7 @@ export const Header = () => {
   ];
 
   return (
-    <header className="bg-background fixed top-0 left-0 right-0 z-100 flex h-14 justify-center px-4 text-sm md:px-6 lg:px-6">
+    <header className="bg-background fixed top-0 right-0 left-0 z-100 flex h-14 justify-center px-4 text-sm md:px-6 lg:px-6">
       <div className="flex max-w-7xl flex-1 items-center justify-between">
         <Separator className="via-border absolute bottom-0 flex h-px w-full bg-gradient-to-r from-transparent to-transparent md:hidden" />
         <div className="flex gap-3">
@@ -48,9 +48,7 @@ export const Header = () => {
                     asChild
                     className={cn(navigationMenuTriggerStyle(), 'h-fit px-2.5 py-1.5')}
                   >
-                    <Link href={item.href}>
-                      {item.label}
-                    </Link>
+                    <Link href={item.href}>{item.label}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}

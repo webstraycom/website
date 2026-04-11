@@ -11,10 +11,7 @@ export const Footer = ({ className }) => {
           WebStray
         </CustomLink>
         . The source code is available on{' '}
-        <CustomLink
-          href={REPOSITORIES.WEBSITE}
-          className="text-xs underline md:text-sm"
-        >
+        <CustomLink href={REPOSITORIES.WEBSITE} className="text-xs underline md:text-sm">
           GitHub
         </CustomLink>
         .

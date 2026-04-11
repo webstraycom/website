@@ -13,7 +13,7 @@ import { CopyPageButton } from '@/components/mdx/copy-button';
 
 const DEFAULT_ROOT = 'general';
 
-const getSlugPath = (slug) => Array.isArray(slug) ? slug.join('/') : (slug || '');
+const getSlugPath = (slug) => (Array.isArray(slug) ? slug.join('/') : slug || '');
 
 const getDocFromSlug = (slugPath) => {
   const target = slugPath || DEFAULT_ROOT;
@@ -22,13 +22,13 @@ const getDocFromSlug = (slugPath) => {
 
 const getDocNeighbours = (currentFolder, slugPath) => {
   const currentSection = docsConfig[currentFolder] || [];
-  const flatItems = currentSection.flatMap(group => group.items);
-  
-  const currentIndex = flatItems.findIndex(item => item.href === `/docs/${slugPath}`);
-  
+  const flatItems = currentSection.flatMap((group) => group.items);
+
+  const currentIndex = flatItems.findIndex((item) => item.href === `/docs/${slugPath}`);
+
   return {
     prevDoc: flatItems[currentIndex - 1] ?? null,
-    nextDoc: flatItems[currentIndex + 1] ?? null
+    nextDoc: flatItems[currentIndex + 1] ?? null,
   };
 };
 
@@ -54,33 +54,33 @@ export const generateMetadata = async ({ params }) => {
       ],
     },
   };
-}
+};
 
 export const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
   return (
-    <div className='flex items-start md:items-center gap-1.5'>
+    <div className="flex items-start gap-1.5 md:items-center">
       <CopyPageButton doc={currentDoc} />
       {prevDoc && (
-        <Button asChild variant="secondary" size='icon-sm' className="size-8 md:size-7">
+        <Button asChild variant="secondary" size="icon-sm" className="size-8 md:size-7">
           <Link href={prevDoc.href}>
             <ArrowLeft />
           </Link>
         </Button>
       )}
       {nextDoc && (
-        <Button asChild variant="secondary" size='icon-sm' className="size-8 md:size-7">
+        <Button asChild variant="secondary" size="icon-sm" className="size-8 md:size-7">
           <Link href={nextDoc.href}>
             <ArrowRight />
           </Link>
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default async function DocPage({ params }) {
   const { slug } = await params;
-  
+
   const slugPath = getSlugPath(slug);
   const currentFolder = (Array.isArray(slug) && slug[0]) || DEFAULT_ROOT;
 
@@ -108,8 +108,8 @@ export default async function DocPage({ params }) {
         <article className="flex w-full min-w-0 flex-col gap-6 py-8 text-neutral-800 dark:text-neutral-300">
           <div className="flex w-full flex-col gap-6 md:mx-auto md:max-w-[40rem]">
             <div className="flex flex-col gap-2">
-              <div className='flex gap-4 justify-between'>
-                <h1 className="!m-0 !text-3xl font-semibold tracking-tight sm:text-3xl break-words min-w-0">
+              <div className="flex justify-between gap-4">
+                <h1 className="!m-0 min-w-0 !text-3xl font-semibold tracking-tight break-words sm:text-3xl">
                   {doc.title}
                 </h1>
                 <PageButtons currentDoc={doc} prevDoc={prevDoc} nextDoc={nextDoc} />
@@ -129,7 +129,7 @@ export default async function DocPage({ params }) {
                 </Button>
               )}
               {nextDoc && (
-                <Button asChild variant="secondary" className="w-full md:w-fit md:ml-auto">
+                <Button asChild variant="secondary" className="w-full md:ml-auto md:w-fit">
                   <Link href={nextDoc.href}>
                     {nextDoc.title}
                     <ArrowRight className="h-4 w-4" />

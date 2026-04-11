@@ -20,11 +20,11 @@ export const generateMetadata = () => {
       ],
     },
   };
-}
+};
 
 export default function PluginsPage() {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
       <Hero
         announcement={{
           text: 'Add and create plugins using CLI',

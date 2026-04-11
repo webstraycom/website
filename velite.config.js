@@ -31,23 +31,24 @@ export default defineConfig({
     docs: {
       name: 'Doc',
       pattern: '**/*.mdx',
-      schema: s.object({
-        title: s.string(),
-        description: s.string().optional(),
-        slug: s.path(),
-        content: s.mdx(),
-        toc: s.toc(),
-        date: s.string().optional(),
-        raw: s.raw(),
-      })
-      .transform((data, { meta }) => {
-        const path = meta.path.replace(/\\/g, '/').replace(/.*content\//, 'content/');
-        return {
-          ...data,
-          githubUrl: `${REPOSITORIES.WEBSITE}/blob/main/${path}`,
-          historyUrl: `${REPOSITORIES.WEBSITE}/commits/main/${path}`
-        };
-      }),
+      schema: s
+        .object({
+          title: s.string(),
+          description: s.string().optional(),
+          slug: s.path(),
+          content: s.mdx(),
+          toc: s.toc(),
+          date: s.string().optional(),
+          raw: s.raw(),
+        })
+        .transform((data, { meta }) => {
+          const path = meta.path.replace(/\\/g, '/').replace(/.*content\//, 'content/');
+          return {
+            ...data,
+            githubUrl: `${REPOSITORIES.WEBSITE}/blob/main/${path}`,
+            historyUrl: `${REPOSITORIES.WEBSITE}/commits/main/${path}`,
+          };
+        }),
     },
   },
 });

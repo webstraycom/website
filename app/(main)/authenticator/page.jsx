@@ -19,7 +19,7 @@ export const generateMetadata = () => {
       ],
     },
   };
-}
+};
 
 export default function AuthenticatorPage() {
   return (

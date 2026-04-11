@@ -24,7 +24,7 @@ export const docsConfig = {
       title: 'Product CLIs',
       items: [
         { title: 'Authenticator CLI', href: '/docs/cli/authenticator' },
-        { title: 'Starlight CLI', href: '/docs/cli/starlight' }
+        { title: 'Starlight CLI', href: '/docs/cli/starlight' },
       ],
     },
   ],

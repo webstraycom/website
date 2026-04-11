@@ -1,10 +1,7 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { Hero } from '@/components/shared/Hero';
 import { Button } from '@/components/ui/button';
-
-const CONFIG = { USER: 'webstraycom', REPO: 'cli' };
-const REPOSITORY_URL = `https://github.com/${CONFIG.USER}/${CONFIG.REPO}`;
-const RELEASES_URL = `https://github.com/${CONFIG.USER}/${CONFIG.REPO}/releases/latest`;
+import { REPOSITORIES } from '@/config/github';
 
 const title = 'WebStray CLI';
 const description =
@@ -36,14 +33,14 @@ export default function CliPage() {
       >
         <div className="flex gap-2">
           <Button variant="outline" asChild size="default">
-            <a href={REPOSITORY_URL} target="_blank" rel="noreferrer">
+            <a href={REPOSITORIES.CLI} target="_blank" rel="noreferrer">
               Open on GitHub
             </a>
           </Button>
           <Button asChild size="default" className="gap-1">
-            <a href={RELEASES_URL} target="_blank" rel="noreferrer">
+            <a href={`${REPOSITORIES.CLI}/releases/latest`} target="_blank" rel="noreferrer">
+              <ArrowDown />
               Download CLI
-              <ArrowRight />
             </a>
           </Button>
         </div>

@@ -40,12 +40,7 @@ export default function AuthenticatorPage() {
             </a>
           </Button>
           <Button asChild size="default" className="gap-1">
-            <a
-              href="/authenticator/setup.exe"
-              download="setup.exe"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={`${REPOSITORIES.AUTHENTICATOR}/releases/latest`} target="_blank" rel="noreferrer">
               <ArrowDownIcon />
               Download for Windows
             </a>

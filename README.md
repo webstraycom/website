@@ -10,7 +10,7 @@ The WebStray website is the primary digital storefront and documentation platfor
 
 ## Documentation
 
-Detailed documentation for WebStray website is available at the [following link](https://webstray.com/docs/general/website).
+Detailed documentation is available on the [official WebStray website](https://webstray.com/docs/general/website).
 
 ## Built With
 

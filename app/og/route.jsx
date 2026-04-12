@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
 
-export async function GET(request) {
+export const GET = async (request) => {
   const { searchParams } = new URL(request.url);
   const title = searchParams.get('title') || 'WebStray';
   const description = searchParams.get('description') || 'Description';
@@ -82,4 +82,4 @@ export async function GET(request) {
       ],
     },
   );
-}
+};

@@ -38,7 +38,8 @@ export function MobileSheet() {
           <span className="text-foreground font-medium">Products</span>
           <CustomLink href="/authenticator">Authenticator</CustomLink>
           <CustomLink href="/starlight">Starlight</CustomLink>
-          <CustomLink href="https://github.com/webstraycom">Database</CustomLink>
+          <CustomLink href="/cli">CLI</CustomLink>
+          <CustomLink href="/docs">Docs</CustomLink>
         </div>
       </SheetContent>
     </Sheet>

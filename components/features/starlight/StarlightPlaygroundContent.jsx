@@ -102,7 +102,6 @@ export const StarlightPlaygroundContent = ({
         value: value,
         placeholder: field.placeholder,
         onChange: (e) => handleUpdate(field.id, e.target.value),
-        className: 'text-sm',
       };
 
       return (

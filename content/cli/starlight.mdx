@@ -1,0 +1,74 @@
+---
+title: WebStray Starlight CLI
+description: Command-line interface for WebStray Starlight.
+---
+
+## Usage
+
+Use the `webstray starlight` command to interact with [WebStray Starlight](/starlight) CLI.
+
+#### Options
+
+```bash
+Usage: webstray starlight [options] [command]
+
+WebStray Starlight CLI
+
+Options:
+  -h, --help                             Display help for command
+
+Commands:
+  get [options] <username> <repository>  Download a repository preview to your Desktop
+  help [command]                         Display help for command
+```
+
+## get
+
+Use the `get` command to download a repository preview image directly to your Desktop.
+
+#### Examples
+
+##### Basic Download
+
+Download a preview with default settings:
+
+```bash
+webstray starlight get webstraycom cli
+```
+
+##### Custom Styling
+
+Download a preview with a custom title, light theme, and rounded corners:
+
+```bash
+webstray starlight get webstraycom cli --title "WebStray CLI" --light --radius 20
+```
+
+##### Visual Variants
+
+Use monochrome progress bars and sharp corners:
+
+```bash
+webstray starlight get webstraycom cli --styled --sharp
+```
+
+##### Options
+
+```bash
+Usage: webstray starlight get [options] <username> <repository>
+
+Download a preview image to your Desktop
+
+Arguments:
+  username               GitHub username
+  repository             GitHub repository name
+
+Options:
+  -t, --title <text>     Custom title
+  -r, --radius <number>  Border radius (default: "0")
+  --light                Use light theme
+  --single               Show only primary language
+  --sharp                Sharp corners for progress bar
+  --styled               Monochrome progress bar
+  -h, --help             Display help for command
+```

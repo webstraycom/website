@@ -164,6 +164,9 @@
   html {
     scroll-behavior: smooth;
   }
+  body[data-scroll-locked] header {
+    margin-right: var(--removed-body-scroll-bar-size, 0px) !important;
+  }
 }
 
 @utility step {

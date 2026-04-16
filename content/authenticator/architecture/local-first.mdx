@@ -1,0 +1,33 @@
+---
+title: Local-First
+description: Local data storage, offline use, and privacy.
+---
+
+## Overview
+
+WebStray Authenticator is a local-first application. Your data lives on your device, not in the cloud.
+
+## Core Principles
+
+- **On-Disk Authority**: Your local database file is the single source of truth. The app does not require an account or an internet connection to function.
+- **Zero Vendor Access**: We do not host your vault. Since there is no central server, we have "zero knowledge" of your Master Password or your records.
+- **User-Held Master Secret**: Your Master Password itself is never stored on disk. The application stores a **password hash** (and related key-wrapping material) so it can confirm your password without keeping the plaintext secret.
+- **User-Controlled Portability**: Syncing or moving data is a deliberate action. We do not perform background cloud synchronization; you decide when and where to export your backups.
+
+## Data Residency
+
+- **Primary Store**: All records are kept in a local database within your system's application data folder.
+- **Exports**: When you export data, a **JSON file** is written. The file format is plain JSON; **sensitive `value` fields** are re-encrypted under a key derived from a separate **Export Password** (independent of your Master Password). See [Import & Export](/docs/authenticator/architecture/import-and-export) for details.
+- **Boundaries**: Once a backup file leaves your device, its security depends on your physical and backup policies (e.g., where you store the USB drive or cloud folder).
+
+## Offline Experience
+
+The entire lifecycle of your secrets happens offline:
+
+- **Add & Edit**: Changes are saved instantly to your local disk.
+- **Network Isolation**: Core vault operations are isolated from the network.
+- **Plugin Risks**: While the core remains offline, plugins may require internet access and introduce separate security threats. Always audit their source code.
+
+## Summary
+
+WebStray Authenticator is not a cloud-cached app – it is a **local tool**. "Zero-knowledge" here means there is no service provider that could even attempt to see your secrets, and the vault design does not keep a recoverable copy of your Master Password on disk. You are the sole custodian of that secret and of your data.

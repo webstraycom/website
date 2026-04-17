@@ -190,7 +190,7 @@ const sharedComponents = {
       >
         {props.children}
         {isCollapsible && (
-          <div className={cn('absolute inset-x-0 bottom-0', 'flex flex-col')}>
+          <div className={cn('absolute inset-x-0 bottom-0 z-10', 'flex flex-col')}>
             <div
               className={cn(
                 'from-code via-code/50 flex h-20 w-full items-end justify-center bg-gradient-to-t to-transparent',

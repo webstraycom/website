@@ -1,0 +1,48 @@
+---
+title: Storage
+description: Persistence layer, database engine, and document schema.
+---
+
+## Overview
+
+WebStray Authenticator uses a **single NeDB database file** (`vault.db`) for all persistent data. The storage is document-oriented, where each record is a JSON object distinguished by a `type` field.
+
+## The Database Engine
+
+We use **NeDB** as our local datastore.
+
+- **Single-file store**: The vault is a single on-disk `vault.db` file. NeDB uses an append-on-write model and may **compact** the file to reclaim space. Like any file-based store, a crash or power loss during a write can affect the **last in-flight** operation; therefore, [Import & Export](/docs/authenticator/architecture/import-and-export) (JSON files with **password-protected `value` fields**) is the primary way to create **portable** recovery copies.
+- **Format**: Data is stored in a subset of MongoDB's query language, with support for BSON-like types (e.g., `$$date`).
+
+## Document Schema
+
+### System Singletons
+
+These unique records manage the application's state and security:
+
+- `master_password`: Stores the `bcrypt` hash for login verification, a `vaultSalt` used for key derivation, and a `vaultKey` field – a **wrapped** copy of the **Vault Key** (DEK) under a KEK derived via `scrypt` from the **Master Password** and `master_password.vaultSalt`.
+- `session`: Stores a hardware-wrapped `token` – a **wrapped** copy of the **Vault Key** (DEK) under a KEK derived via `scrypt` from the **Machine ID** and `master_password.vaultSalt` for auto-unlock on this device.
+- `settings_config`: Stores application parameters including `theme` for UI appearance, `verificationTimeout`, and `requireVerification` for managing security policies.
+- `plugins_settings`: Stores an `enabled` array of active plugin identifiers. Note that actual plugin code resides on the disk, not in the database.
+
+Together, `master_password.vaultKey` and `session.token` are two **wrapped** copies of the **same** Vault Key: one for **manual unlock** (KEK from the Master Password + `master_password.vaultSalt`) and one for **auto-unlock** (KEK from the Machine ID + `master_password.vaultSalt`).
+
+### Vault Entries
+
+These records hold your sensitive data. All secrets are stored as ciphertext inside the `value` field.
+
+- `password`: Stores login credentials with metadata like `site` and `login`.
+- `totp`: Stores 2FA seeds with metadata like `service` and `account`.
+- `token`: Stores access tokens with metadata like `service`, `endpoint`, and an `expires` timestamp.
+
+**Encrypted Value Format**: The `value` field follows an `iv:authTag:ciphertext` structure. This ensures that every record is independently encrypted and verifiable using `AES-256-GCM` under the active Vault Key.
+
+## Data Lifecycle
+
+- **Read**: The UI queries by `type`. Metadata (e.g., service names or logins) is read in plaintext to populate lists, while the `value` remains encrypted until explicitly requested.
+- **Write**: New records are assigned a unique `_id` and a `createdAt` timestamp.
+- **Maintenance**: The app utilizes NeDB's compaction to prune the append-only file, keeping the database footprint small and performance high.
+
+## Summary
+
+The application architecture combines **document-oriented storage** with a robust **key-wrapping strategy**. It ensures that sensitive payloads remain encrypted at rest while plaintext metadata allows for a performant, searchable UI. By maintaining two distinct wrapped copies of the **Vault Key**, the system provides a balance between high security and user convenience.

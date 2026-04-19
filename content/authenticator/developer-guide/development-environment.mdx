@@ -1,0 +1,67 @@
+---
+title: Development Environment
+description: Tooling, setup process, and development workflow.
+---
+
+## Prerequisites
+
+WebStray Authenticator is built using **Vite + React** and runs within the **NW.js** desktop shell.
+
+- **Node.js**: Current LTS release is recommended.
+- **Package Manager**: npm is used for dependency management and script execution.
+
+## Installation
+
+To set up the project locally, install the dependencies from the project root:
+
+```bash
+npm install
+```
+
+## Available Scripts
+
+- `npm run dev`: Starts the Vite development server (default port `5173`). This provides Hot Module Replacement (HMR) for the React frontend.
+- `npm start`: Launches the NW.js application. This is required to access native APIs such as the filesystem, `node-machine-id`, and other Node.js integrations.
+- `npm run build`: Generates an optimized production bundle via Vite.
+- `npm run lint` / `npm run format`: Runs ESLint for code quality and Prettier for consistent code formatting.
+
+## Vite Aliases
+
+The project uses path aliases defined in `vite.config.js` to simplify imports and facilitate refactoring.
+
+```js title="vite.config.js" showLineNumbers {5-13}
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@ui': path.resolve(__dirname, './src/components/ui'),
+      '@common': path.resolve(__dirname, './src/components/common'),
+      '@features': path.resolve(__dirname, './src/components/features'),
+      '@store': path.resolve(__dirname, './src/store'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@lib': path.resolve(__dirname, './src/lib'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@sdk': path.resolve(__dirname, './src/sdk'),
+    },
+  },
+});
+```
+
+## Development Workflow
+
+WebStray Authenticator utilizes a dual-process development model:
+
+- **Frontend**: The React application is served by Vite.
+- **Desktop Shell**: NW.js acts as the browser environment with Node.js capabilities enabled.
+
+To begin development, start the Vite server in one terminal and the NW.js shell in another:
+
+- **Terminal 1**: `npm run dev` – starts the Vite development server.
+- **Terminal 2**: `npm start` – launches the NW.js window, which is configured to connect to the Vite development server.
+
+In development mode, `package.json` is configured to point the `main` and `node-remote` fields to the Vite local URL. This allows the desktop window to load the live-reloading React app while maintaining access to native Node.js APIs.
+
+## Summary
+
+The development environment combines standard web tooling with the NW.js runtime. Use `npm run dev` to serve the frontend and `npm start` to launch the desktop shell that connects to it. This setup is essential for testing features that rely on native desktop integrations.

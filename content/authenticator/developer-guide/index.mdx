@@ -1,0 +1,28 @@
+---
+title: Developer Guide
+description: Codebase, tooling, and plugin development workflow.
+---
+
+## Overview
+
+The Developer Guide provides a technical roadmap for **contributors** and **plugin authors**. It details the project structure, local environment setup, and the interaction between the state management layer and core cryptographic services.
+
+This section focuses on implementation details, API surfaces, and development workflows. While the [Architecture](/docs/authenticator/architecture) section defines the conceptual design and threat model, this guide provides the practical instructions necessary to extend the application or contribute to its core logic.
+
+## Reading Order
+
+To begin developing for WebStray Authenticator, it is recommended to follow this sequence:
+
+1. [Development Environment](/docs/authenticator/developer-guide/development-environment) – Tooling, setup process, and development workflow.
+2. [Project Structure](/docs/authenticator/developer-guide/project-structure) – Project structure, architectural layers, and module ownership.
+3. [Internal Services](/docs/authenticator/developer-guide/internal-services) – Core utilities for database management, cryptography, and data portability.
+4. [State Layer](/docs/authenticator/developer-guide/state-layer) – Zustand stores and their functional roles.
+5. [Plugin SDK](/docs/authenticator/developer-guide/plugin-sdk) – Technical reference for components and core API.
+6. [Plugin Lifecycle](/docs/authenticator/developer-guide/plugin-lifecycle) – Discovery, slot registration, and teardown processes.
+7. [Plugin Security](/docs/authenticator/developer-guide/plugin-security) – Trust model, data handling rules, and UI/UX boundaries.
+8. [First Plugin](/docs/authenticator/developer-guide/first-plugin) – Building your first plugin.
+9. [Testing & Quality](/docs/authenticator/developer-guide/testing-and-quality) – Manual verification matrix and pre-release checklist.
+
+## Summary
+
+The development workflow combines standard web tooling with the NW.js runtime. By adhering to the established modular structure and utilizing the provided SDK, developers can build secure, consistent features that respect the application's core security boundaries.

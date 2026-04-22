@@ -1,0 +1,42 @@
+---
+title: Plugin Security
+description: Trust model, data handling rules, and UI/UX boundaries.
+---
+
+## Overview
+
+Plugins in WebStray Authenticator run with the same privileges as the core application. This includes access to Node.js APIs and the application's database. Enabling a plugin is a **trust-based decision** made by the user, and as a developer, you are responsible for maintaining the integrity of the vault.
+
+## Handling Decrypted Data
+
+The `sdk.crypto.decrypt` function provides access to **plaintext secrets**. To ensure user safety, follow these rules:
+
+- **Memory Management**: Keep decrypted values in memory only for the duration of the required action. Clear all references immediately after use.
+- **No Logging**: Never log decrypted secrets, passwords, or TOTP seeds to the console or any external logging service.
+- **No Persistence**: Never save plaintext data to the filesystem or the database. All sensitive data must remain encrypted at rest.
+
+## Database Access
+
+The `sdk.db` object provides direct access to the **NeDB** instance.
+
+- **Precise Queries**: Always use specific queries to target only the data your plugin requires. Avoid broad searches that dump metadata.
+- **Write Safety**: Remember that mistakes in `update` or `remove` operations affect the user's actual vault. Always validate your data before performing write operations.
+
+## Network and System I/O
+
+The SDK does not restrict access to `fetch` or Node.js filesystem modules. However, this power comes with specific responsibilities:
+
+- **Use TLS**: All network communication must be performed over HTTPS.
+- **Transparency**: Clearly document any network activity in your plugin's description. Users should know if a plugin connects to an external service.
+- **Validation**: Treat all data received from the network as untrusted. Sanitize and validate any external input before using it in your UI or logic.
+
+## UI & UX Boundaries
+
+To prevent phishing and maintain a consistent user experience, adhere to these UI boundaries:
+
+- **Authentication**: Never prompt the user for their **Master Password**. All authentication and verification prompts are managed exclusively by the core application.
+- **Honesty**: Use truthful titles and descriptions in your `package.json`. Do not attempt to mimic core system messages or system-level alerts.
+
+## Summary
+
+WebStray Authenticator provides a powerful execution environment for plugins. By following these security guidelines, you ensure that your plugin provides value without compromising the confidentiality and stability of the user's vault.

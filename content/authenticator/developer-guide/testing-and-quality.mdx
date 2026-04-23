@@ -1,0 +1,48 @@
+---
+title: Testing & Quality
+description: Manual verification matrix and pre-release checklist.
+---
+
+## Overview
+
+WebStray Authenticator currently relies on **manual verification** to ensure the integrity of the vault, cryptographic operations, and the plugin system. This checklist must be completed before any production release.
+
+## Core Matrix
+
+### 1. Authentication & Sessions
+
+- **First Run**: Verify vault creation and Master Password setup.
+- **Session Recovery**: Ensure hardware-bound auto-unlock works after application restart.
+- **Persistence**: Confirm that logout clears session tokens and purges encryption keys from memory.
+- **Password Rotation**: After changing the Master Password, confirm you can still unlock the vault, that auto-unlock still works after restart, and that existing Passwords, TOTP, and Token entries read and save correctly (Vault Key is re-wrapped, not bulk re-encrypted).
+
+### 2. Cryptography & Data
+
+- **Integrity**: Confirm that adding, editing, and deleting records (Passwords, TOTP, Tokens) works without data corruption.
+- **Error Handling**: Verify that tampered or corrupted database rows are correctly identified and do not crash the UI.
+- **Sensitive Data**: Ensure that copy-to-clipboard actions and visibility toggles respect defined timeouts.
+
+### 3. Import & Export
+
+- **Backups**: Verify that exports generate a valid JSON file (with `data`, `salt`, and `exportedAt`) and that re-import works with the correct file password; record `value` fields must be re-wrapped for the File Key, not the Vault Key.
+- **Portability**: Test the import flow using both correct and incorrect file passwords.
+- **Isolation**: Confirm that cancelling an import/export operation leaves the database in its original state.
+
+### 4. Plugin System
+
+- **Lifecycle**: Verify that plugins can be enabled/disabled and that UI slots update accordingly.
+- **Resilience**: Ensure that a failing plugin (syntax error or runtime crash) does not prevent other plugins from loading.
+- **Cleanup**: Confirm that all plugin destructors are executed upon logout.
+
+## Release Checklist
+
+Before packaging the application, ensure the following steps are completed:
+
+- **Quality**: Run `npm run lint` and `npm run format` to ensure code consistency.
+- **Build**: Execute `npm run build` and verify that the production assets are correctly generated in the output directory.
+- **Versioning**: Synchronize the version in `package.json` with the current release tag.
+- **Sanity Check**: Launch the final packaged binary to confirm that native Node.js integrations (filesystem, hardware ID) are functioning correctly.
+
+## Summary
+
+The security and stability of WebStray Authenticator depend on rigorous manual testing of **authentication, encryption, and data portability**. Expand this matrix whenever new core logic or persistence layers are introduced.

@@ -1,0 +1,43 @@
+---
+title: Settings
+description: Visual preferences, security policies, and vault maintenance.
+---
+
+## Overview
+
+The Settings section allows you to customize the application's appearance, manage security policies, and perform essential vault maintenance.
+
+## Appearance
+
+- **Theme**: Select between **Light**, **Dark**, or **System** preferences. Changes are applied instantly.
+
+## Security
+
+These settings define the identity verification policy for sensitive actions.
+
+- **Require Verification**: The master toggle for security prompts. When disabled, the application will not ask for your Master Password for most sensitive actions.
+- **Verification Timeout**: When verification is enabled, this sets the duration (in minutes) for which a successful prompt remains valid.
+- **Change Master Password**: Allows you to rotate your primary credential. The app re-wraps your **Vault Key** at rest and refreshes the hardware-bound session; your saved entries stay encrypted with the same underlying key material.
+
+## Data & Plugins
+
+Direct access to data portability and application extensibility.
+
+- **Import & Export**: Opens the interface for creating or restoring **JSON export** files. See [Import & Export](/docs/authenticator/user-guide/import-and-export) for details.
+- **Plugins**: Manage third-party plugins, allowing you to enable or disable additional functionality. See [Plugins](/docs/authenticator/user-guide/plugins) for details.
+
+## Maintenance
+
+Tools for managing the health and lifecycle of your local database.
+
+- **Compact Database**: Optimizes the local file by removing internal fragmentation. Recommended for maintaining performance.
+- **Clear Database**: Permanently deletes absolutely all records, settings, and session tokens, returning the application to its initial state.
+
+<Callout>
+  Clearing the database is irreversible. Use this only if you intend to start over or are preparing
+  to restore from a backup.
+</Callout>
+
+## Summary
+
+The **Settings** section is the central hub for fine-tuning your experience. Use it to balance convenience and security, manage your plugins, and ensure your vault stays optimized through regular maintenance.

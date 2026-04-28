@@ -1,0 +1,51 @@
+---
+title: Plugins
+description: Adding, management, and security.
+---
+
+## Overview
+
+Plugins extend WebStray Authenticator with custom workflows. Adding a plugin is a **significant trust decision** because plugin code runs with broad access inside the desktop application.
+
+The application itself **does not download or add plugins over the network**. It only recognizes plugins placed in your local `plugins/` folder. You retain full control: no plugin code is executed unless you explicitly enable it within the application interface.
+
+## Adding Plugins
+
+### 1. CLI (Recommended)
+
+You can add plugins from the [official registry](/authenticator/plugins) using the [WebStray CLI](/cli). For detailed instructions, refer to the [Plugin Registry](/docs/authenticator/plugins) and [CLI](/docs/cli/authenticator) documentation.
+
+### 2. Manual Adding
+
+You can add plugins manually by placing them in the application's `/plugins` directory.
+
+1. Navigate to **Settings -> Plugins**.
+2. Click the **"plugins"** link in the dialog description to reveal the directory on your machine.
+3. Move your plugin folder into this directory.
+4. The plugin will appear in the list **automatically** once detected on the filesystem.
+
+## Managing Plugins
+
+Once a plugin is added, you can control its status through the interface:
+
+1. Locate the plugin in the management list.
+2. Use the toggle switch to enable or disable the plugin.
+
+When a plugin is disabled, WebStray Authenticator immediately stops its execution and removes all associated UI actions from the workspace.
+
+## Safety Checklist
+
+- **Source**: Only add plugins from sources you fully trust, preferably from the official registry.
+- **Audit**: Always audit the source code of any plugin before adding and maintain secure backups.
+- **Verification**: Read the plugin description and verify its intended functionality before enabling it.
+- **Data Protection**: Be cautious of plugins that request access to export secrets or reveal plaintext data.
+- **Maintenance**: Regularly review your active plugins and disable any that you no longer use.
+
+<Callout>
+  WebStray Authenticator does not sandbox plugins. If you do not fully trust a plugin's author or
+  its source code, **do not add or enable it**.
+</Callout>
+
+## Summary
+
+While plugins provide convenience and automation, they also introduce additional security considerations. Prioritize the **Plugin Registry**, enable only trusted code, and maintain strict control over your active plugins.

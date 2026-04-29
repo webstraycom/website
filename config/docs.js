@@ -15,7 +15,10 @@ export const docsConfig = {
         { title: 'Storage', href: '/docs/authenticator/architecture/storage' },
         { title: 'Sessions', href: '/docs/authenticator/architecture/sessions' },
         { title: 'Import & Export', href: '/docs/authenticator/architecture/import-and-export' },
-        { title: 'Credential Rotation', href: '/docs/authenticator/architecture/credential-rotation' },
+        {
+          title: 'Credential Rotation',
+          href: '/docs/authenticator/architecture/credential-rotation',
+        },
         { title: 'Plugin System', href: '/docs/authenticator/architecture/plugin-system' },
       ],
     },
@@ -23,15 +26,27 @@ export const docsConfig = {
       title: 'Developer Guide',
       items: [
         { title: 'Overview', href: '/docs/authenticator/developer-guide' },
-        { title: 'Development Environment', href: '/docs/authenticator/developer-guide/development-environment' },
-        { title: 'Project Structure', href: '/docs/authenticator/developer-guide/project-structure' },
-        { title: 'Internal Services', href: '/docs/authenticator/developer-guide/internal-services' },
+        {
+          title: 'Development Environment',
+          href: '/docs/authenticator/developer-guide/development-environment',
+        },
+        {
+          title: 'Project Structure',
+          href: '/docs/authenticator/developer-guide/project-structure',
+        },
+        {
+          title: 'Internal Services',
+          href: '/docs/authenticator/developer-guide/internal-services',
+        },
         { title: 'State Layer', href: '/docs/authenticator/developer-guide/state-layer' },
         { title: 'Plugin SDK', href: '/docs/authenticator/developer-guide/plugin-sdk' },
         { title: 'Plugin Lifecycle', href: '/docs/authenticator/developer-guide/plugin-lifecycle' },
         { title: 'Plugin Security', href: '/docs/authenticator/developer-guide/plugin-security' },
         { title: 'First Plugin', href: '/docs/authenticator/developer-guide/first-plugin' },
-        { title: 'Testing & Quality', href: '/docs/authenticator/developer-guide/testing-and-quality' },
+        {
+          title: 'Testing & Quality',
+          href: '/docs/authenticator/developer-guide/testing-and-quality',
+        },
       ],
     },
     {
@@ -46,7 +61,10 @@ export const docsConfig = {
         { title: 'Import & Export', href: '/docs/authenticator/user-guide/import-and-export' },
         { title: 'Settings', href: '/docs/authenticator/user-guide/settings' },
         { title: 'Plugins', href: '/docs/authenticator/user-guide/plugins' },
-        { title: 'FAQ & Troubleshooting', href: '/docs/authenticator/user-guide/faq-and-troubleshooting' },
+        {
+          title: 'FAQ & Troubleshooting',
+          href: '/docs/authenticator/user-guide/faq-and-troubleshooting',
+        },
       ],
     },
     {

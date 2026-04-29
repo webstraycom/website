@@ -18,7 +18,7 @@ const nextConfig = {
         destination: '/docs/general/changelog',
         permanent: true,
       },
-    ]
+    ];
   },
 };
 

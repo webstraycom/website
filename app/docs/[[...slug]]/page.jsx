@@ -138,7 +138,7 @@ export default async function DocPage({ params }) {
         </article>
         <aside className="relative hidden text-sm xl:block">
           <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] w-[240px] flex-col gap-4 overflow-hidden py-8 xl:flex">
-            <p className="font-medium text-muted-foreground text-xs">On This Page</p>
+            <p className="text-muted-foreground text-xs font-medium">On This Page</p>
             <TableOfContents toc={doc.toc} />
           </div>
         </aside>

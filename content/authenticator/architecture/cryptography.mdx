@@ -1,0 +1,60 @@
+---
+title: Cryptography
+description: Keys, algorithms, and hardware binding.
+---
+
+## Overview
+
+WebStray Authenticator utilizes industry-standard cryptographic primitives to ensure data confidentiality. The architecture is built on a strict separation between identity verification (proving you know the **Master Password**) and data encryption (encrypting records with a persistent **Vault Key**).
+
+## Terminology
+
+- **DEK (Data Encryption Key)**: The key that encrypts user data at rest. In WebStray Authenticator, the **Vault Key** is the DEK used to encrypt individual record payloads.
+- **KEK (Key Encryption Key)**: A key used to encrypt (wrap) another key. In this project, KEKs are derived via `scrypt` either from the **Master Password** + `vaultSalt` (manual unlock) or from the **Machine ID** + `vaultSalt` (hardware-bound sessions).
+- **Wrapped Key**: An encrypted form of a key, produced by encrypting the Vault Key under a KEK. In storage, `master_password.vaultKey` and `session.token` are both wrapped copies of the same Vault Key.
+
+## Key Strategy
+
+The system distinguishes between **knowledge** (**Master Password**), a random **Vault Key**, and **environment** (hardware identifiers).
+
+- **Verification**: A `bcrypt` hash of the Master Password is used for manual login. The application can verify the password without storing it in plaintext.
+- **Vault Key**: A random 256-bit key (stored as hex) is generated at vault setup. This key is the DEK used for **record encryption** while the app is unlocked (`initKey`).
+- **Two Wrapped Copies**: The Vault Key is persisted in two wrapped forms:
+  - **Password-Derived Wrap** (`master_password.vaultKey`): Wrapped via `AES-256-GCM` under a KEK derived via `scrypt` from the Master Password and `master_password.vaultSalt`.
+  - **Machine-Derived Wrap** (`session.token`): Wrapped via `AES-256-GCM` under a KEK derived via `scrypt` from the Machine ID and `master_password.vaultSalt`.
+- **Record Encryption**: All secrets in user records are encrypted using `AES-256-GCM` under the active Vault Key. This mode provides both confidentiality and authenticity (AEAD), ensuring data has not been tampered with.
+
+## Hardware-Bound Sessions
+
+The **Machine ID** secures the "Stay Signed In" feature, ensuring that an active session cannot be reused if the database is copied to another device.
+
+- **Mechanism**: The raw Vault Key is wrapped with `AES-256-GCM` under a KEK derived via `scrypt` from the **Machine ID** and `master_password.vaultSalt`. The result is stored as `session.token`.
+- **Automatic Recovery**: On startup, the application derives the same key, unwraps the token, and calls `initKey` with the Vault Key to unlock record encryption.
+- **Isolation**: Because the session key is bound to specific hardware and `master_password.vaultSalt`, a database file copied to another device will fail to automatically recover the session.
+
+<Callout>
+  Hardware binding is a **convenience feature**. It ensures that the "authenticated" state is
+  cryptographically restricted to the specific device where the session token was created.
+</Callout>
+
+## Vault Encryption
+
+Each sensitive field (passwords, TOTP seeds, tokens) is encrypted independently in the `iv:tag:ciphertext` format.
+
+- **Integrity**: Thanks to `GCM`, any attempt to modify the encrypted data in the file will result in an authentication error during decryption.
+- **Unique IVs**: A random 12-byte Initialization Vector (IV) is generated for every encryption operation, preventing identical plaintexts from producing identical ciphertexts.
+- **In-Memory Security**: The vault key exists in plaintext only within the application's volatile memory (`ENCRYPTION_KEY`) and is cleared on logout (`clearKey`). The master password is not kept as a long-lived global secret; it is used transiently during login and verification flows.
+
+## Master Password Change
+
+When the user changes the master password, `useAuthStore.changeMasterPassword` updates verification and re-wraps secrets **without** rotating the random vault key:
+
+1. **Unlock**: Unwrap the stored `vaultKey` using the old master password material.
+2. **Re-wrap**: Generate a new `bcrypt` hash and a new `vaultSalt`, then encrypt the **same** vault key with a key derived from the new password and the new `vaultSalt`.
+3. **Session**: Write a new hardware-wrapped `session.token` so "Stay Signed In" remains valid.
+
+User records (`password`, `totp`, `token`) remain encrypted with the same vault key; only the wrapping of that key in `master_password` and the `session` document changes.
+
+## Summary
+
+WebStray Authenticator separates **authentication proof** (`bcrypt`), **storage of the vault key** (`AES-GCM` with `scrypt`-derived wrapping keys), and **record encryption** (`AES-GCM` under the vault key). Hardware-bound sessions encrypt the vault key for auto-unlock, which limits reuse of a stolen database file on another device.

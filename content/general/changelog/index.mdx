@@ -3,6 +3,30 @@ title: Changelog
 description: Latest updates and announcements.
 ---
 
+## April 2026 – WebStray Authenticator 1.6.4
+
+We’ve completely rebuilt our encryption engine to implement a robust **Vault Key** architecture. This update brings WebStray Authenticator's core security in line with industry-leading standards.
+
+#### What's New:
+
+- **Enhanced Zero-Knowledge Architecture**: We have decoupled your **Master Password** from the encryption process. Your password now acts exclusively as a key to unlock a persistent, high-entropy **Vault Key**, which handles all data encryption.
+- **Instant Password Changes**: No more re-encrypting the entire database. Since your data is bound to the **Vault Key** rather than the password itself, changing your **Master Password** is now instantaneous and eliminates any risk of database corruption.
+- **Brute-force Protection**: Integrated the `scrypt` KDF to make unauthorized password cracking exponentially more difficult by significantly increasing the computational cost of attacks.
+
+#### Download
+
+- [Download for Windows](https://github.com/webstraycom/authenticator/releases/latest)
+
+#### Important
+
+**Migration Required**: Due to the fundamental security upgrade, 1.6.2 databases are incompatible with this version.
+To migrate your data:
+
+1. **Export** your entries from version 1.6.2 in "Settings" -> "Export Data".
+2. **Clear** application database in "Settings" -> "Clear Database".
+3. **Create** your new Master Password to initialize the new Vault architecture.
+4. **Import** your data back into the application in "Settings" -> "Import Data".
+
 ## April 2026 – WebStray CLI Release
 
 We are proud to introduce [WebStray CLI](/cli) – the official command-line interface for the WebStray ecosystem.

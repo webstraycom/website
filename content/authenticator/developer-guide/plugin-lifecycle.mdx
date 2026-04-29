@@ -1,0 +1,62 @@
+---
+title: Plugin Lifecycle
+description: Discovery, slot registration, and teardown processes.
+---
+
+## Overview
+
+The plugin system in WebStray Authenticator is managed by the `PluginManager`. It handles the discovery of plugins on the filesystem, their initialization, and their integration into the UI via a slot-based system.
+
+## Discovery and Loading
+
+When the application initializes via `pluginManager.init`, the following steps are performed:
+
+1.  **Configuration**: The manager reads `plugins_settings` from the database to identify which plugins are marked as `enabled`.
+2.  **State Reset**: The plugin store runs `disableAllPlugins`, which executes destructors and clears all UI slots.
+3.  **Filesystem Scan**: The manager scans the `/plugins` directory. Each subfolder must contain a `package.json` (metadata) and an `index.js` (entry point).
+4.  **Dynamic Import**: Enabled plugins are loaded using a dynamic `import`. To bypass the engine's module caching and allow live updates, a timestamp is appended to the file URL (`?t=timestamp`).
+
+## Plugin Activation
+
+Toggling a plugin via `togglePlugin(id)` updates the database and re-triggers the entire `init` cycle. This ensures that the state of all plugins is consistently synchronized with the filesystem and user settings.
+
+## Slot System
+
+WebStray Authenticator uses **Slots** to allow plugins to inject UI elements into specific areas. The `Slot` component (located in `PluginSystem.jsx`) listens to the plugin store and renders actions.
+
+### Available Slot Names
+
+- `passwords-screen`: Dropdown menu on the **Passwords** screen.
+- `totp-screen`: Dropdown menu on the **TOTP** screen.
+- `tokens-screen`: Dropdown menu on the **Tokens** screen.
+
+<Callout>
+  **Note**: Registered actions are automatically sorted alphabetically by their `title` before
+  rendering.
+</Callout>
+
+## Filesystem Watcher
+
+The `PluginManager` includes a built-in filesystem watcher (`startWatcher`) to improve the user and developer experience:
+
+- **Hot Reload**: It monitors the plugins directory and triggers a re-initialization after a **200ms** debounce period following file changes. This allows developers to see code changes instantly and enables users to install or update plugins by simply moving files, without restarting the application.
+- **Session Safety**: The watcher only runs while the vault is unlocked. It is explicitly stopped via `stopWatcher` during logout to prevent background filesystem activity.
+
+## Teardown and Cleanup
+
+Proper cleanup is enforced to prevent memory leaks and orphaned UI elements:
+
+- **Destructors**: If a plugin's `init` function returns a function, it is registered as a destructor.
+- **Execution**: All destructors are called during `disableAllPlugins`, which happens on logout, plugin toggling, or a watcher-triggered reload.
+- **Global Reset**: All UI slots and the active `Sheet` (side panel) are cleared during the teardown.
+
+## Error Isolation
+
+The system is designed to be resilient against faulty plugin code:
+
+- **Load-time Errors**: If an `import` fails or the plugin's `init` function throws, the error is caught and logged. The system continues to load other plugins.
+- **Runtime Errors**: Any UI rendered by a plugin via `openSheet` is wrapped in an `ErrorBoundary`, preventing a plugin crash from taking down the entire application.
+
+## Summary
+
+The plugin lifecycle is strictly tied to the **Authentication** state. The `PluginManager` ensures that plugins are loaded only when needed, reloaded during development, and cleanly disposed of when the session ends.

@@ -1,0 +1,47 @@
+---
+title: Import & Export
+description: JSON exports, password-protected record payloads, and data portability.
+---
+
+## Overview
+
+WebStray Authenticator allows you to create portable **JSON backups** of your vault records. The saved file is normal JSON: layout and most metadata are visible, while **sensitive `value` fields** are re-encrypted under a key derived from a dedicated **Export Password** (independent of your Master Password), so secrets stay protected during transport or storage.
+
+## Exporting Data
+
+The export process creates a standalone JSON file whose **record secrets** are protected by your **Export Password**.
+
+1. Navigate to the **Settings** or a specific data section.
+2. Select the **Export** option.
+3. Define an **Export Password**. The app derives a **File Key** from it (and a random salt written into the file) and uses it to re-encrypt each record's `value` before writing JSON to disk. This password is independent of your Master Password.
+4. Save the generated JSON file to your local machine.
+
+<Callout>
+  Keep your Export Password safe. Without it, the app cannot recover the **encrypted `value`
+  fields** from the JSON file on import.
+</Callout>
+
+## Importing Data
+
+Importing allows you to restore records into your current vault from a previously created backup file.
+
+1. Navigate to the **Settings** or a specific data section.
+2. Select the **Import** option.
+3. Choose the JSON export file from your disk.
+4. Enter the **Export Password** that was used when the file was created.
+5. Confirm the operation to re-encrypt and merge the records into your vault.
+
+## Error Handling
+
+- **Malformed File**: If the JSON structure is tampered with or corrupted, the system will reject the file to prevent database instability.
+- **Aborted Operation**: Cancelling the file picker or password prompt leaves your current database entirely unchanged.
+- **Wrong Export Password**: If an incorrect password is used, the records may be imported, but their secrets will be marked as Corrupted because they cannot be decrypted.
+
+## Security Best Practices
+
+- **Isolated Passwords**: Do not use your Master Password as an Export Password. Using a unique credential for backups adds an extra layer of security.
+- **Offline Storage**: Store your backup files on an external drive or a secure offline medium to prevent unauthorized network access.
+
+## Summary
+
+The **Import & Export** system provides a secure way to manage data portability. By using an independent **Export Password** for **record `value` fields**, WebStray Authenticator keeps secrets protected even if someone obtains the JSON file – without the password, those payloads cannot be recovered.

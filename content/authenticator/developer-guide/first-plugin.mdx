@@ -1,0 +1,79 @@
+---
+title: First Plugin
+description: Building your first plugin.
+---
+
+## Overview
+
+A WebStray Authenticator plugin is a self-contained directory located within the application's `plugins/` folder. To be recognized by the host, a plugin must contain a valid manifest and a standard entry module.
+
+## Layout
+
+The application environment expects the following structure inside each plugin folder:
+
+- `package.json`: Manifest containing metadata and a unique identifier.
+- `index.js`: An ES module serving as the entry point, exporting a default initialization function.
+
+## Manifest Configuration
+
+The `package.json` defines how the plugin is identified and displayed within the application UI.
+
+```json title="package.json" showLineNumbers
+{
+  "id": "first-plugin",
+  "title": "First Plugin",
+  "description": "First plugin for WebStray Authenticator",
+  "version": "1.0.0",
+  "author": "John Doe"
+}
+```
+
+- `id`: A unique string used for enablement tracking and internal slot mapping.
+- `title`: The human-readable name displayed in the UI.
+- `description`: A brief summary of the plugin's functionality displayed in the UI.
+- `version`: The current release version displayed in the UI.
+- `author`: The name of the developer responsible for the plugin.
+
+## Entry Point Logic
+
+The `index.js` must provide a default export function. This function receives the **SDK object** as its only argument.
+
+```js title="index.js" showLineNumbers collapsible
+export default function init(sdk) {
+  const { React, components, ui, plugin } = sdk;
+  const { Button, Label } = components;
+
+  const Content = () => {
+    const [count, setCount] = React.useState(0);
+
+    return React.createElement(
+      'div',
+      { className: 'flex flex-col gap-4' },
+      React.createElement(Label, null, 'Counter'),
+      React.createElement(Button, { onClick: () => setCount((c) => c + 1) }, `Count is: ${count}`),
+    );
+  };
+
+  plugin.registerMenuAction('passwords-screen', {
+    title: 'Example Plugin',
+    onClick: () => ui.openSheet(Content),
+  });
+
+  return () => {
+    console.log('Plugin is shutting down...');
+  };
+}
+```
+
+- **Initialization**: The host application dynamically imports the module and invokes the `init` function once the vault is unlocked.
+- **Cleanup (Destructor)**: If the `init` function returns a function, it is registered as a destructor. The core invokes this during logout or when the user toggles the plugin off.
+
+## Deployment and Enablement
+
+1. **Placement**: Move your plugin folder into the `plugins` directory (you can open it directly from the **Plugins** dialog).
+2. **Detection**: The built-in filesystem watcher will automatically detect the new folder.
+3. **Activation**: Open the **Plugins** dialog within the application and toggle the switch for your plugin. The `PluginManager` will immediately execute your `init` function.
+
+## Summary
+
+Creating a plugin requires only two files: a **manifest** for identification and an **entry module** for logic. By utilizing the provided SDK and following the lifecycle rules, you can create plugins that integrate seamlessly with the host application while ensuring clean teardown and state management.

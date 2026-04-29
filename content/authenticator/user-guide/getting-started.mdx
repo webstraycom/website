@@ -1,0 +1,43 @@
+---
+title: Getting Started
+description: Installation, vault setup, and security basics.
+---
+
+## Overview
+
+WebStray Authenticator is a local-first application designed to protect your secrets. This guide covers the initial setup, including the creation of your Master Password and the initialization of your encrypted vault.
+
+## Installation
+
+To get started, install the application using the provided distribution.
+
+- **Installer**: Run the setup executable. The application will be installed in your local user directory, and a shortcut will be created on your desktop.
+- **Portable**: Extract the archive to any location on your computer and launch `authenticator.exe`.
+
+## Vault Setup
+
+When you launch the application for the first time, you must initialize your vault. This process creates the local database file where all your data will be securely stored.
+
+### Master Password
+
+Your **Master Password** is what you use to unlock your data. The app combines it with a random **Vault Key** so that everything you save stays encrypted at rest.
+
+- **No Recovery**: Since the application is offline-first, there is **no "Forgot Password" or "Reset" feature**. If you lose this password, your data is lost forever.
+- **Zero-Knowledge**: Your Master Password is never transmitted to any server and is never stored as plaintext. The app keeps only what it needs to verify your password and wrap the **Vault Key** at rest.
+
+<Callout>
+  Keep your Master Password in a safe place. Without it, the encrypted vault cannot be decrypted,
+  and there is no backdoor for recovery.
+</Callout>
+
+## Initial Workflow
+
+Once the vault is created, you will be redirected to the main workspace. You can immediately begin managing your data:
+
+1. **Create Records**: Add your first [Passwords](/docs/authenticator/user-guide/passwords), [TOTP](/docs/authenticator/user-guide/totp), or [Tokens](/docs/authenticator/user-guide/tokens) to the vault.
+2. **Security Settings**: Configure timeouts, themes, and policies in [Settings](/docs/authenticator/user-guide/settings).
+3. **Extend Functionality**: Browse and enable [plugins](/docs/authenticator/user-guide/plugins) via the **Plugins** dialog.
+
+## Summary
+
+The setup process is a one-time operation that secures your local database. Your Master Password is the cornerstone of your vault's security – ensure it is strong and well-protected.

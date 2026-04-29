@@ -1,0 +1,64 @@
+---
+title: Plugin SDK
+description: Technical reference for components and core API.
+---
+
+## Overview
+
+The Plugin SDK is the bridge between third-party plugins and the WebStray Authenticator core. Each plugin receives a scoped SDK object through its default export, providing access to shared components, cryptographic helpers, and UI management.
+
+## Core Objects
+
+The core objects provide the foundational context for the plugin, ensuring it operates in sync with the host application's environment and metadata.
+
+- `React`: The host's React instance. Plugins must use this instance to ensure hook compatibility and prevent internal state conflicts caused by multiple React versions.
+- `Icons`: The full `lucide-react` library. Using this namespace ensures that plugin iconography remains consistent with the application's visual language.
+- `db`: Direct access to the shared NeDB instance. This allows plugins to perform advanced queries or manage custom document types within the same persistence layer.
+- `pkg`: Metadata from the plugin's own `package.json`. This is useful for self-identification, version checks, and rendering plugin-specific labels.
+
+## Components Namespace
+
+The `components` namespace provides a curated set of pre-styled UI primitives mirrored from the core design system. Using these ensures visual consistency and accessibility across the application.
+
+- **Standard**: `Button`, `Input`, `Label`, `Badge`, `Checkbox`, `Switch`, `Slider`, `Separator`, `Toggle`, `ToggleGroup`.
+- **Containers**: `Card`, `ScrollArea`, `ButtonGroup`, `InputGroup`, `Field`.
+- **Advanced**: `Combobox`, `Command`, `Select`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`, `Item`.
+- **Feedback**: `Spinner`, `Skeleton`, `Progress`, `Tooltip`, `HoverCard`, `Empty`, `Kbd`.
+
+## Crypto Namespace
+
+The `crypto` namespace handles the transformation of sensitive data. It ensures that plugins can safely interact with vault secrets without needing to manage the underlying encryption keys.
+
+- `decrypt(text)`: Decrypts ciphertext using the active **Vault Key**.
+  - **Behavior**: Returns plaintext on success; throws an error if the vault is locked or the payload is corrupted.
+  - **Security**: Decrypted values exist only in memory. Plugins must never log these values or persist them in an unencrypted state.
+
+## UI Namespace
+
+The `ui` namespace provides functions for interacting with the application shell. These helpers allow plugins to provide feedback and present complex interfaces through standardized containers.
+
+- `openSheet(Content)`: Opens the global plugin side-panel.
+  - `Content`: A React component to be rendered. The core wraps this in an error boundary to isolate plugin crashes.
+- `closeSheet()`: Programmatically dismisses the active plugin sheet.
+- `notify(message, type)`: Triggers a global toast notification for immediate user feedback.
+  - `type`: Accepts `'success'` or `'error'`.
+
+## Utils Namespace
+
+The `utils` namespace exposes shared logic and helper functions. Utilizing these prevents code duplication and ensures that plugin logic (such as sorting or TOTP generation) remains identical to the core.
+
+- `cn`: The standard utility for conditional class merging and Tailwind CSS conflict resolution.
+- `sorter`: A universal sorting engine that prioritizes data integrity and expiration status before performing alphabetical sorting across all record types.
+- `getTOTP(seed)`: Generates a TOTP code using the core's specific implementation and timing logic.
+
+## Plugin Namespace
+
+The `plugin` namespace is the primary way for a plugin to attach itself to the host interface. It manages the registration of entry points within the application's functional areas.
+
+- `registerMenuAction(slotName, config)`: Injects a clickable action into a designated UI slot.
+  - `slotName`: The identifier of the target UI area (e.g., `'passwords-screen'`, `'totp-screen'`). See [Plugin Lifecycle](/docs/authenticator/developer-guide/plugin-lifecycle#available-slot-names) for details.
+  - `config`: An object containing a mandatory `title` and an `onClick` callback.
+
+## Summary
+
+The WebStray Authenticator SDK is designed to be opinionated and lightweight. By providing access to the host's **React instance**, **UI primitives**, and **cryptographic helpers**, the SDK ensures that plugins integrate tightly with the core experience while maintaining strict security boundaries and visual consistency.

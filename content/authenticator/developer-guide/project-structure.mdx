@@ -1,0 +1,67 @@
+---
+title: Project Structure
+description: Project structure, architectural layers, and module ownership.
+---
+
+## Overview
+
+This document maps the WebStray Authenticator project to its functional layers. The architecture is organized into distinct areas: UI components, state management, cryptographic/persistence utilities, and the Plugin SDK.
+
+## Project Root
+
+- **Tooling**: `package.json` contains scripts for development (`dev`), production builds (`build`), and linting. The build process is orchestrated by Vite (`vite.config.js`).
+- **NW.js Integration**: The application runs in the NW.js environment. During development, NW.js points to the Vite dev server; for production, it loads the compiled build.
+- **Path Aliases**: The project uses clean imports via aliases defined in `vite.config.js` (e.g., `@ui`, `@store`, `@utils`).
+
+## Source Layout
+
+All source code is located in the `src/` directory. The internal structure follows a modular approach to separate concerns.
+
+### UI & Navigation
+
+- `screens/`: Top-level screens of the application, such as Passwords, Tokens, and Settings.
+- `components/ui/`: Low-level design system primitives (Buttons, Inputs, Modals).
+- `components/common/`: Shared complex or composite components that are not tied to a specific feature.
+- `components/layout/`: Shared UI frame elements, including headers, sidebars, and main layout frames.
+- `components/features/`: Domain-specific UI grouped by feature (e.g., `passwords/`, `totp/`, `settings/`).
+- `components/dialogs/`: Reusable modal dialogs for common workflows, such as verification, confirmation, or data management.
+
+### State Management
+
+Application state is managed by **Zustand** stores located in the `store/` directory. These stores orchestrate asynchronous I/O and cryptographic operations.
+
+- `useAuthStore.js`: Authentication lifecycle and key initialization.
+- `usePasswordsStore.js`, `useCodesStore.js`, `useTokensStore.js`: Domain-specific data management.
+- `useUIStore.js`: Modal states, verification validity, and navigation logic.
+- `useSettingsStore.js`: Application configuration and security policies.
+
+### Services & Logic
+
+Core non-React logic and React hooks are separated into the `utils/` and `hooks/` directories.
+
+- `utils/`: Internal services including `crypto.js`, `db.js`, and various helper functions.
+- `hooks/`: React hooks that bridge components to services, such as `useDatabase.js`, `useSensitiveData.js`, and many other hooks.
+
+### Plugin System
+
+The extensibility layer is contained within the `sdk/` directory.
+
+- `PluginManager.js`: Handles discovery, loading, and teardown of third-party plugins.
+- `PluginSystem.jsx`: Provides the UI context for plugins, including the Slot system and global providers.
+- `index.js`: Defines the public SDK surface provided to plugin authors.
+
+## Ownership Boundaries
+
+### Core vs. Plugins
+
+- **Core**: Modules that handle ciphertext, persistence, or session policies (found in `utils` and `store`) are strictly core-only.
+- **Plugins**: Third-party code must only interact with the system via the SDK. Direct imports of internal database or crypto utilities are prohibited to maintain the security boundary.
+
+### UI vs. Data
+
+- **Components**: Responsible for rendering state and capturing user intent. They should not perform direct I/O or cryptographic operations.
+- **Stores/Utils**: Responsible for persistence, encryption, and business logic. This separation ensures that sensitive data is handled consistently and prevents accidental plaintext exposure in the UI layer.
+
+## Summary
+
+The WebStray Authenticator codebase enforces a strict separation between the privileged core and the extensible plugin layer. When contributing, ensure that new features are placed in the appropriate layer to maintain the application's security and maintainability.

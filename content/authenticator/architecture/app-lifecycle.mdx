@@ -1,0 +1,47 @@
+---
+title: App Lifecycle
+description: App.jsx orchestration, authentication states, and screen rendering.
+---
+
+## Overview
+
+The root `App.jsx` component serves as the application's orchestrator. It manages the high-level lifecycle by coordinating **Zustand stores** (settings, auth, UI state) and embedding the **Plugin System** UI layer via `PluginProvider`.
+
+## Startup & Initialization
+
+When the app mounts, it triggers a two-step initialization process inside a `useEffect` hook:
+
+1. **Settings**: `loadSettings` from `useSettingsStore` loads persisted preferences (theme, verification timeout, require verification flags) from `settings_config`.
+2. **Auth**: `checkAuth` from `useAuthStore` attempts to resolve the vault state and hardware-bound session.
+
+## Application States
+
+The UI follows a conditional rendering logic based on the authentication status:
+
+- **Loading State**: If settings are loaded but the app is still initializing, the `AppLoadingPlaceholder` is shown.
+- **Unauthenticated**: If `checkAuth` fails to find a valid session, the `LoginScreen` is rendered.
+- **Authenticated**: Once `isAuthenticated` is true, the full workspace is unlocked.
+
+## Workspace Architecture
+
+The authenticated view is wrapped in a `SidebarProvider` and follows a structured layout:
+
+- **Layout**: `AppSidebar` for navigation and `Header` for breadcrumbs/actions.
+- **Screen Switching**: The central area renders screens (Passwords, TOTP, Tokens, Settings) based on the `currentScreen` state from `useUIStore`.
+- **Global Dialogs**: All modal components (Add/Edit, Plugins, Command Palette) are mounted at the root level to ensure they are accessible from any screen without redundant logic.
+
+## Plugin Integration
+
+The **Plugin System** is integrated via the `PluginProvider`. Plugin activation itself is driven by the authentication lifecycle (via `useAuthStore` calling `pluginManager.init` and managing the watcher), not by `App.jsx` directly.
+
+## Lifecycle & Kill-switch
+
+By using centralized stores (`useAuthStore`), the app ensures a clean **Logout** flow:
+
+1.  Clearing the auth state in the store immediately triggers a re-render.
+2.  The UI switches back to the `LoginScreen`.
+3.  The auth lifecycle stops plugin activity (watchers are stopped and active plugins are disabled), returning the application to a locked state.
+
+## Summary
+
+`App.jsx` acts as a traffic controller. It doesn't contain business logic; instead, it observes the state provided by specialized stores and renders the appropriate UI layer, ensuring that **vault access** is resolved and the workspace is only rendered after the vault is unlocked.

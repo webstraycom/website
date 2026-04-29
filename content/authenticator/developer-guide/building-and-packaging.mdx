@@ -1,0 +1,157 @@
+---
+title: Building and Packaging
+description: Building the production binary and creating a Windows installer.
+---
+
+## Overview
+
+The build process for WebStray Authenticator involves three major stages: compiling the frontend, merging the application code with the NW.js runtime into a single executable, and creating a compressed Windows installer using **Inno Setup**.
+
+## Directory Structure
+
+To ensure a successful build, the project utilizes the following directory layout:
+
+- `dist/`: The output of the Vite build process containing the frontend assets.
+- `build/`: The staging area where the NW.js runtime is optimized and the final binary is assembled.
+- `setup/`: Contains the Inno Setup configuration, installer assets, and the final release output.
+
+## Frontend Build
+
+Generate the production web assets using **Vite** by running the build script:
+
+```bash
+npm run build
+```
+
+The resulting `dist/` directory must contain:
+
+- `index.html`: The application entry point.
+- `assets/`: Optimized JavaScript and CSS.
+- `package.json`: Application manifest for the production environment.
+- `default.png`: The window icon.
+
+## Runtime Optimization
+
+Prepare the NW.js environment in the `build/` directory.
+
+Download the **Normal** version of NW.js and extract it into the `build/` folder.
+
+Navigate to `build/locales/` and remove all files except `en-US.pak` and `en-US.pak.info`. This removes approximately 50 unused language files.
+
+## Binary Assembly
+
+This stage involves merging the application logic from `/dist` with the NW.js engine in `/build` to create a standalone binary.
+
+### 1. Production Manifest
+
+Ensure the `package.json` inside the `dist/` folder is configured for the final build:
+
+```json title="package.json" showLineNumbers collapsible
+{
+  "name": "WebStray Authenticator",
+  "version": "1.6.2",
+  "main": "index.html",
+  "chromium-args": "--lang=en",
+  "type": "module",
+  "window": {
+    "title": "WebStray Authenticator",
+    "frame": false,
+    "icon": "./default.png",
+    "width": 800,
+    "height": 600,
+    "toolbar": false,
+    "devtools": false,
+    "force_dark_mode": true
+  }
+}
+```
+
+### 2. Dependency Management
+
+Include only **Node.js-specific** dependencies in the production `node_modules` inside `/dist` (e.g., `node-machine-id` and `@seald-io/nedb`). These libraries interact directly with the operating system or the Node.js runtime. Pure frontend libraries are already bundled by Vite into the `/assets` folder and should be excluded.
+
+### 3. Creating the Executable
+
+To assemble the final binary, complete the following steps:
+
+1. Compress the contents of the `dist/` folder into a ZIP archive named `app.nw`.
+2. Copy `nw.exe` from the `build/` folder into the `dist/` folder.
+3. Inside the `dist/` directory, run the following command to merge the files:
+
+```bash
+cat nw.exe app.nw > authenticator.exe
+```
+
+4. Move the resulting `authenticator.exe` back into the `build/` folder.
+
+The `build/` directory now contains the final executable along with the required `.dll` files and optimized locales.
+
+## Installer Configuration
+
+We use **Inno Setup** to package the application into a single, professional installer.
+The `setup/` directory is used for packaging. It contains the `build.iss` script and the `favicon.ico` for the setup wizard.
+
+```ini title="build.iss" showLineNumbers collapsible
+[Setup]
+AppName=WebStray Authenticator
+AppVersion=1.6.2
+AppVerName=WebStray Authenticator
+AppId={{84011864-B354-4631-8FF7-F98CB2F246DB}
+DefaultDirName={autopf}\WebStray Authenticator
+DefaultGroupName=WebStray Authenticator
+OutputDir=.\release
+OutputBaseFilename=setup
+SetupIconFile=.\favicon.ico
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
+Compression=lzma2/ultra64
+SolidCompression=yes
+LZMAUseSeparateProcess=yes
+LZMADictionarySize=65536
+LZMANumFastBytes=273
+
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+[Files]
+Source: "..\build\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
+
+[Icons]
+Name: "{group}\WebStray Authenticator"; Filename: "{app}\authenticator.exe"
+Name: "{commondesktop}\WebStray Authenticator"; Filename: "{app}\authenticator.exe"; Tasks: desktopicon
+
+[Run]
+Filename: "{app}\authenticator.exe"; Description: "{cm:LaunchProgram,WebStray Authenticator}"; Flags: nowait postinstall skipifsilent
+```
+
+The final installer is generated in `setup/release/`, a directory created by Inno Setup during compilation.
+
+### Script Breakdown
+
+Below is a breakdown of the key sections in the `.iss` configuration script.
+
+#### [Setup] Section
+
+This section defines the installer's metadata and behavior:
+
+- `AppId`: A unique GUID used by Windows to identify the application for updates and uninstallation.
+- `DefaultDirName`: The default installation path (e.g., Program Files).
+- `Compression`: `lzma2/ultra64` and `SolidCompression` are used to achieve the maximum compression ratio, reducing the final setup size to approximately 110 MB.
+- `ArchitecturesAllowed`: Restricted to x64 to match the NW.js runtime architecture.
+
+#### [Files] Section
+
+- `Source`: Points to the build directory containing the merged `.exe`, DLLs, and locales.
+- `Flags`: `recursesubdirs` and `createallsubdirs` ensure that the entire internal structure of the app is preserved during installation.
+
+#### [Icons] Section
+
+Handles the creation of shortcuts in the **Start Menu** and on the **Desktop**.
+
+#### [Run] Section
+
+Uses the `postinstall` flag to offer the user the option to launch the application immediately after the setup completes.
+
+## Summary
+
+The final build is a result of frontend optimization, runtime stripping, and high-ratio compression. This process ensures that WebStray Authenticator is delivered as a lightweight, self-contained Windows application.

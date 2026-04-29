@@ -1,0 +1,46 @@
+---
+title: Internal Services
+description: Core utilities for database management, cryptography, and data portability.
+---
+
+## Overview
+
+Core application logic is localized within the `src/utils/` directory. While plugins interact with the system via a limited SDK, internal modules have full access to low-level APIs for database operations, cryptographic workflows, and import/export handling.
+
+## Database
+
+The application uses **NeDB** (via `@seald-io/nedb`) as its primary persistence layer. The database file, `vault.db`, is managed in `src/utils/db.js` and located in the application data directory.
+
+- **Instance**: Exports a singleton `db` instance with `autoload: true`.
+- **Storage**: The file path is resolved dynamically using `window.nw.App.dataPath` to ensure cross-platform compatibility.
+
+## Cryptography
+
+Located in `src/utils/crypto.js`, this module implementation uses Node.js `crypto` to handle all sensitive transformations and manage the active Vault Key.
+
+- **Algorithm**: Uses `AES-256-GCM` for all encryption tasks. Output follows a structured `iv:tag:ciphertext` hex-encoded format.
+- **Generation Utilities**: `generateSalt` and `generateVaultKey` produce random hex-encoded strings (16-byte and 32-byte respectively) to initialize the `vaultSalt` and the primary DEK.
+- **Key Management**: `initKey` and `clearKey` manage a module-level `ENCRYPTION_KEY` (the Vault Key / DEK). The `encrypt` and `decrypt` functions use this active key (or a provided custom key) to process data with automated IV and Auth Tag handling.
+- **Derivation**: The `deriveKey` helper utilizes `scryptSync` to produce consistent 32-byte KEKs from a secret (Master Password or hardware identifier) and a salt string (`vaultSalt`).
+- **Hardware Binding**: `encryptWithHardwareId` and `decryptWithHardwareId` bind the session token to the device by using **Machine ID** and the stored `vaultSalt` to derive a device-specific key for wrapping or unwrapping the Vault Key.
+
+## Data Service
+
+The service in `src/utils/dataService.js` facilitates data portability, acting as a bridge between the live database and **JSON export files** in which each record’s sensitive `value` is re-encrypted under a key derived from the export (or import) password.
+
+- **Import Flow**: `previewImport` validates the JSON structure and returns statistics. The `importData` function performs "key translation" by decrypting items with the import password and re-encrypting them with the active Vault Key.
+- **Export Flow**: `previewExport` queries the database for exportable records and calculates totals by type. The `exportData` function generates a fresh 16-byte salt, re-encrypts the selected records with an export-specific key, and utilizes the native `showSaveFilePicker` API for secure file writing.
+- **Data Cleanup**: During import, system-specific fields like `_id` are stripped, and dates are normalized to ensure consistent records and database integrity.
+
+## Utility Helpers
+
+The `src/utils/` directory also contains specialized tools that enforce consistent behavior across the application.
+
+- `sorter.js`: A universal sorting engine that prioritizes data integrity and expiration status before performing alphabetical sorting across all record types.
+- `totp.js`: A wrapper for 6-digit code generation using `otpauth`. It provides the current token and expiration metadata, including an `isExpiring` flag for the final 5-second window.
+- `viewTransition.js`: Implements native View Transitions with custom animations.
+- `delays.js`: Provides `withDelay` to ensure a minimum execution time for async operations, preventing UI flickering during fast state updates.
+
+## Summary
+
+The internal architecture relies on the coordination between core utilities and specialized services. These modules should be accessed via **Zustand stores** or dedicated maintenance flows to keep the UI layer thin and decoupled from low-level logic.

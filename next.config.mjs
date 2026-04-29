@@ -11,6 +11,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/docs',
+        destination: '/docs/general/changelog',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 export default nextConfig;

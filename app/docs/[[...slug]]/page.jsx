@@ -84,10 +84,6 @@ export default async function DocPage({ params }) {
   const slugPath = getSlugPath(slug);
   const currentFolder = (Array.isArray(slug) && slug[0]) || DEFAULT_ROOT;
 
-  if (!slugPath || slugPath === 'general') {
-    redirect('/docs/general/changelog');
-  }
-
   const doc = getDocFromSlug(slugPath);
   if (!doc) notFound();
 

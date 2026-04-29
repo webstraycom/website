@@ -56,6 +56,12 @@ export const generateMetadata = async ({ params }) => {
   };
 };
 
+export const generateStaticParams = async () => {
+  return docs.map((doc) => ({
+    slug: doc.slug.split('/').filter(Boolean),
+  }));
+};
+
 export const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
   return (
     <div className="flex items-start gap-1.5">

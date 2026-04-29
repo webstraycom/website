@@ -1,0 +1,43 @@
+---
+title: Authentication
+description: Vault unlock, identity verification, and session behavior.
+---
+
+## Overview
+
+Access to your vault is controlled by your Master Password. This guide explains how the application manages your active session and how identity verification gates sensitive actions.
+
+## Unlocking the Vault
+
+To access your data, open WebStray Authenticator and enter your **Master Password**.
+
+- **Success**: If the password is correct, the application initializes your encryption keys and unlocks the main workspace.
+- **Auto-Unlock**: By default, the application persists your session. On subsequent launches, it will attempt to auto-unlock the vault using your hardware signature, bypassing the manual password prompt.
+
+## Identity Verification
+
+Even when the vault is unlocked, sensitive actions (such as viewing a secret or managing plugins) will trigger a **Verification Prompt**.
+
+- **Verification Timeout**: The application remembers your identity for a specific duration after you enter your password. Once this period expires, you must re-verify to perform sensitive tasks.
+
+<Callout>
+  You can adjust the verification timeout, disable it entirely, or force a password prompt for every
+  sensitive action in the **Verification Timeout** section of
+  [Settings](/docs/authenticator/user-guide/settings).
+</Callout>
+
+## Ending the Session
+
+Since WebStray Authenticator uses persistent hardware-bound sessions by default, the **Sign Out** feature is the primary mechanism for securing your vault.
+
+- **Manual Security**: Clicking **Sign Out** immediately clears the active encryption keys from memory and **deletes the hardware-bound session token** from your local database.
+- **Mandatory Password**: This is the only way to disable the auto-unlock behavior. Once you have signed out, the Master Password must be entered manually to regain access on the next launch.
+
+<Callout>
+  Use **Sign Out** whenever you want to ensure that your vault cannot be opened without a password,
+  especially when leaving your device unattended.
+</Callout>
+
+## Summary
+
+The application prioritizes convenience by persisting your session via hardware binding. Use **Sign Out** when you want the vault to require a manual **Master Password** on the next launch.

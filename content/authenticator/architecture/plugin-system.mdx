@@ -1,0 +1,53 @@
+---
+title: Plugin System
+description: Discovery, SDK, slots, and teardown logic.
+---
+
+## Overview
+
+WebStray Authenticator features a dynamic plugin system that allows for local extensibility. Plugins are discovered on the filesystem and are initialized only if their identifiers are present in the database's `enabled` array.
+
+## Core Components
+
+The core logic of the plugin system is contained within the `src/sdk/` directory, which consists of three primary modules:
+
+- `PluginManager.js`: Orchestrates the discovery, loading, and filesystem watching logic. It manages the lifecycle of plugins from boot to teardown.
+- `PluginSystem.jsx`: Provides the UI infrastructure, including the `Slot` component and the `PluginProvider` for rendering sheets and handling error boundaries.
+- `index.js`: Defines the `createSDK` factory and the `usePluginStore`. This is the authoritative source for the API surface available to plugin authors.
+
+## Architecture
+
+Plugins are stored in a **dedicated directory** within the application data path. Each plugin consists of a folder containing a `package.json` manifest and an `index.js` entry module.
+
+- **Discovery**: The `PluginManager` scans the directory and matches folders against the `enabled` array in the `plugins_settings` document.
+- **Dynamic Loading**: Only enabled plugins are dynamically imported using ESM with a cache-busting timestamp. Disabled plugins remain on disk but stay dormant.
+- **Privileged Execution**: Plugins run with high privileges and have access to the Node.js environment and the application database via the provided SDK.
+
+## Lifecycle
+
+The plugin system is strictly tied to the authenticated state of the vault:
+
+1. **Initialization**: Triggered by `pluginManager.init` after a successful unlock. The system resets the state, loads enabled packages, and passes the **SDK object**.
+2. **Filesystem Watcher**: A filesystem watcher (`fs.watch`) monitors the directory, triggering a debounced hot-reload when changes are detected. This ensures both developers and users see updates instantly without restarting the application.
+3. **Teardown**: On **Logout**, the system executes registered cleanup functions (destructors) for each plugin, clears all UI slots, and stops the filesystem watcher.
+
+## UI Injection (Slots)
+
+Plugins interact with the application interface through a structured **Slot system**. This ensures that third-party actions are only rendered in designated areas managed by the core.
+
+- **Slot-Based Rendering**: Plugins register actions into specific identifiers (e.g., `passwords-screen`). These actions are only rendered where a corresponding `<Slot />` component is placed in the UI.
+- **Conditional Visibility**: UI elements associated with plugins, such as the "Plugins" dropdown on the passwords screen, are conditionally rendered only when the respective slot contains active actions.
+- **Consistent UI**: Actions within a slot are rendered as `DropdownMenuItem` components, sorted alphabetically by title to maintain a predictable user experience.
+- **Isolation**: Plugin content within sheet (`PluginProvider`) is wrapped in a React **ErrorBoundary**, ensuring that a crash in a plugin does not affect the core application's stability.
+
+## SDK Surface
+
+The SDK provides a comprehensive set of tools, including the full Lucide icon library and pre-styled React components.
+
+- **Crypto**: A `decrypt` helper that leverages the active **Vault Key** (DEK) to return plaintext payloads, ensuring operations are only possible while the Vault is unlocked.
+- **UI Components**: Direct access to core components (such as Buttons, Inputs, and Labels) to maintain visual consistency.
+- **Utilities**: Shared helpers for TOTP generation, data sorting, and CSS merging (`cn`).
+
+## Summary
+
+The plugin architecture combines **filesystem discovery** with **database-backed enablement**. It is optimized for developer experience through hot-reloading and ensures system stability by using explicit destructors and React Error Boundaries to isolate plugin crashes.

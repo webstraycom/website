@@ -1,0 +1,43 @@
+---
+title: Import & Export
+description: JSON exports, password-protected record payloads, and data portability.
+---
+
+## Overview
+
+WebStray Authenticator allows you to move your data between devices or create offline backups as **portable JSON files**. The file on disk is standard JSON (structure and metadata are readable); **sensitive record payloads** in the `value` field are **re-encrypted** under a **File Key** derived from your **Export Password** (via `scrypt` and a random salt stored in the file). These operations act as **key-translation layers**.
+
+<Callout>
+  This is separate from the DEK/KEK/Wrapped Key terminology described in
+  [Cryptography](/docs/authenticator/architecture/cryptography). While the vault is locked with your
+  Master Password, exports use a separate **File Key** to ensure portability across different
+  installations.
+</Callout>
+
+## Exporting Data
+
+Exporting creates a standalone, password-protected backup.
+
+- **Selection & Preview**: `previewExport` prepares the dataset by filtering supported types and calculating statistics so you can verify the content before saving.
+- **Encryption**: A unique **File Key** is derived from your **Export Password** using `scrypt` and a fresh 16-byte salt.
+- **Translation**: Sensitive payloads are decrypted from your Vault Key and re-encrypted with the File Key, ensuring the backup is independent of your Master Password.
+- **Native Save**: The `showSaveFilePicker` API handles file creation; if you cancel the dialog, **no backup file is written** (the export operation is aborted).
+
+## Importing Data
+
+Importing merges external records into your live vault through a multi-step validation.
+
+- **Preview Step**: `previewImport` parses the JSON file to validate its structure and return statistics (count of Passwords, TOTP codes, and Tokens) before any changes are made.
+- **Key Translation**: `importData` decrypts secrets using the Import Password and the salt found in the file, then **re-encrypts them with your active Vault Key**.
+- **Data Cleanup**: System-specific fields like `_id` are stripped, and dates are normalized to ensure consistent records and database integrity.
+- **Selective Sync**: The service allows filtering by `targetType`, ensuring only relevant categories of data are merged into the vault.
+
+## Portability Limits
+
+- **Selective Content**: Metadata like labels and sites are preserved, while system IDs are regenerated during import.
+- **Isolation**: Plugin packages and their settings are **not included** in vault exports.
+- **Trust**: Imported data is only as secure as the file itself. Always protect your export files and passwords.
+
+## Summary
+
+Import and Export functionality provides a secure bridge between isolated local databases through a **key-translation mechanism**. By re-encrypting sensitive payloads under an independent **File Key**, the system ensures that backup portability is achieved without ever exposing the Master Password or the primary Vault Key.

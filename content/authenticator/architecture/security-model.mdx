@@ -1,0 +1,41 @@
+---
+title: Security Model
+description: Threats, assumptions, and boundaries.
+---
+
+## Overview
+
+This document outlines the security assumptions and protection boundaries of WebStray Authenticator.
+
+## Introduction
+
+WebStray Authenticator is a local-first application where security is anchored to the local machine. The architecture balances data confidentiality with user convenience through hardware-bound session persistence.
+
+## Assumptions
+
+Our security model relies on the following conditions:
+
+- **OS-Level Isolation**: We assume the operating system's user account security is intact. Confidentiality depends on `AES-256-GCM` encryption, not on the secrecy of file paths.
+- **Hardware Binding**: To enable "Stay Signed In" functionality, the Vault Key is wrapped under a KEK derived from the Machine ID and `master_password.vaultSalt`, and stored as `session.token`.
+- **Offline Core**: The core application logic operates entirely offline. Network capabilities are only available if explicitly introduced by a plugin.
+- **Physical Access**: An attacker with authenticated access to your OS account can launch the app and access the vault, as the system can automatically recover the Vault Key from the session token on that machine.
+
+## Plugin Boundaries
+
+Plugins operate within the same renderer process as the core UI, meaning they trade strict isolation for deep integration. See [Plugin System](/docs/authenticator/architecture/plugin-system) for details.
+
+- **Privileged SDK**: Plugins are treated as privileged code. They can request decrypted vault records through the SDK.
+- **Memory Risk**: Because the Vault Key is held in memory to drive encryption (`initKey`), it is theoretically possible for a malicious plugin to attempt to intercept it or misuse decrypted data. **Do not install plugins you do not fully trust.**
+- **Access Control**: A plugin can only see the plaintext of a record if it programmatically requests decryption via the SDK.
+
+## Non-Goals
+
+WebStray Authenticator is not designed to protect against the following:
+
+- **Compromised OS**: We do not protect against a compromised kernel, keyloggers, or memory debuggers running with administrative privileges.
+- **Account Recovery**: There is no reset mechanism. If the Master Password is forgotten and the hardware-bound session is lost, the data is irrecoverable.
+- **Local Malware**: Malware running with user-level permissions can access the Machine ID and read the session token just as the application does.
+
+## Summary
+
+The model optimizes for **local confidentiality**. It protects your vault from being accessed if the database file is moved to another device, while relying on the user to secure their local operating system and be highly selective with third-party plugins.

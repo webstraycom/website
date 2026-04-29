@@ -161,9 +161,6 @@
   ::selection {
     @apply bg-selection text-selection-foreground;
   }
-  html {
-    scroll-behavior: smooth;
-  }
   body[data-scroll-locked] header {
     margin-right: var(--removed-body-scroll-bar-size, 0px) !important;
   }

@@ -1,0 +1,49 @@
+---
+title: Tokens
+description: Management of API keys and access tokens.
+---
+
+## Overview
+
+The Tokens section is designed for storing long-lived credentials such as API keys or access tokens. It provides built-in tracking for expiration dates and associated service endpoints.
+
+## Managing Entries
+
+### Adding a New Token
+
+1. Navigate to the **Tokens** screen.
+2. Click the **Add** button at the bottom of the screen.
+3. Define the record attributes:
+   - **Service**: The name of the platform or application.
+   - **Endpoint**: The URL or environment associated with the token.
+   - **Token**: The secret token string.
+   - **Expiration Date**: An optional date for tracking token validity.
+4. Click the **Save** button.
+
+### Editing or Deleting
+
+Use the **Actions Menu** (three dots) on a specific record to:
+
+- **Edit**: Update any attribute and save changes.
+- **Delete**: Permanently remove the record from the local database.
+
+## Token Status
+
+The application automatically calculates and displays the health of each token based on the expiration date:
+
+- **Active**: Displays a countdown of days remaining until the token expires.
+- **Expired**: A critical status badge appearing when the token has passed its expiration date.
+- **Unsecure**: A warning status shown when no expiration date is defined, indicating the token remains valid indefinitely.
+
+## Accessing Secrets
+
+Tokens follow the secure masking pattern used for passwords to prevent accidental exposure.
+
+- **Show**: Open the **Actions Menu** (three dots) on the record and select **Show** to view the plaintext.
+- **Copy**: Once the token is visible, click it to copy it to the clipboard.
+- **Auto-Masking**: For security, the token is **automatically masked** immediately after copying or after a set duration.
+- **Verification**: If your **Verification Timeout** has expired, the system will prompt for your **Master Password** before allowing the show action. See [Authentication](/docs/authenticator/user-guide/authentication) and [Settings](/docs/authenticator/user-guide/settings) for details.
+
+## Summary
+
+The **Tokens** section combined with expiration tracking ensures you stay informed about credential health. Use the **Unsecure** and **Expired** status badges to identify which keys require manual rotation with your service provider.

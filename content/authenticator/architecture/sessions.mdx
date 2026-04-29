@@ -1,0 +1,51 @@
+---
+title: Sessions
+description: Authentication, verification, and logout logic.
+---
+
+## Overview
+
+WebStray Authenticator distinguishes between a cryptographic **unlocked** state and a transient **verified** state. While authentication initializes encryption keys, verification governs the temporary authorization required to perform sensitive UI actions.
+
+<Callout>
+  **Note**: In the context of verification, "session" refers to the broader **user work session**
+  (the period of active interaction), whereas in the context of authentication, it refers
+  specifically to the **cryptographic session** and its hardware-wrapped persistence.
+</Callout>
+
+## Authentication Flow
+
+Authentication is the process of establishing the primary session and initializing key material in memory.
+
+- **Session Establishment**: Handled via `checkAuth` or `login`. The Vault Key is loaded into memory by unwrapping either the hardware-bound `session.token` or the password-wrapped `master_password.vaultKey`. Once `initKey` runs, the global `isAuthenticated` state updates.
+- **Hardware Persistence**: A `session.token` is stored in the database. On startup, the system attempts to unwrap this token using the Machine ID and `master_password.vaultSalt` to recover the **Vault Key** and bypass manual entry.
+- **Environmental Init**: Successful authentication brings the application into a fully operational state by starting the `pluginManager`, enabling the filesystem watcher, and redirecting the user to the dashboard.
+
+## Verification Mechanism
+
+Verification is a secondary security layer managed by `useUIStore`. It ensures that sensitive data access requires recent proof of identity.
+
+- **Conditional Trust**: Identity verification is handled differently depending on the authentication path:
+  - **Manual Login/Setup**: The system grants an initial **verified** state because the user has just provided the **Master Password** to unwrap the `master_password.vaultKey`.
+  - **Session Recovery (`checkAuth`)**: The session remains **unverified** by default. Although the vault is unlocked via the hardware-wrapped `session.token`, sensitive actions require manual password entry to establish identity.
+- **Action Gating**: The `runWithVerification` wrapper intercepts sensitive actions. If `requireVerification` is enabled and `isSessionValid` returns `false`, the wrapper triggers the **Verification Dialog**. If the policy is disabled, actions proceed without identity proof.
+- **Force Verification**: Certain critical operations, such as opening the **Plugins Dialog** or performing a **Database Reset**, **bypass all session policies** and force a mandatory password prompt, regardless of the `requireVerification` setting or current session validity.
+
+## UI Confirmation Logic
+
+Independent of identity verification, the system employs a standard confirmation layer for destructive or irreversible actions.
+
+- **Verification vs. Confirmation**: Verification confirms **who** the user is via a password prompt. Confirmation (via `openConfirm`) merely confirms **intent** through a simple UI dialog (e.g., "Are you sure?").
+- **State Cleanup**: Closing a verification or confirmation dialog resets its specific configuration to default values to prevent accidental reuse.
+
+## Termination and Cleanup
+
+The `logout` procedure ensures a total destruction of the authenticated environment.
+
+- **Session Deletion**: The `session` document is removed from the database, and the global `isAuthenticated` flag is set to `false`.
+- **Memory Purge**: The `clearKey` function is invoked to wipe all derived cryptographic material from the process memory.
+- **Teardown**: The plugin system stops the watcher and disables active plugins. Once all components are deactivated, the application returns to its initial locked state.
+
+## Summary
+
+The architecture separates long-term **Authentication** from short-term **Verification** to implement a **tiered trust model**. While authentication maintains encryption keys in memory for background operations, verification acts as a temporal gate for the UI. This ensures that sensitive actions always require a recent proof of identity, protecting the hardware-unlocked vault against unauthorized physical access.

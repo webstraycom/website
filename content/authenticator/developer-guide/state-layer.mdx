@@ -1,0 +1,51 @@
+---
+title: State Layer
+description: Zustand stores and their functional roles.
+---
+
+## Overview
+
+WebStray Authenticator manages application state using **Zustand** stores located in `src/store/`. Each store is responsible for a specific domain: authentication, UI state, settings, etc. While **NeDB** handles long-term persistence, the state layer manages in-memory data and the application's runtime logic.
+
+## Authentication Store
+
+The `useAuthStore` manages the core security lifecycle, including initialization, authentication, and session recovery.
+
+- **Key Lifecycle**: Successful authentication invokes `initKey`, making the Vault Key available for encryption and decryption. `logout` calls `clearKey` to purge all cryptographic material from memory.
+- **Session Recovery**: The store coordinates with the hardware-wrapped `session.token` and `master_password.vaultSalt` to enable automatic unlocking upon application startup.
+- **System Synchronization**: Login and setup procedures trigger `pluginManager.init()` and start the filesystem watcher. Conversely, logout halts all plugin activity and clears active UI slots.
+
+## Feature Stores
+
+The application uses specialized stores for data categories: `usePasswordsStore`, `useCodesStore` (for TOTP), and `useTokensStore`. They follow a consistent operational pattern:
+
+- **Loading**: Data is fetched via `db.findAsync`. Records are processed through `decrypt()`; if this fails, the record is marked with `isCorrupted: true` to prevent global failures and allow for visual identification in the UI.
+- **Writing**: Sensitive inputs are encrypted using `encrypt(raw)` before the database write operation. Plaintext remains in memory only as long as the UI requires it.
+
+## Settings Store
+
+The `useSettingsStore` manages application-wide preferences and security policies.
+
+- **Persistence**: It reads and writes the `settings_config` document in the database.
+- **Default State**: Handles the initialization of default settings during the first-time setup of the vault.
+- **UI Integration**: Manages the application of global themes by injecting corresponding classes into the document root.
+
+## UI Store
+
+The `useUIStore` centralizes the visual and interactive state of the application:
+
+- **Navigation**: Tracks the `currentScreen` to manage top-level view rendering.
+- **Modals**: Controls visibility flags for all dialogs (Add/Edit forms, Plugins, Command Palette).
+- **Verification Gating**: Implements `isSessionValid` and `runWithVerification` to manage the grace period for sensitive actions.
+
+### Data Integrity and Safety
+
+To ensure stability and performance, feature stores implement specific guards:
+
+- **Concurrency**: Feature loaders use an `isLoading` flag to prevent duplicate concurrent database queries.
+- **Force Refresh**: Loaders support a `force` parameter to refresh data after critical changes, such as importing or exporting records.
+- **Error Handling**: By surfacing decryption failures as an `isCorrupted` property, the UI can gracefully segregate or flag damaged records without interrupting the processing of valid data.
+
+## Summary
+
+The state layer is divided into specialized **Zustand** stores that decouple domain data from UI logic. The **authentication store** manages vault access and encryption key availability, **feature stores** handle the decryption of vault records for UI display, and the **UI store** enforces security policies and navigation.

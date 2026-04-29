@@ -1,0 +1,42 @@
+---
+title: TOTP
+description: Management of time-based one-time passwords.
+---
+
+## Overview
+
+The TOTP section manages your two-factor authentication (2FA) secrets. It generates rotating 6-digit codes that refresh every 30 seconds, synchronized with the global time standard.
+
+## Managing Entries
+
+### Adding a New Code
+
+1. Navigate to the **TOTP** screen.
+2. Click the **Add** button at the bottom of the screen.
+3. Define the record attributes:
+   - **Service**: The name of the service.
+   - **Account**: Your associated email or username.
+   - **Secret**: The alphanumeric key provided by the service.
+4. Click the **Save** button.
+
+### Editing or Deleting
+
+Use the **Actions Menu** (three dots) on a specific record to:
+
+- **Edit**: Update any attribute and save changes.
+- **Delete**: Permanently remove the record from the local database.
+
+## Using Codes
+
+Unlike passwords, TOTP codes are visible by default for immediate access and do not require Master Password verification for copying.
+
+- **Copying**: Click on the 6-digit code to copy it to the clipboard.
+- **Expiration**: When a code is about to expire (indicated by the code flashing in the final 5 seconds), it is recommended to wait for the next refresh to ensure the code will be accepted by the service.
+
+## Sync and Timing
+
+WebStray Authenticator uses your system clock to generate codes. Ensure your device time is synchronized with network time (NTP) to prevent errors during login.
+
+## Summary
+
+The **TOTP** section provides a fast environment for 2FA management. Codes are always visible and ready to be copied, ensuring a seamless login experience while keeping the underlying secrets encrypted at rest.

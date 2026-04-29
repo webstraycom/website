@@ -1,0 +1,28 @@
+---
+title: Architecture
+description: System design, threat model, and security rationale.
+---
+
+## Overview
+
+WebStray Authenticator is a secure, hardware-bound desktop password manager where data confidentiality and integrity are enforced through authenticated encryption. The architecture is designed to ensure that the security of the vault does not depend on the privacy of the filesystem, but on robust cryptographic primitives.
+
+This section explores how the threat model and technical constraints shape the implementation of cryptography, storage, and extensibility. While this section focuses on design intent and architectural trade-offs, it also provides specific implementation details regarding the internal mechanisms of the application.
+
+## Reading Order
+
+To understand the WebStray Authenticator architecture, it is recommended to follow this sequence:
+
+1. [Security Model](/docs/authenticator/architecture/security-model) – Threats, assumptions, and boundaries.
+2. [Cryptography](/docs/authenticator/architecture/cryptography) – Keys, algorithms, and hardware binding.
+3. [Local-First](/docs/authenticator/architecture/local-first) – Local data storage, offline use, and privacy.
+4. [App Lifecycle](/docs/authenticator/architecture/app-lifecycle) – App.jsx orchestration, authentication states, and screen rendering.
+5. [Storage](/docs/authenticator/architecture/storage) – Persistence layer, database engine, and document schema.
+6. [Sessions](/docs/authenticator/architecture/sessions) – Authentication, verification, and logout logic.
+7. [Import & Export](/docs/authenticator/architecture/import-and-export) – JSON exports, password-protected record payloads, and data portability.
+8. [Credential Rotation](/docs/authenticator/architecture/credential-rotation) – Master Password changes and re-wrapping the Vault Key.
+9. [Plugin System](/docs/authenticator/architecture/plugin-system) – Discovery, SDK, slots, and teardown logic.
+
+## Summary
+
+The WebStray Authenticator architecture is defined by the principles of zero-knowledge and hardware-bound security. By strictly decoupling identity verification from data encryption, the system ensures that your vault remains a resilient "black box" – protected from unauthorized access even if the storage environment is compromised.

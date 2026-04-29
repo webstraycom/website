@@ -58,7 +58,7 @@ export const generateMetadata = async ({ params }) => {
 
 export const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
   return (
-    <div className="flex items-start gap-1.5 md:items-center">
+    <div className="flex items-start gap-1.5">
       <CopyPageButton doc={currentDoc} />
       {prevDoc && (
         <Button asChild variant="secondary" size="icon-sm" className="size-8 md:size-7">
@@ -84,10 +84,6 @@ export default async function DocPage({ params }) {
   const slugPath = getSlugPath(slug);
   const currentFolder = (Array.isArray(slug) && slug[0]) || DEFAULT_ROOT;
 
-  if (!slugPath || slugPath === 'general') {
-    redirect('/docs/general/changelog');
-  }
-
   const doc = getDocFromSlug(slugPath);
   if (!doc) notFound();
 
@@ -97,7 +93,7 @@ export default async function DocPage({ params }) {
     <div className="flex flex-1 flex-col xl:px-6">
       <main className="mt-14 max-w-7xl px-5 lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 xl:mx-auto xl:grid-cols-[240px_minmax(0,720px)_240px] xl:px-0">
         <aside className="relative hidden text-sm lg:block">
-          <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] w-[240px] overflow-y-auto py-8 xl:flex">
+          <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] w-[240px] py-8 xl:flex">
             <DocsSidebar folder={currentFolder} />
             <Separator
               orientation="vertical"
@@ -141,8 +137,8 @@ export default async function DocPage({ params }) {
           </div>
         </article>
         <aside className="relative hidden text-sm xl:block">
-          <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] w-[240px] flex-col gap-2 overflow-hidden py-8 xl:flex">
-            <p className="font-medium tracking-tight">On This Page</p>
+          <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] w-[240px] flex-col gap-4 overflow-hidden py-8 xl:flex">
+            <p className="text-muted-foreground text-xs font-medium">On This Page</p>
             <TableOfContents toc={doc.toc} />
           </div>
         </aside>

@@ -14,6 +14,6 @@ export const REPOSITORIES = {
   PLUGIN_REGISTRY: {
     REPOSITORY_URL: `${GITHUB_BASE}/${PLUGIN_REGISTRY_NAME}`,
     REGISTRY_URL: `${RAW_BASE}/${PLUGIN_REGISTRY_NAME}/main/registry.json`,
-    PLUGIN_BASE_URL: `${GITHUB_BASE}/${PLUGIN_REGISTRY_NAME}/tree/main/plugins/`,
+    PLUGIN_BASE_URL: `${GITHUB_BASE}/${PLUGIN_REGISTRY_NAME}/tree/main/plugins`,
   },
 };

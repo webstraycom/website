@@ -211,7 +211,7 @@ export const AuthenticatorBentoGrid = () => {
         description={
           <>
             Fluid interface transitions and state-driven animations using{' '}
-            <span className="text-foreground">Framer</span>.
+            <span className="text-foreground">Motion</span>.
           </>
         }
         icon={PencilRulerIcon}

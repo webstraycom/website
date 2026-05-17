@@ -143,7 +143,7 @@ export const AuthenticatorBentoGrid = () => {
           height={25}
           strokeDasharray={'4 2'}
           className={cn(
-            '[mask-image:radial-gradient(120px_circle_at_center,rgba(255,255,255,0.3),transparent)]',
+            '[mask-image:radial-gradient(150px_circle_at_center,rgba(255,255,255,0.3),transparent)]',
           )}
         />
         <NotificationStackPreview />

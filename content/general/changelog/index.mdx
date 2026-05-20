@@ -3,6 +3,31 @@ title: Changelog
 description: Latest updates and announcements.
 ---
 
+## May 2026 – WebStray Starlight 1.2.0
+
+We have completely rewritten [WebStray Starlight](/starlight) from scratch with **Next.js** and **next/og** (powered by **Satori** and **resvg**), delivering up to a **18x performance boost** and significantly lower memory overhead.
+
+#### Performance Benchmarks
+
+Migrating from a browser-based rendering approach (Puppeteer) to **Next.js** and **next/og** yielded significant speed improvements especially on subsequent requests:
+
+- **First request:** ~3,500 ms -> ~800 ms (~4x faster)
+- **Subsequent requests:** ~3,500 ms -> ~190 ms (~18x faster)
+
+<Callout>
+  Subsequent requests are served instantly thanks to Next.js server-side data caching.
+</Callout>
+
+#### Legacy Codebase
+
+The previous version of Starlight (Node.js, Express, EJS, and Puppeteer) remains available on the **[legacy](https://github.com/webstraycom/starlight/tree/legacy)** branch.
+
+#### Documentation
+
+Ready to integrate dynamic preview images into your repositories? The updated documentation for Starlight is now available.
+
+[View WebStray Starlight Documentation](/docs/starlight)
+
 ## April 2026 – WebStray Authenticator 1.6.4
 
 We’ve completely rebuilt our encryption engine to implement a robust **Vault Key** architecture. This update brings WebStray Authenticator's core security in line with industry-leading standards.

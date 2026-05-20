@@ -6,7 +6,7 @@ import { REPOSITORIES } from '@/config/github';
 export const generateMetadata = () => {
   const title = 'Starlight';
   const description =
-    'Starlight is a web application designed to generate preview images for GitHub repositories.';
+    'Starlight is a web service designed to generate dynamic preview images for GitHub repositories.';
 
   return {
     title: 'Starlight by WebStray',
@@ -25,11 +25,11 @@ export default function StarlightPage() {
     <div className="flex flex-1 flex-col justify-center">
       <Hero
         announcement={{
-          text: "Starlight is out! See what's new",
+          text: 'Starlight is now powered by Next.js',
           link: '/docs/starlight',
         }}
         title="Starlight by WebStray"
-        description="Starlight is a web application designed to generate preview images for GitHub repositories."
+        description="Starlight is a web service designed to generate dynamic preview images for GitHub repositories."
       >
         <div className="flex gap-2">
           <StarlightPlaygroundDialog />

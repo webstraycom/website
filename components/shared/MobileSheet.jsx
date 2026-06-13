@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import {
@@ -14,9 +16,16 @@ import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/shared/Logo';
 import { CustomLink } from '@/components/shared/CustomLink';
 
-export function MobileSheet() {
+export const MobileSheet = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon">
           <Menu />
@@ -44,4 +53,4 @@ export function MobileSheet() {
       </SheetContent>
     </Sheet>
   );
-}
+};

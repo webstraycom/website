@@ -132,9 +132,7 @@ export function StarlightPlaygroundDialog() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Starlight Playground</DialogTitle>
-            <DialogDescription>
-              Here you can play with Starlight generation parameters
-            </DialogDescription>
+            <DialogDescription>Here you can try different parameter combinations</DialogDescription>
           </DialogHeader>
           <StarlightPlaygroundContent {...playgroundProps} />
           <DialogFooter>
@@ -156,9 +154,7 @@ export function StarlightPlaygroundDialog() {
       <DrawerContent className="antialiased">
         <DrawerHeader className="text-left">
           <DrawerTitle>Starlight Playground</DrawerTitle>
-          <DrawerDescription>
-            Here you can play with Starlight generation parameters
-          </DrawerDescription>
+          <DrawerDescription>Here you can try different parameter combinations</DrawerDescription>
         </DrawerHeader>
         <StarlightPlaygroundContent drawerMode {...playgroundProps} />
         <DrawerFooter>

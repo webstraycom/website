@@ -17,6 +17,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/authenticator/plugins`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/starlight`,
       lastModified: new Date(),
       changeFrequency: 'weekly',

@@ -1,8 +1,8 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Hero } from '@/components/shared/Hero';
-import { PluginList } from '@/components/features/authenticator/plugins/PluginList';
+import { Hero } from '@/components/shared/hero';
+import { PluginList } from '@/components/features/authenticator/plugins/plugin-list';
 import { REPOSITORIES } from '@/config/github';
 
 const title = 'Plugin Registry';

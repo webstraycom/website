@@ -1,4 +1,4 @@
-import { Hero } from '@/components/shared/Hero';
+import { Hero } from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
 import { GITHUB_BASE } from '@/config/github';
 

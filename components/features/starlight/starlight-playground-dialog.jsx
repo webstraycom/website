@@ -23,8 +23,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { StarlightPlaygroundContent } from '@/components/features/starlight/StarlightPlaygroundContent';
-import { usePlaygroundForm } from '@/components/features/starlight/hooks/usePlaygroundForm';
+import { StarlightPlaygroundContent } from '@/components/features/starlight/starlight-playground-content';
+import { usePlaygroundForm } from '@/components/features/starlight/hooks/use-playground-form';
 import { useMediaQuery } from '@/hooks/use-media-query';
 
 const INITIAL_STATE = {

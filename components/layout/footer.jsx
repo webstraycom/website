@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { CustomLink } from '@/components/shared/CustomLink';
+import { CustomLink } from '@/components/shared/custom-link';
 import { GITHUB_BASE, REPOSITORIES } from '@/config/github';
 
 export const Footer = ({ className }) => {

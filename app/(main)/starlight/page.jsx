@@ -1,6 +1,6 @@
-import { Hero } from '@/components/shared/Hero';
+import { Hero } from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
-import { StarlightPlaygroundDialog } from '@/components/features/starlight/StarlightPlaygroundDialog';
+import { StarlightPlaygroundDialog } from '@/components/features/starlight/starlight-playground-dialog';
 import { REPOSITORIES } from '@/config/github';
 
 export const generateMetadata = () => {

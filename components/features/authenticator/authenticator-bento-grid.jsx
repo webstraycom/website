@@ -14,9 +14,9 @@ import { AnimatedShinyText } from '@/components/ui/animated-shiny-text';
 import { GridPattern } from '@/components/ui/grid-pattern';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { Ripple } from '@/components/ui/ripple';
-import { TotpPreview } from '@/components/features/authenticator/TotpPreview';
-import { NotificationStackPreview } from '@/components/features/authenticator/NotificationStackPreview';
-import { ComandPalettePreview } from '@/components/features/authenticator/ComandPalettePreview';
+import { TotpPreview } from '@/components/features/authenticator/totp-preview';
+import { NotificationStackPreview } from '@/components/features/authenticator/notification-stack-preview';
+import { ComandPalettePreview } from '@/components/features/authenticator/command-palette-preview';
 import { cn } from '@/lib/utils';
 
 const BentoCard = ({

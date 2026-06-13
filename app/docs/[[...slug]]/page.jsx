@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { Footer } from '@/components/layout/Footer';
+import { Footer } from '@/components/layout/footer';
 import { CopyPageButton } from '@/components/mdx/copy-button';
 
 const DEFAULT_ROOT = 'general';

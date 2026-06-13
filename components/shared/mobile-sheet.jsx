@@ -13,8 +13,8 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Logo } from '@/components/shared/Logo';
-import { CustomLink } from '@/components/shared/CustomLink';
+import { Logo } from '@/components/shared/logo';
+import { CustomLink } from '@/components/shared/custom-link';
 
 export const MobileSheet = () => {
   const [isOpen, setIsOpen] = useState(false);

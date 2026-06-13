@@ -13,8 +13,8 @@ import {
   FieldTitle,
 } from '@/components/ui/field';
 import { Switch } from '@/components/ui/switch';
-import { GeneratedImagePreview } from '@/components/features/starlight/GeneratedImagePreview';
-import { CopyButton } from '@/components/features/starlight/CopyButton';
+import { GeneratedImagePreview } from '@/components/features/starlight/generated-image-preview';
+import { CopyButton } from '@/components/features/starlight/copy-button';
 import { cn } from '@/lib/utils';
 
 const TABS_CONFIG = {

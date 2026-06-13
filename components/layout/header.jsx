@@ -8,10 +8,10 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
-import { Logo } from '@/components/shared/Logo';
+import { Logo } from '@/components/shared/logo';
 import { Separator } from '@/components/ui/separator';
-import { ThemeToggle } from '@/components/shared/ThemeToggle';
-import { MobileSheet } from '@/components/shared/MobileSheet';
+import { ThemeToggle } from '@/components/shared/theme-toggle';
+import { MobileSheet } from '@/components/shared/mobile-sheet';
 import { cn } from '@/lib/utils';
 import { GITHUB_BASE } from '@/config/github';
 

@@ -3,7 +3,7 @@ import { docsConfig } from '@/config/docs';
 import { Mdx } from '@/components/mdx-components';
 import { DocsSidebar } from '@/components/mdx/docs-sidebar';
 import { TableOfContents } from '@/components/mdx/toc';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';

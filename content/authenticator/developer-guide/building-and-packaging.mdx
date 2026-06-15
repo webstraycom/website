@@ -94,14 +94,16 @@ The `setup/` directory is used for packaging. It contains the `build.iss` script
 ```ini title="build.iss" showLineNumbers collapsible
 [Setup]
 AppName=WebStray Authenticator
-AppVersion=1.6.2
+AppVersion=1.6.4
 AppVerName=WebStray Authenticator
+AppPublisher=WebStray
 AppId={{84011864-B354-4631-8FF7-F98CB2F246DB}
 DefaultDirName={autopf}\WebStray Authenticator
 DefaultGroupName=WebStray Authenticator
 OutputDir=.\release
 OutputBaseFilename=setup
 SetupIconFile=.\favicon.ico
+UninstallDisplayIcon="{app}\authenticator.exe"
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 Compression=lzma2/ultra64

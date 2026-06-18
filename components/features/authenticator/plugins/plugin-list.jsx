@@ -23,7 +23,9 @@ const ErrorMessage = () => (
 
 export const PluginList = async () => {
   try {
-    const response = await fetch(REPOSITORIES.PLUGIN_REGISTRY.REGISTRY_URL);
+    const response = await fetch(REPOSITORIES.PLUGIN_REGISTRY.REGISTRY_URL, {
+      next: { revalidate: 60 },
+    });
 
     if (!response.ok) return <ErrorMessage />;
 

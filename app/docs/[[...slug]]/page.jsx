@@ -16,8 +16,8 @@ const DEFAULT_ROOT = 'general';
 const getSlugPath = (slug) => (Array.isArray(slug) ? slug.join('/') : slug || '');
 
 const getDocFromSlug = (slugPath) => {
-  const target = slugPath || DEFAULT_ROOT;
-  return docs.find((d) => d.slug === target);
+  if (!slugPath) return null;
+  return docs.find((d) => d.slug === slugPath);
 };
 
 const getDocNeighbours = (currentFolder, slugPath) => {
@@ -88,7 +88,7 @@ export default async function DocPage({ params }) {
   const { slug } = await params;
 
   const slugPath = getSlugPath(slug);
-  const currentFolder = (Array.isArray(slug) && slug[0]) || DEFAULT_ROOT;
+  const currentFolder = slug[0];
 
   const doc = getDocFromSlug(slugPath);
   if (!doc) notFound();

@@ -3,13 +3,13 @@ import { Button } from '@/components/ui/button';
 import { StarlightPlaygroundDialog } from '@/components/features/starlight/starlight-playground-dialog';
 import { REPOSITORIES } from '@/config/github';
 
-export const generateMetadata = () => {
-  const title = 'Starlight';
-  const description =
-    'Starlight is a web service designed to generate dynamic preview images for GitHub repositories.';
+const title = 'WebStray Starlight';
+const description =
+  'Starlight is a web service designed to generate dynamic preview images for GitHub repositories.';
 
+export const generateMetadata = () => {
   return {
-    title: 'Starlight by WebStray',
+    title: title,
     openGraph: {
       title: title,
       description: description,
@@ -28,7 +28,7 @@ export default function StarlightPage() {
           text: 'Starlight is now powered by Next.js',
           link: '/docs/starlight',
         }}
-        title="Starlight by WebStray"
+        title={title}
         description="Starlight is a web service designed to generate dynamic preview images for GitHub repositories."
       >
         <div className="flex gap-2">

@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/layout/footer';
 import { CopyPageButton } from '@/components/mdx/copy-button';
 
-const DEFAULT_ROOT = 'general';
+export const dynamicParams = false;
 
 const getSlugPath = (slug) => (Array.isArray(slug) ? slug.join('/') : slug || '');
 

@@ -3,6 +3,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import { rehypePreMetadata } from '@/lib/rehype-pre-metadata.mjs';
 import { REPOSITORIES } from '@/config/github';
+import { buildSearchIndex } from '@/scripts/build-search-index.mjs';
 
 export default defineConfig({
   root: 'content',
@@ -50,5 +51,8 @@ export default defineConfig({
           };
         }),
     },
+  },
+  complete: async (output) => {
+    await buildSearchIndex(output.docs);
   },
 });

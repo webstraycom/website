@@ -114,8 +114,8 @@ export const CommandPalette = () => {
     <div className="flex flex-col gap-4">
       <Button
         onClick={() => setOpen(true)}
-        variant="outline"
-        className="text-muted-foreground hover:text-muted-foregound pr-20 font-normal"
+        variant="secondary"
+        className="bg-muted/50 text-muted-foreground hover:text-muted-foreground pr-30 font-normal"
       >
         <SearchIcon />
         Search...

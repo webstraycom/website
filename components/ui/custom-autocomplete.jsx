@@ -31,7 +31,7 @@ function AutocompleteInput(
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === "Slash") {
-        if (document.activeElement.closest("input, textarea, [contenteditable]")) return;
+        if (e.target.closest("input, textarea, [contenteditable]")) return;
 
         e.preventDefault();
         localRef.current?.focus();

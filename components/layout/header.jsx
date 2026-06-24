@@ -12,6 +12,7 @@ import { Logo } from '@/components/shared/logo';
 import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { MobileSheet } from '@/components/shared/mobile-sheet';
+import { CommandPalette } from '@/components/shared/command-palette';
 import { cn } from '@/lib/utils';
 import { GITHUB_BASE } from '@/config/github';
 
@@ -57,6 +58,10 @@ export const Header = () => {
         </div>
 
         <div className="flex h-5 items-center gap-2">
+          <div className="flex hidden h-5 items-center gap-2 lg:flex">
+            <CommandPalette />
+            <Separator orientation="vertical" className="ml-2" />
+          </div>
           <ThemeToggle />
           <Separator orientation="vertical" className="mr-2" />
           <Button asChild className="gap-1">

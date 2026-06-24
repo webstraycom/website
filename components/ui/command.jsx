@@ -10,12 +10,13 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog"
 import {
   InputGroup,
   InputGroupAddon,
 } from "@/components/ui/input-group"
-import { SearchIcon, CheckIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react"
 
 function Command({
   className,
@@ -47,11 +48,26 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent
-        className={cn("top-1/3 translate-y-0 overflow-hidden rounded-xl! p-0", className)}
+        className={cn("overflow-hidden rounded-xl! p-0", className)}
         showCloseButton={showCloseButton}>
         {children}
       </DialogContent>
     </Dialog>
+  );
+}
+
+function CommandFooter({
+  className,
+  ...props
+}) {
+  return (
+    <DialogFooter
+      data-slot="command-footer"
+      className={cn(
+        "mx-0 mb-0 -mx-1 -mb-1 mt-auto p-2", 
+        className
+      )}
+      {...props} />
   );
 }
 
@@ -86,7 +102,10 @@ function CommandList({
     <CommandPrimitive.List
       data-slot="command-list"
       className={cn(
-        "no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
+        "no-scrollbar max-h-72 flex flex-col scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
+        "has-[[data-slot=command-empty]]:**:[[cmdk-list-sizer]]:flex",
+        "has-[[data-slot=command-empty]]:**:[[cmdk-list-sizer]]:flex-col",
+        "has-[[data-slot=command-empty]]:**:[[cmdk-list-sizer]]:h-full",
         className
       )}
       {...props} />
@@ -146,8 +165,6 @@ function CommandItem({
       )}
       {...props}>
       {children}
-      <CheckIcon
-        className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
     </CommandPrimitive.Item>
   );
 }
@@ -172,6 +189,7 @@ export {
   CommandDialog,
   CommandInput,
   CommandList,
+  CommandFooter,
   CommandEmpty,
   CommandGroup,
   CommandItem,

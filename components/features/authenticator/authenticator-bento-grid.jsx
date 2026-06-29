@@ -10,7 +10,6 @@ import {
   UserRoundKeyIcon,
 } from 'lucide-react';
 import { DotPattern } from '@/components/ui/dot-pattern';
-import { AnimatedShinyText } from '@/components/ui/animated-shiny-text';
 import { GridPattern } from '@/components/ui/grid-pattern';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { Ripple } from '@/components/ui/ripple';
@@ -123,7 +122,7 @@ export const AuthenticatorBentoGrid = () => {
         <DotPattern className="[mask-image:radial-gradient(150px_circle_at_center,rgba(255,255,255,0.4),transparent)]" />
         <div className="bg-background border-border z-2 flex items-center gap-1 rounded-full border px-2 py-1 dark:bg-neutral-900">
           <CpuIcon className="text-muted-foreground size-3.5" />
-          <AnimatedShinyText>Machine ID</AnimatedShinyText>
+          <span className="shimmer shimmer-duration-2500 text-muted-foreground">Machine ID</span>
         </div>
       </BentoCard>
 

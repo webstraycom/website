@@ -30,7 +30,7 @@ export function DocsSidebar({ folder }) {
     <nav
       ref={scrollRef}
       onScroll={handleScroll}
-      className="no-scrollbar flex w-full flex-col items-start gap-12 overflow-y-auto font-medium"
+      className="no-scrollbar scroll-fade scroll-fade-24 flex w-full flex-col items-start gap-12 overflow-y-auto font-medium"
     >
       {sidebar.map((section) => (
         <div key={section.title} className="flex w-full max-w-48 flex-col gap-2 text-[0.8rem]">

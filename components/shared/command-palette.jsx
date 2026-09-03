@@ -51,6 +51,7 @@ const SearchItem = memo(
     return prevProps.page.url === nextProps.page.url && prevProps.groupKey === nextProps.groupKey;
   },
 );
+SearchItem.displayName = 'SearchItem';
 
 export const CommandPalette = () => {
   const router = useRouter();

@@ -91,7 +91,7 @@ export const PluginListClient = ({ initialPlugins }) => {
           ))
         ) : (
           <div className="text-muted-foreground py-10 text-center text-sm">
-            No plugins found for "{search}"
+            No plugins found for &quot;{search}&quot;
           </div>
         )}
       </div>

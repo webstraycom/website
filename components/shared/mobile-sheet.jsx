@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import {
@@ -18,11 +17,6 @@ import { CustomLink } from '@/components/shared/custom-link';
 
 export const MobileSheet = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -34,7 +28,7 @@ export const MobileSheet = () => {
       <SheetContent side="left" className="max-w-[300px] gap-0">
         <SheetHeader className="gap-2">
           <SheetTitle>
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
               <Logo className="size-4" />
               WebStray
             </Link>
@@ -45,10 +39,18 @@ export const MobileSheet = () => {
         </SheetHeader>
         <div className="flex flex-col gap-2 px-4">
           <span className="text-foreground font-medium">Products</span>
-          <CustomLink href="/authenticator">Authenticator</CustomLink>
-          <CustomLink href="/starlight">Starlight</CustomLink>
-          <CustomLink href="/cli">CLI</CustomLink>
-          <CustomLink href="/docs">Docs</CustomLink>
+          <CustomLink href="/authenticator" onClick={() => setIsOpen(false)}>
+            Authenticator
+          </CustomLink>
+          <CustomLink href="/starlight" onClick={() => setIsOpen(false)}>
+            Starlight
+          </CustomLink>
+          <CustomLink href="/cli" onClick={() => setIsOpen(false)}>
+            CLI
+          </CustomLink>
+          <CustomLink href="/docs" onClick={() => setIsOpen(false)}>
+            Docs
+          </CustomLink>
         </div>
       </SheetContent>
     </Sheet>

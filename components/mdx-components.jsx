@@ -7,9 +7,106 @@ import { Button } from '@/components/ui/button';
 import { getIconForLanguageExtension } from '@/components/mdx/icons';
 import { cn } from '@/lib/utils';
 
-const useMDXComponent = (code) => {
+const getMDXComponent = (code) => {
   const fn = new Function(code);
   return fn({ ...runtime }).default;
+};
+
+const Pre = ({ className, children, ...props }) => {
+  const preRef = useRef(null);
+  const timeoutRef = useRef(null);
+  const [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleCopy = async () => {
+    if (!preRef.current) return;
+
+    const content = preRef.current.innerText;
+
+    await navigator.clipboard.writeText(content);
+
+    setIsCopied(true);
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  };
+
+  return (
+    <div className="group relative z-5">
+      <pre
+        ref={preRef}
+        className={cn(
+          'no-scrollbar min-w-0 overflow-x-auto overflow-y-auto overscroll-x-contain overscroll-y-auto px-4 py-3.5 font-mono outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0',
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </pre>
+
+      <Button
+        size="icon"
+        variant="ghost"
+        onClick={handleCopy}
+        className={cn(
+          'bg-code absolute right-2 z-20 size-7 transition-all',
+          '[[data-rehype-pretty-code-figure]:has(figcaption)_&]:top-[-35px]',
+          '[[data-rehype-pretty-code-figure]:not(:has(figcaption))_&]:top-1/2 [[data-rehype-pretty-code-figure]:not(:has(figcaption))_&]:-translate-y-1/2',
+          '[[data-rehype-pretty-code-figure]:not(:has(figcaption)):has([data-line]+[data-line])_&]:top-2 [[data-rehype-pretty-code-figure]:not(:has(figcaption)):has([data-line]+[data-line])_&]:translate-y-0',
+        )}
+      >
+        {isCopied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+      </Button>
+    </div>
+  );
+};
+
+const Figure = ({ className, children, ...props }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const isCollapsible = props['data-collapsible'] === 'true';
+
+  return (
+    <figure
+      className={cn(
+        'group relative overflow-hidden',
+        !isExpanded && isCollapsible ? 'max-h-[300px]' : 'max-h-none',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+
+      {isCollapsible && (
+        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col">
+          <div
+            className={cn(
+              'from-code via-code/50 flex h-20 w-full items-end justify-center bg-gradient-to-t to-transparent',
+              isExpanded && 'h-fit pt-2.5 pb-6',
+            )}
+          >
+            <Button variant="secondary" size="sm" onClick={() => setIsExpanded((prev) => !prev)}>
+              {isExpanded ? 'Collapse' : 'Expand'}
+            </Button>
+          </div>
+
+          {!isExpanded && <div className="bg-code h-6 w-full" />}
+        </div>
+      )}
+    </figure>
+  );
 };
 
 const sharedComponents = {
@@ -89,6 +186,7 @@ const sharedComponents = {
     <blockquote className={cn('mt-6 border-l-2 pl-6 italic', className)} {...props} />
   ),
   img: ({ className, alt, ...props }) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img className={cn('rounded-md', className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
@@ -122,95 +220,8 @@ const sharedComponents = {
       {...props}
     />
   ),
-  pre: ({ className, children, ...props }) => {
-    const preRef = useRef(null);
-    const timeoutRef = useRef(null);
-    const [isCopied, setIsCopied] = useState(false);
-
-    useEffect(() => {
-      return () => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      };
-    }, []);
-
-    const handleCopy = async () => {
-      if (preRef.current) {
-        const content = preRef.current.innerText;
-        await navigator.clipboard.writeText(content);
-        setIsCopied(true);
-
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-        timeoutRef.current = setTimeout(() => {
-          setIsCopied(false);
-        }, 2000);
-      }
-    };
-
-    return (
-      <div className="group relative z-5">
-        <pre
-          ref={preRef}
-          className={cn(
-            'no-scrollbar min-w-0 overflow-x-auto overflow-y-auto overscroll-x-contain overscroll-y-auto px-4 py-3.5 font-mono outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0',
-            className,
-          )}
-          {...props}
-        >
-          {children}
-        </pre>
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={handleCopy}
-          className={cn(
-            'bg-code absolute right-2 z-20 size-7 transition-all',
-            '[[data-rehype-pretty-code-figure]:has(figcaption)_&]:top-[-35px]',
-            '[[data-rehype-pretty-code-figure]:not(:has(figcaption))_&]:top-1/2 [[data-rehype-pretty-code-figure]:not(:has(figcaption))_&]:-translate-y-1/2',
-            '[[data-rehype-pretty-code-figure]:not(:has(figcaption)):has([data-line]+[data-line])_&]:top-2 [[data-rehype-pretty-code-figure]:not(:has(figcaption)):has([data-line]+[data-line])_&]:translate-y-0',
-          )}
-        >
-          {isCopied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-        </Button>
-      </div>
-    );
-  },
-  figure: ({ className, ...props }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const isCollapsible = props['data-collapsible'] === 'true';
-
-    return (
-      <figure
-        className={cn(
-          'group relative overflow-hidden',
-          !isExpanded && isCollapsible ? 'max-h-[300px]' : 'max-h-none',
-          className,
-        )}
-        {...props}
-      >
-        {props.children}
-        {isCollapsible && (
-          <div className={cn('absolute inset-x-0 bottom-0 z-10', 'flex flex-col')}>
-            <div
-              className={cn(
-                'from-code via-code/50 flex h-20 w-full items-end justify-center bg-gradient-to-t to-transparent',
-                isExpanded && 'h-fit pt-2.5 pb-6',
-              )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => (!isExpanded ? setIsExpanded(true) : setIsExpanded(false))}
-              >
-                {!isExpanded ? 'Expand' : 'Collapse'}
-              </Button>
-            </div>
-            {!isExpanded && <div className="bg-code h-6 w-full"></div>}
-          </div>
-        )}
-      </figure>
-    );
-  },
+  pre: Pre,
+  figure: Figure,
   figcaption: ({ className, children, ...props }) => {
     const iconExtension =
       'data-language' in props && typeof props['data-language'] === 'string'
@@ -272,12 +283,13 @@ const sharedComponents = {
   ),
 };
 
-export function Mdx({ code, components }) {
-  const Component = useMDXComponent(code);
+/* eslint-disable react-hooks/static-components */
+export const Mdx = ({ code, components }) => {
+  const Component = getMDXComponent(code);
 
   return (
     <div className="mdx">
       <Component components={{ ...sharedComponents, ...components }} />
     </div>
   );
-}
+};

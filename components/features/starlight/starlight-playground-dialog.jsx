@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -36,16 +36,13 @@ const INITIAL_STATE = {
 
 export function StarlightPlaygroundDialog() {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [state, setState] = useState(INITIAL_STATE);
 
   const form = usePlaygroundForm();
 
-  const isDesktop = useMediaQuery('(min-width: 768px)');
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const isDesktop = useMediaQuery('(min-width: 768px)', {
+    initializeWithValue: false,
+  });
 
   const updateState = (p) => setState((prev) => ({ ...prev, ...p }));
 
@@ -118,10 +115,6 @@ export function StarlightPlaygroundDialog() {
       )}
     </Button>
   );
-
-  if (!mounted) {
-    return <Button variant="outline">Playground</Button>;
-  }
 
   if (isDesktop) {
     return (

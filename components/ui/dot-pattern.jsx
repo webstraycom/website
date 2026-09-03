@@ -4,6 +4,11 @@ import { motion } from "motion/react"
 
 import { cn } from "@/lib/utils"
 
+const pseudoRandom = (seed) => {
+  const value = Math.sin(seed) * 10000;
+  return value - Math.floor(value);
+};
+
 /**
  * DotPattern Component
  *
@@ -73,8 +78,8 @@ export function DotPattern({
     return {
       x: col * width + cx + x,
       y: row * height + cy + y,
-      delay: Math.random() * 5,
-      duration: Math.random() * 3 + 2,
+      delay: pseudoRandom(i) * 5,
+      duration: pseudoRandom(i + 1) * 3 + 2,
     };
   })
 

@@ -9,6 +9,22 @@ import {
 import { PluginListClient } from '@/components/features/authenticator/plugins/plugin-list-client';
 import { REPOSITORIES } from '@/config/github';
 
+const getPlugins = async () => {
+  try {
+    const response = await fetch(REPOSITORIES.PLUGIN_REGISTRY.REGISTRY_URL, {
+      next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    return await response.json();
+  } catch {
+    return null;
+  }
+};
+
 const ErrorMessage = () => (
   <Empty className="w-full">
     <EmptyHeader>
@@ -22,17 +38,11 @@ const ErrorMessage = () => (
 );
 
 export const PluginList = async () => {
-  try {
-    const response = await fetch(REPOSITORIES.PLUGIN_REGISTRY.REGISTRY_URL, {
-      next: { revalidate: 60 },
-    });
+  const plugins = await getPlugins();
 
-    if (!response.ok) return <ErrorMessage />;
-
-    const plugins = await response.json();
-
-    return <PluginListClient initialPlugins={plugins} />;
-  } catch {
+  if (!plugins) {
     return <ErrorMessage />;
   }
+
+  return <PluginListClient initialPlugins={plugins} />;
 };

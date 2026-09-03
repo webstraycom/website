@@ -39,6 +39,7 @@ const SearchItem = memo(({ page, groupValue }) => {
     </Item>
   );
 });
+SearchItem.displayName = 'SearchItem';
 
 const useSearchPages = (query) => {
   const [results, setResults] = useState({ pages: [], docs: [] });

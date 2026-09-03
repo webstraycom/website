@@ -15,7 +15,7 @@ import { NumberTicker } from '@/components/ui/number-ticker';
 import { Ripple } from '@/components/ui/ripple';
 import { TotpPreview } from '@/components/features/authenticator/totp-preview';
 import { NotificationStackPreview } from '@/components/features/authenticator/notification-stack-preview';
-import { ComandPalettePreview } from '@/components/features/authenticator/command-palette-preview';
+import { CommandPalettePreview } from '@/components/features/authenticator/command-palette-preview';
 import { cn } from '@/lib/utils';
 
 const BentoCard = ({
@@ -201,7 +201,7 @@ export const AuthenticatorBentoGrid = () => {
         contentClassName="flex-col gap-4"
       >
         <div className="min-h-[245px] w-full max-w-2xs overflow-hidden px-4">
-          <ComandPalettePreview />
+          <CommandPalettePreview />
         </div>
       </BentoCard>
 

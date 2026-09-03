@@ -40,9 +40,7 @@ export const Header = () => {
                   <span>WebStray</span>
                 </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Separator orientation="vertical" className="mx-1 h-5" />
-              </NavigationMenuItem>
+              <Separator orientation="vertical" className="mx-1 h-5 !self-center" />
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <NavigationMenuLink
@@ -57,13 +55,13 @@ export const Header = () => {
           </NavigationMenu>
         </div>
 
-        <div className="flex h-5 items-center gap-2">
-          <div className="flex hidden h-5 items-center gap-2 lg:flex">
+        <div className="flex items-center gap-2">
+          <div className="flex hidden items-center gap-2 lg:flex">
             <CommandPalette />
-            <Separator orientation="vertical" className="ml-2" />
+            <Separator orientation="vertical" className="ml-2 h-5 !self-center" />
           </div>
           <ThemeToggle />
-          <Separator orientation="vertical" className="mr-2" />
+          <Separator orientation="vertical" className="mr-2 h-5 !self-center" />
           <Button asChild className="gap-1">
             <a href={GITHUB_BASE} target="_blank" rel="noreferrer">
               Open on GitHub

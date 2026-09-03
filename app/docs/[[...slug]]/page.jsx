@@ -62,7 +62,7 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
+const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
   return (
     <div className="flex items-start gap-1.5">
       <CopyPageButton doc={currentDoc} />

@@ -38,7 +38,7 @@ const TABS_CONFIG = {
     {
       id: 'customTitle',
       label: 'Custom Title',
-      placeholder: 'Other Repository',
+      placeholder: 'My Awesome Project',
       description: 'Custom repository title.',
       type: 'input',
     },

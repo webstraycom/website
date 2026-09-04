@@ -3,7 +3,7 @@
 import { useActiveItem } from '@/components/mdx/hooks/use-active-item';
 import { cn } from '@/lib/utils';
 
-export function TableOfContents({ toc }) {
+export const TableOfContents = ({ toc }) => {
   const itemIds = toc.flatMap((item) => [
     item.url.replace('#', ''),
     ...(item.items?.map((sub) => sub.url.replace('#', '')) || []),
@@ -47,4 +47,4 @@ export function TableOfContents({ toc }) {
       ))}
     </ul>
   );
-}
+};

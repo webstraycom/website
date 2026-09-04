@@ -34,7 +34,7 @@ const INITIAL_STATE = {
   renderedUrl: '/starlight-placeholder.png',
 };
 
-export function StarlightPlaygroundDialog() {
+export const StarlightPlaygroundDialog = () => {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState(INITIAL_STATE);
 
@@ -159,4 +159,4 @@ export function StarlightPlaygroundDialog() {
       </DrawerContent>
     </Drawer>
   );
-}
+};

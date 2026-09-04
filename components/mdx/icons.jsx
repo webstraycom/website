@@ -208,7 +208,7 @@ export const Icons = {
   ),
 };
 
-export function getIconForLanguageExtension(language) {
+export const getIconForLanguageExtension = (language) => {
   switch (language) {
     case 'json':
       return <Icons.json />;
@@ -225,4 +225,4 @@ export function getIconForLanguageExtension(language) {
     default:
       return <FileIcon />;
   }
-}
+};

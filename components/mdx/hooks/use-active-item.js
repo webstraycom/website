@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function useActiveItem(itemIds) {
+export const useActiveItem = (itemIds) => {
   const [activeId, setActiveId] = useState(null);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ export function useActiveItem(itemIds) {
   }, [itemIds]);
 
   return activeId;
-}
+};

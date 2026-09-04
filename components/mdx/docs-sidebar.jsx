@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 const scrollPositions = {};
 
-export function DocsSidebar({ folder }) {
+export const DocsSidebar = ({ folder }) => {
   const pathname = usePathname();
   const scrollRef = useRef(null);
   const sidebar = docsConfig[folder] || [];
@@ -62,4 +62,4 @@ export function DocsSidebar({ folder }) {
       ))}
     </nav>
   );
-}
+};

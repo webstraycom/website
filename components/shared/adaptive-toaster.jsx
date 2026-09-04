@@ -3,7 +3,7 @@
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { Toaster } from '@/components/ui/sonner';
 
-export function AdaptiveToaster() {
+export const AdaptiveToaster = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)', {
     initializeWithValue: false,
   });
@@ -17,4 +17,4 @@ export function AdaptiveToaster() {
       }}
     />
   );
-}
+};

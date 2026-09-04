@@ -8,7 +8,7 @@ import {
   CommandList,
 } from '@/components/ui/custom-command';
 
-export function CommandPalettePreview() {
+export const CommandPalettePreview = () => {
   return (
     <Command className="w-full gap-2 rounded-lg border p-3">
       <CommandInput className="h-6 text-xs" placeholder="Type a command or search..." />
@@ -31,4 +31,4 @@ export function CommandPalettePreview() {
       </CommandList>
     </Command>
   );
-}
+};

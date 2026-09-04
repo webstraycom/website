@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 
-export function ThemeToggle() {
+export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -27,4 +27,4 @@ export function ThemeToggle() {
       </TooltipContent>
     </Tooltip>
   );
-}
+};

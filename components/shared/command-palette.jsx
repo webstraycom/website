@@ -14,7 +14,6 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { Kbd } from '@/components/ui/kbd';
 import { cn } from '@/lib/utils';
 
@@ -34,17 +33,18 @@ const SearchItem = memo(
     const GroupIcon = GROUP_CONFIG[groupKey].icon;
 
     return (
-      <Item size="xs" className="p-0">
-        <ItemMedia className="bg-muted size-8 rounded-lg border" variant="icon">
+      <div className="flex min-w-0 items-center gap-2 p-px">
+        <div
+          aria-hidden="true"
+          className="bg-muted flex size-8 border shrink-0 items-center justify-center rounded-lg"
+        >
           <GroupIcon />
-        </ItemMedia>
-        <ItemContent className="min-w-0">
-          <ItemTitle className="truncate text-sm font-medium">{page.title}</ItemTitle>
-          <ItemDescription className="text-muted-foreground truncate text-xs">
-            {page.description}
-          </ItemDescription>
-        </ItemContent>
-      </Item>
+        </div>
+        <div className="flex flex-col min-w-0 gap-1.5">
+          <span className="leading-none font-medium">{page.title}</span>
+          <span className="text-muted-foreground w-full truncate text-xs/none">{page.description}</span>
+        </div>
+      </div>
     );
   },
   (prevProps, nextProps) => {

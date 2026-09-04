@@ -1,5 +1,6 @@
 import { FrownIcon } from 'lucide-react';
-
+import { CustomLink } from '@/components/shared/custom-link';
+import { NotFoundSearch } from '@/components/shared/not-found-search';
 import {
   Empty,
   EmptyContent,
@@ -8,8 +9,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
-import { CustomLink } from '@/components/shared/custom-link';
-import { NotFoundSearch } from '@/components/shared/not-found-search';
 
 export default function NotFoundPage() {
   return (

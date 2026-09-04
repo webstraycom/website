@@ -9,13 +9,13 @@ import {
   PencilRulerIcon,
   UserRoundKeyIcon,
 } from 'lucide-react';
+import { CommandPalettePreview } from '@/components/features/authenticator/command-palette-preview';
+import { NotificationStackPreview } from '@/components/features/authenticator/notification-stack-preview';
+import { TotpPreview } from '@/components/features/authenticator/totp-preview';
 import { DotPattern } from '@/components/ui/dot-pattern';
 import { GridPattern } from '@/components/ui/grid-pattern';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { Ripple } from '@/components/ui/ripple';
-import { TotpPreview } from '@/components/features/authenticator/totp-preview';
-import { NotificationStackPreview } from '@/components/features/authenticator/notification-stack-preview';
-import { CommandPalettePreview } from '@/components/features/authenticator/command-palette-preview';
 import { cn } from '@/lib/utils';
 
 const BentoCard = ({

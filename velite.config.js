@@ -1,8 +1,8 @@
-import { defineConfig, s } from 'velite';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
-import { rehypePreMetadata } from '@/lib/rehype-pre-metadata.mjs';
+import { defineConfig, s } from 'velite';
 import { REPOSITORIES } from '@/config/github';
+import { rehypePreMetadata } from '@/lib/rehype-pre-metadata.mjs';
 import { buildSearchIndex } from '@/scripts/build-search-index.mjs';
 
 export default defineConfig({

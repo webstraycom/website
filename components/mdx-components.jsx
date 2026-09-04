@@ -1,10 +1,10 @@
 'use client';
 
-import * as runtime from 'react/jsx-runtime';
 import { useEffect, useRef, useState } from 'react';
+import * as runtime from 'react/jsx-runtime';
 import { Check, Copy } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { getIconForLanguageExtension } from '@/components/mdx/icons';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const getMDXComponent = (code) => {

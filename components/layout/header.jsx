@@ -1,5 +1,10 @@
-import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { CommandPalette } from '@/components/shared/command-palette';
+import { Logo } from '@/components/shared/logo';
+import { MobileSheet } from '@/components/shared/mobile-sheet';
+import { ThemeToggle } from '@/components/shared/theme-toggle';
+import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,14 +12,9 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { Button } from '@/components/ui/button';
-import { Logo } from '@/components/shared/logo';
 import { Separator } from '@/components/ui/separator';
-import { ThemeToggle } from '@/components/shared/theme-toggle';
-import { MobileSheet } from '@/components/shared/mobile-sheet';
-import { CommandPalette } from '@/components/shared/command-palette';
-import { cn } from '@/lib/utils';
 import { GITHUB_BASE } from '@/config/github';
+import { cn } from '@/lib/utils';
 
 export const Header = () => {
   const navItems = [

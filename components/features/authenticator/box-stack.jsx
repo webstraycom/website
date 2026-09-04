@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import { motion } from 'motion/react';
+import React, { useCallback, useState } from 'react';
 import { CircleCheckIcon, LoaderIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const ITEMS = [
   {

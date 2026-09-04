@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CircleCheckIcon, LoaderIcon } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
 const ITEMS = [

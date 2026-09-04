@@ -1,17 +1,17 @@
 'use client';
 
-import { useState, useEffect, useMemo, memo } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { BookOpenText, GlobeIcon, SearchIcon } from 'lucide-react';
 import {
   Autocomplete,
+  AutocompleteCollection,
   AutocompleteContent,
   AutocompleteEmpty,
+  AutocompleteGroup,
   AutocompleteInput,
   AutocompleteItem,
-  AutocompleteGroup,
   AutocompleteLabel,
-  AutocompleteCollection,
   AutocompleteList,
 } from '@/components/ui/custom-autocomplete';
 import { InputGroupAddon } from '@/components/ui/input-group';

@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { docsConfig } from '@/config/docs';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { docsConfig } from '@/config/docs';
 import { cn } from '@/lib/utils';
 
 const scrollPositions = {};

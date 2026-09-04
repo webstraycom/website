@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { AdaptiveToaster as Toaster } from '@/components/shared/adaptive-toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { AdaptiveToaster as Toaster } from '@/components/shared/adaptive-toaster';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

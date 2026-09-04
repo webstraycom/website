@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useMemo } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 const INITIAL_FORM = {
   username: '',

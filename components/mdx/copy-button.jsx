@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Check, ChevronDown, Copy } from 'lucide-react';
+import { Icons } from '@/components/mdx/icons';
+import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,9 +13,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ButtonGroup } from '@/components/ui/button-group';
-import { Button } from '@/components/ui/button';
-import { Icons } from '@/components/mdx/icons';
 
 export const CopyPageButton = ({ doc }) => {
   const timeoutRef = useRef(null);

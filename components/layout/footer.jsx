@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
 import { CustomLink } from '@/components/shared/custom-link';
 import { GITHUB_BASE, REPOSITORIES } from '@/config/github';
+import { cn } from '@/lib/utils';
 
 export const Footer = ({ className }) => {
   return (

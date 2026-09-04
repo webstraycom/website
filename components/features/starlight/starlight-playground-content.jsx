@@ -1,10 +1,8 @@
 'use client';
 
 import { CopyIcon, SquareMIcon } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import { CopyButton } from '@/components/features/starlight/copy-button';
+import { GeneratedImagePreview } from '@/components/features/starlight/generated-image-preview';
 import {
   Field,
   FieldContent,
@@ -12,9 +10,11 @@ import {
   FieldLabel,
   FieldTitle,
 } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { GeneratedImagePreview } from '@/components/features/starlight/generated-image-preview';
-import { CopyButton } from '@/components/features/starlight/copy-button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
 const TABS_CONFIG = {

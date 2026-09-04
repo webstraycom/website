@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { toast } from 'sonner';
 import { Loader } from 'lucide-react';
+import { toast } from 'sonner';
+import { usePlaygroundForm } from '@/components/features/starlight/hooks/use-playground-form';
+import { StarlightPlaygroundContent } from '@/components/features/starlight/starlight-playground-content';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,8 +25,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { StarlightPlaygroundContent } from '@/components/features/starlight/starlight-playground-content';
-import { usePlaygroundForm } from '@/components/features/starlight/hooks/use-playground-form';
 import { useMediaQuery } from '@/hooks/use-media-query';
 
 const INITIAL_STATE = {

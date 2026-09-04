@@ -1,7 +1,7 @@
 'use client';
 
-import { useMediaQuery } from '@/hooks/use-media-query';
 import { Toaster } from '@/components/ui/sonner';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 export const AdaptiveToaster = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)', {

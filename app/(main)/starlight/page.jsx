@@ -1,6 +1,6 @@
+import { StarlightPlaygroundDialog } from '@/components/features/starlight/starlight-playground-dialog';
 import { Hero } from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
-import { StarlightPlaygroundDialog } from '@/components/features/starlight/starlight-playground-dialog';
 import { REPOSITORIES } from '@/config/github';
 
 const title = 'WebStray Starlight';

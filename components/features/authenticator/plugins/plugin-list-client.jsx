@@ -2,6 +2,9 @@
 
 import { Fragment, useMemo, useState } from 'react';
 import { BadgeCheckIcon, PackageIcon, SearchIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import {
   Item,
   ItemActions,
@@ -10,9 +13,6 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { REPOSITORIES } from '@/config/github';
 

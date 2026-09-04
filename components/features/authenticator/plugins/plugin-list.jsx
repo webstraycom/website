@@ -1,4 +1,5 @@
 import { CircleAlertIcon } from 'lucide-react';
+import { PluginListClient } from '@/components/features/authenticator/plugins/plugin-list-client';
 import {
   Empty,
   EmptyDescription,
@@ -6,7 +7,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
-import { PluginListClient } from '@/components/features/authenticator/plugins/plugin-list-client';
 import { REPOSITORIES } from '@/config/github';
 
 const getPlugins = async () => {

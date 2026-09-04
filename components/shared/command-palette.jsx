@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback, memo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BookOpenText, GlobeIcon, SearchIcon, CornerDownLeft } from 'lucide-react';
+import { BookOpenText, CornerDownLeft, GlobeIcon, SearchIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Command,
@@ -36,13 +36,15 @@ const SearchItem = memo(
       <div className="flex min-w-0 items-center gap-2 p-px">
         <div
           aria-hidden="true"
-          className="bg-muted flex size-8 border shrink-0 items-center justify-center rounded-lg"
+          className="bg-muted flex size-8 shrink-0 items-center justify-center rounded-lg border"
         >
           <GroupIcon />
         </div>
-        <div className="flex flex-col min-w-0 gap-1.5">
+        <div className="flex min-w-0 flex-col gap-1.5">
           <span className="leading-none font-medium">{page.title}</span>
-          <span className="text-muted-foreground w-full truncate text-xs/none">{page.description}</span>
+          <span className="text-muted-foreground w-full truncate text-xs/none">
+            {page.description}
+          </span>
         </div>
       </div>
     );

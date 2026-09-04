@@ -1,7 +1,7 @@
 import { ArrowDownIcon } from 'lucide-react';
+import { AuthenticatorBentoGrid } from '@/components/features/authenticator/authenticator-bento-grid';
 import { Hero } from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
-import { AuthenticatorBentoGrid } from '@/components/features/authenticator/authenticator-bento-grid';
 import { REPOSITORIES } from '@/config/github';
 
 const title = 'WebStray Authenticator';

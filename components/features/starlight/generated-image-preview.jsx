@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { FullscreenIcon, Loader } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 export const GeneratedImagePreview = ({ url, isRendering, onLoad }) => (

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Fragment } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { Fragment, useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 
 const VALUES = ['814602', '987654', '024852'];
 

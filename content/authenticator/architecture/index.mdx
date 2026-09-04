@@ -3,6 +3,11 @@ title: Architecture
 description: System design, threat model, and security rationale.
 ---
 
+<Callout>
+  **Note**: This documentation was written for WebStray Authenticator v1.6.4. Some features,
+  behavior, and interfaces may differ in the current version.
+</Callout>
+
 ## Overview
 
 WebStray Authenticator is a secure, hardware-bound desktop password manager where data confidentiality and integrity are enforced through authenticated encryption. The architecture is designed to ensure that the security of the vault does not depend on the privacy of the filesystem, but on robust cryptographic primitives.

@@ -3,6 +3,11 @@ title: Plugin Security
 description: Trust model, data handling rules, and UI/UX boundaries.
 ---
 
+<Callout>
+  **Note**: This documentation was written for WebStray Authenticator v1.6.4. Some features,
+  behavior, and interfaces may differ in the current version.
+</Callout>
+
 ## Overview
 
 Plugins in WebStray Authenticator run with the same privileges as the core application. This includes access to Node.js APIs and the application's database. Enabling a plugin is a **trust-based decision** made by the user, and as a developer, you are responsible for maintaining the integrity of the vault.

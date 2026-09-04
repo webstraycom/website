@@ -3,6 +3,11 @@ title: Import & Export
 description: JSON exports, password-protected record payloads, and data portability.
 ---
 
+<Callout>
+  **Note**: This documentation was written for WebStray Authenticator v1.6.4. Some features,
+  behavior, and interfaces may differ in the current version.
+</Callout>
+
 ## Overview
 
 WebStray Authenticator allows you to create portable **JSON backups** of your vault records. The saved file is normal JSON: layout and most metadata are visible, while **sensitive `value` fields** are re-encrypted under a key derived from a dedicated **Export Password** (independent of your Master Password), so secrets stay protected during transport or storage.

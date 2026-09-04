@@ -3,6 +3,11 @@ title: State Layer
 description: Zustand stores and their functional roles.
 ---
 
+<Callout>
+  **Note**: This documentation was written for WebStray Authenticator v1.6.4. Some features,
+  behavior, and interfaces may differ in the current version.
+</Callout>
+
 ## Overview
 
 WebStray Authenticator manages application state using **Zustand** stores located in `src/store/`. Each store is responsible for a specific domain: authentication, UI state, settings, etc. While **NeDB** handles long-term persistence, the state layer manages in-memory data and the application's runtime logic.

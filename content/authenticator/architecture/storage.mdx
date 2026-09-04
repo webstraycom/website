@@ -3,6 +3,11 @@ title: Storage
 description: Persistence layer, database engine, and document schema.
 ---
 
+<Callout>
+  **Note**: This documentation was written for WebStray Authenticator v1.6.4. Some features,
+  behavior, and interfaces may differ in the current version.
+</Callout>
+
 ## Overview
 
 WebStray Authenticator uses a **single NeDB database file** (`vault.db`) for all persistent data. The storage is document-oriented, where each record is a JSON object distinguished by a `type` field.

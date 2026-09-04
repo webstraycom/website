@@ -3,6 +3,11 @@ title: App Lifecycle
 description: App.jsx orchestration, authentication states, and screen rendering.
 ---
 
+<Callout>
+  **Note**: This documentation was written for WebStray Authenticator v1.6.4. Some features,
+  behavior, and interfaces may differ in the current version.
+</Callout>
+
 ## Overview
 
 The root `App.jsx` component serves as the application's orchestrator. It manages the high-level lifecycle by coordinating **Zustand stores** (settings, auth, UI state) and embedding the **Plugin System** UI layer via `PluginProvider`.

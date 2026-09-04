@@ -3,6 +3,11 @@ title: Plugin System
 description: Discovery, SDK, slots, and teardown logic.
 ---
 
+<Callout>
+  **Note**: This documentation was written for WebStray Authenticator v1.6.4. Some features,
+  behavior, and interfaces may differ in the current version.
+</Callout>
+
 ## Overview
 
 WebStray Authenticator features a dynamic plugin system that allows for local extensibility. Plugins are discovered on the filesystem and are initialized only if their identifiers are present in the database's `enabled` array.

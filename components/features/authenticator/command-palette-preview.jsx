@@ -1,34 +1,29 @@
-import { ArrowRight } from 'lucide-react';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/custom-command';
+import { ArrowRight, SearchIcon } from 'lucide-react';
 
 export const CommandPalettePreview = () => {
   return (
-    <Command className="w-full gap-2 rounded-lg border p-3">
-      <CommandInput className="h-6 text-xs" placeholder="Type a command or search..." />
-      <CommandList>
-        <CommandEmpty className="text-muted-foreground text-xs">No results found.</CommandEmpty>
-        <CommandGroup className="flex flex-col gap-2" heading="Passwords">
-          <CommandItem>
+    <div className="bg-popover flex min-h-48 flex-col gap-2 rounded-xl border p-3">
+      <div className="bg-input/30 border-input/30 text-muted-foreground flex h-7 items-center gap-2 rounded-md border pl-2 text-xs">
+        <SearchIcon className="size-3" />
+        Search commands and secrets...
+      </div>
+      <div className="flex flex-col gap-2">
+        <span className="text-muted-foreground pl-2 text-xs">Commands</span>
+        <ul className="flex flex-col gap-0.75">
+          <li className="bg-muted/50 flex h-7 items-center gap-2 rounded-md px-2 text-xs">
             <ArrowRight className="size-3" />
             <span>Add password</span>
-          </CommandItem>
-          <CommandItem>
+          </li>
+          <li className="text-muted-foreground flex h-7 items-center gap-2 px-2 text-xs">
             <ArrowRight className="size-3" />
             <span>Import passwords</span>
-          </CommandItem>
-          <CommandItem>
+          </li>
+          <li className="text-muted-foreground flex h-7 items-center gap-2 px-2 text-xs">
             <ArrowRight className="size-3" />
             <span>Export passwords</span>
-          </CommandItem>
-        </CommandGroup>
-      </CommandList>
-    </Command>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };

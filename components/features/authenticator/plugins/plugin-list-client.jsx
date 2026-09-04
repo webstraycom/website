@@ -45,7 +45,7 @@ const PluginItem = ({ plugin }) => (
         <a
           href={`${REPOSITORIES.PLUGIN_REGISTRY.PLUGIN_BASE_URL}/${plugin.id}`}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noreferrer"
         >
           Open
         </a>

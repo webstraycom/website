@@ -43,10 +43,10 @@ export const generateMetadata = async ({ params }) => {
 
   return {
     title: `${title} - WebStray Documentation`,
-    description: description,
+    description,
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       images: [
         {
           url: `/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`,

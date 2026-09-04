@@ -44,7 +44,7 @@ export const CopyPageButton = ({ doc }) => {
     window.open(url, '_blank');
   };
 
-  const openUrl = (url) => window.open(url, '_blank', 'noopener,noreferrer');
+  const openUrl = (url) => window.open(url, '_blank', 'noreferrer');
 
   return (
     <ButtonGroup className="hidden md:flex">
@@ -53,7 +53,7 @@ export const CopyPageButton = ({ doc }) => {
         Copy Page
       </Button>
       <div className="bg-secondary border-background flex h-7 w-px items-center border-y">
-        <div className="bg-primary/10 h-4 w-px"></div>
+        <div className="bg-primary/10 h-4 w-px" />
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

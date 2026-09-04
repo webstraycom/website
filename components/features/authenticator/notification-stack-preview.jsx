@@ -24,8 +24,8 @@ export const NotificationStackPreview = () => {
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(nextItem, 7500);
-    return () => clearInterval(timer);
+    const timer = setTimeout(nextItem, 7500);
+    return () => clearTimeout(timer);
   }, [nextItem, items]);
 
   return (
@@ -65,7 +65,12 @@ export const NotificationStackPreview = () => {
               )}
               aria-hidden={index !== 0}
             >
-              <div className={cn(`flex w-full items-center gap-2 pl-3`, index === 3 && 'hidden')}>
+              <div
+                className={cn(
+                  'flex w-full items-center gap-2 pl-3',
+                  index === items.length - 1 && 'hidden',
+                )}
+              >
                 {item.icon}
                 <span className="text-sm font-medium">{item.text}</span>
               </div>

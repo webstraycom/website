@@ -9,10 +9,10 @@ const description =
 
 export const generateMetadata = () => {
   return {
-    title: title,
+    title,
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       images: [
         `/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`,
       ],
@@ -29,7 +29,7 @@ export default function StarlightPage() {
           link: '/docs/starlight',
         }}
         title={title}
-        description="Starlight is a web service designed to generate dynamic preview images for GitHub repositories."
+        description={description}
       >
         <div className="flex gap-2">
           <StarlightPlaygroundDialog />

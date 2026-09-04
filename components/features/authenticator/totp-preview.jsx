@@ -10,10 +10,10 @@ export const TotpPreview = ({ initialIndex = 0 }) => {
   const currentToken = VALUES[index];
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % VALUES.length);
     }, 5000);
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -39,7 +39,7 @@ export const TotpPreview = ({ initialIndex = 0 }) => {
               </motion.span>
             </AnimatePresence>
           </span>
-          {charIndex === 2 && <div />}
+          {charIndex === 2 && <span />}
         </Fragment>
       ))}
     </div>

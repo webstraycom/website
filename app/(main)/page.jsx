@@ -3,14 +3,15 @@ import { Button } from '@/components/ui/button';
 import { GITHUB_BASE } from '@/config/github';
 
 const title = 'WebStray Open Source';
-const description = `At WebStray, we focus on creating open source technologies. We develop primarily web and cloud technologies, but we're not limited to them. All our products are open source.`;
+const description =
+  "At WebStray, we focus on creating open source technologies. We develop primarily web and cloud technologies, but we're not limited to them. All our products are open source.";
 
 export const generateMetadata = () => {
   return {
-    title: title,
+    title,
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       images: [
         `/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`,
       ],

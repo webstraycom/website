@@ -11,10 +11,10 @@ const description =
 
 export const generateMetadata = () => {
   return {
-    title: title,
+    title,
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       images: [
         `/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`,
       ],

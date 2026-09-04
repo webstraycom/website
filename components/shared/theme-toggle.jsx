@@ -22,9 +22,7 @@ export const ThemeToggle = () => {
           <Moon className="hidden dark:block" />
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="z-200">
-        <p>Toggle Theme</p>
-      </TooltipContent>
+      <TooltipContent>Toggle theme</TooltipContent>
     </Tooltip>
   );
 };

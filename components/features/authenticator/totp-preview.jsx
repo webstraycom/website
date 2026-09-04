@@ -17,7 +17,7 @@ export const TotpPreview = ({ initialIndex = 0 }) => {
   }, []);
 
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-1.5" aria-hidden="true">
       {currentToken.split('').map((char, charIndex) => (
         <Fragment key={charIndex}>
           <span className="bg-accent relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-md">

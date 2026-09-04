@@ -48,10 +48,14 @@ export const DocsSidebar = ({ folder }) => {
                       'group text-primary hover:bg-muted flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[0.8rem] leading-4',
                       isActive ? 'bg-muted' : '',
                     )}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     {item.title}
                     {item.marked && (
-                      <span className="flex size-1.5 rounded-full bg-blue-500" title="New"></span>
+                      <span
+                        className="flex size-1.5 rounded-full bg-blue-500"
+                        aria-hidden="true"
+                      ></span>
                     )}
                   </Link>
                 </li>

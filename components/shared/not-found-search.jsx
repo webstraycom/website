@@ -95,7 +95,11 @@ export const NotFoundSearch = () => {
       value={query}
       onValueChange={(nextValue) => setQuery(nextValue)}
     >
-      <AutocompleteInput id="search-input" placeholder="Try searching for pages...">
+      <AutocompleteInput
+        id="search-input"
+        placeholder="Try searching for pages..."
+        aria-label="Search pages"
+      >
         <InputGroupAddon>
           <SearchIcon />
         </InputGroupAddon>

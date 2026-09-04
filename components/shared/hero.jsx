@@ -8,7 +8,7 @@ export const Hero = ({ announcement = {}, title, description, children }) => {
       {announcement.text && announcement.link && (
         <Badge asChild variant="secondary" className="cursor-pointer border-none outline-none">
           <Link href={announcement.link}>
-            <span className="bg-foreground flex size-1.5 rounded-full" title="New"></span>
+            <span className="bg-foreground flex size-1.5 rounded-full" aria-hidden="true"></span>
             {announcement.text}
             <ArrowRight />
           </Link>

@@ -151,7 +151,7 @@ export const CommandPalette = () => {
               );
             })}
           </CommandList>
-          <CommandFooter className="px-4 py-3">
+          <CommandFooter className="px-4 py-3" aria-hidden="true">
             <div className="text-muted-foreground flex w-full min-w-0 items-center gap-2 text-xs">
               <Kbd className="bg-background border dark:border-none">
                 <CornerDownLeft />

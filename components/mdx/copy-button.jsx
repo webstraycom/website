@@ -57,7 +57,7 @@ export const CopyPageButton = ({ doc }) => {
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="icon-sm" variant="secondary">
+          <Button size="icon-sm" variant="secondary" aria-label="More options">
             <ChevronDown />
           </Button>
         </DropdownMenuTrigger>

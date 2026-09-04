@@ -30,7 +30,12 @@ export const NotificationStackPreview = () => {
 
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="relative h-12 w-52 cursor-pointer select-none" onClick={nextItem}>
+      <button
+        type="button"
+        onClick={nextItem}
+        className="relative h-12 w-52 cursor-pointer select-none focus-visible:outline-none"
+        aria-label="Show next notification"
+      >
         <AnimatePresence mode="popLayout" initial={false}>
           {items.map((item, index) => (
             <motion.div
@@ -55,7 +60,10 @@ export const NotificationStackPreview = () => {
                 damping: 20,
                 mass: 1.2,
               }}
-              className="bg-background absolute inset-0 flex items-center justify-center rounded-lg border text-neutral-600 shadow-xs outline-none backface-hidden dark:bg-neutral-900 dark:text-neutral-300 dark:shadow-none"
+              className={cn(
+                'bg-background absolute inset-0 flex items-center justify-center rounded-lg border text-neutral-600 shadow-xs outline-none backface-hidden dark:bg-neutral-900 dark:text-neutral-300 dark:shadow-none',
+              )}
+              aria-hidden={index !== 0}
             >
               <div className={cn(`flex w-full items-center gap-2 pl-3`, index === 3 && 'hidden')}>
                 {item.icon}
@@ -64,7 +72,7 @@ export const NotificationStackPreview = () => {
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
+      </button>
     </div>
   );
 };

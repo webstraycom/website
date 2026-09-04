@@ -26,7 +26,9 @@ const PluginItem = ({ plugin }) => (
         {plugin.title}
         <HoverCard openDelay={10} closeDelay={100}>
           <HoverCardTrigger asChild>
-            <BadgeCheckIcon className="fill-foreground stroke-background size-4" />
+            <span className="inline-flex" aria-label="Official Plugin">
+              <BadgeCheckIcon className="fill-foreground stroke-background size-4" />
+            </span>
           </HoverCardTrigger>
           <HoverCardContent side="top" className="flex max-w-44 flex-col gap-0.5">
             <span className="text-xs font-medium">Official Plugin</span>
@@ -75,9 +77,12 @@ export const PluginListClient = ({ initialPlugins }) => {
           placeholder="Search plugins..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          aria-label="Search plugins"
         />
         <InputGroupAddon align="inline-end">
-          {filteredPlugins.length} {filteredPlugins.length === 1 ? 'plugin' : 'plugins'}
+          <span aria-live="polite">
+            {filteredPlugins.length} {filteredPlugins.length === 1 ? 'plugin' : 'plugins'}
+          </span>
         </InputGroupAddon>
       </InputGroup>
 

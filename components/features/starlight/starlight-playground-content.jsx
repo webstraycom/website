@@ -86,9 +86,9 @@ export const StarlightPlaygroundContent = ({
 
   const { formData, isValid, finalUrl, copiedField, handleCopy, handleUpdate } = form;
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !isRendering && isValid) {
-      e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isRendering && isValid) {
       onRender();
     }
   };
@@ -140,13 +140,17 @@ export const StarlightPlaygroundContent = ({
   };
 
   return (
-    <div onKeyDown={handleKeyDown} className={cn('flex flex-col gap-3', drawerMode && 'px-4')}>
+    <form
+      id="starlight-playground-form"
+      onSubmit={handleSubmit}
+      className={cn('flex flex-col gap-3', drawerMode && 'px-4')}
+    >
       <Tabs value={activeTab} onValueChange={onTabChange} className="gap-4">
         <TabsList variant="line" className="w-full px-0">
           {['source', 'layout', 'theme', 'details', 'preview'].map((tab) => (
             <TabsTrigger key={tab} value={tab} className="relative capitalize">
               {tab === 'preview' && imageGenerated && (
-                <span className="size-1.5 rounded-full bg-blue-500" />
+                <span className="size-1.5 rounded-full bg-blue-500" aria-hidden="true" />
               )}
               {tab}
             </TabsTrigger>
@@ -175,25 +179,28 @@ export const StarlightPlaygroundContent = ({
               value={finalUrl}
               readOnly
               className="text-muted-foreground text-sm select-all"
+              aria-describedby="api-url-description"
             />
             <InputGroupAddon align="inline-end" className="gap-1">
               <CopyButton
                 active={copiedField === 'url'}
                 onCopy={() => handleCopy(finalUrl, 'url')}
                 icon={<CopyIcon />}
-                tooltip="Copy URL"
+                hint="Copy URL"
               />
               <CopyButton
                 active={copiedField === 'md'}
                 onCopy={() => handleCopy(`![Repository Preview](${finalUrl})`, 'md')}
                 icon={<SquareMIcon />}
-                tooltip="Copy Markdown"
+                hint="Copy Markdown"
               />
             </InputGroupAddon>
           </InputGroup>
-          <p className="text-muted-foreground">Link to generated image.</p>
+          <p id="api-url-description" className="text-muted-foreground">
+            Link to generated image.
+          </p>
         </div>
       </Tabs>
-    </div>
+    </form>
   );
 };

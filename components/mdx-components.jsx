@@ -66,6 +66,7 @@ const Pre = ({ className, children, ...props }) => {
           '[[data-rehype-pretty-code-figure]:not(:has(figcaption))_&]:top-1/2 [[data-rehype-pretty-code-figure]:not(:has(figcaption))_&]:-translate-y-1/2',
           '[[data-rehype-pretty-code-figure]:not(:has(figcaption)):has([data-line]+[data-line])_&]:top-2 [[data-rehype-pretty-code-figure]:not(:has(figcaption)):has([data-line]+[data-line])_&]:translate-y-0',
         )}
+        aria-label="Copy code"
       >
         {isCopied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
       </Button>
@@ -97,7 +98,12 @@ const Figure = ({ className, children, ...props }) => {
               isExpanded && 'h-fit pt-2.5 pb-6',
             )}
           >
-            <Button variant="secondary" size="sm" onClick={() => setIsExpanded((prev) => !prev)}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => setIsExpanded((prev) => !prev)}
+              aria-expanded={isExpanded}
+            >
               {isExpanded ? 'Collapse' : 'Expand'}
             </Button>
           </div>

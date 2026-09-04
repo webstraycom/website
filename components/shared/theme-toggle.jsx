@@ -16,10 +16,10 @@ export const ThemeToggle = () => {
           variant="ghost"
           size="icon"
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          aria-label="Toggle theme"
         >
           <Sun className="dark:hidden" />
           <Moon className="hidden dark:block" />
-          <span className="sr-only">Toggle Theme</span>
         </Button>
       </TooltipTrigger>
       <TooltipContent className="z-200">

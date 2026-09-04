@@ -21,7 +21,7 @@ export const MobileSheet = () => {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" aria-label="Open navigation menu">
           <Menu />
         </Button>
       </SheetTrigger>
@@ -37,8 +37,8 @@ export const MobileSheet = () => {
             WebStray is a digital company developing open-source software.
           </SheetDescription>
         </SheetHeader>
-        <div className="flex flex-col gap-2 px-4">
-          <span className="text-foreground font-medium">Products</span>
+        <nav aria-label="Products" className="flex flex-col gap-2 px-4">
+          <h2 className="text-foreground font-medium">Products</h2>
           <CustomLink href="/authenticator" onClick={() => setIsOpen(false)}>
             Authenticator
           </CustomLink>
@@ -51,7 +51,7 @@ export const MobileSheet = () => {
           <CustomLink href="/docs" onClick={() => setIsOpen(false)}>
             Docs
           </CustomLink>
-        </div>
+        </nav>
       </SheetContent>
     </Sheet>
   );

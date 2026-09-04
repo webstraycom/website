@@ -67,14 +67,26 @@ const PageButtons = ({ currentDoc, prevDoc, nextDoc }) => {
     <div className="flex items-start gap-1.5">
       <CopyPageButton doc={currentDoc} />
       {prevDoc && (
-        <Button asChild variant="secondary" size="icon-sm" className="size-8 md:size-7">
+        <Button
+          asChild
+          variant="secondary"
+          size="icon-sm"
+          className="size-8 md:size-7"
+          aria-label={`Previous: ${prevDoc.title}`}
+        >
           <Link href={prevDoc.href}>
             <ArrowLeft />
           </Link>
         </Button>
       )}
       {nextDoc && (
-        <Button asChild variant="secondary" size="icon-sm" className="size-8 md:size-7">
+        <Button
+          asChild
+          variant="secondary"
+          size="icon-sm"
+          className="size-8 md:size-7"
+          aria-label={`Next: ${nextDoc.title}`}
+        >
           <Link href={nextDoc.href}>
             <ArrowRight />
           </Link>

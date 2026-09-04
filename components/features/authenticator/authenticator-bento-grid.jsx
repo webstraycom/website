@@ -36,10 +36,10 @@ const BentoCard = ({
   >
     <div className={cn('flex flex-col justify-between p-4', headerClassName)}>
       <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-1.5 text-base font-medium">
+        <h3 className="flex items-center gap-1.5 text-base font-medium">
           <Icon className="size-4" />
           {title}
-        </div>
+        </h3>
         <p className="text-muted-foreground text-sm">{description}</p>
       </div>
       <div className="text-muted-foreground hidden text-sm md:block">{footer}</div>
@@ -55,19 +55,22 @@ const BentoCard = ({
 const MetricsRow = ({ label, value, className }) => (
   <div
     className={cn(
-      'bg-background text-muted-foreground z-2 flex w-50 items-center justify-between rounded-lg border px-2 py-1 dark:bg-neutral-900',
+      'bg-background text-muted-foreground flex w-50 items-center justify-between rounded-lg border px-2 py-1 dark:bg-neutral-900',
       className,
     )}
   >
-    <p>{label}</p>
-    <div className="flex items-baseline gap-1 font-mono">
-      <NumberTicker
-        value={value}
-        decimalPlaces={2}
-        className="!text-muted-foreground font-mono tracking-tighter whitespace-pre-wrap"
-      />
-      <span>ms</span>
-    </div>
+    <dt>{label}</dt>
+    <dd className="font-mono">
+      <span className="sr-only">{value} milliseconds</span>
+      <span aria-hidden="true" className="flex items-baseline gap-1">
+        <NumberTicker
+          value={value}
+          decimalPlaces={2}
+          className="!text-muted-foreground font-mono tracking-tighter whitespace-pre-wrap"
+        />
+        <span>ms</span>
+      </span>
+    </dd>
   </div>
 );
 
@@ -83,20 +86,20 @@ export const AuthenticatorBentoGrid = () => {
           </>
         }
         footer={
-          <div className="flex flex-col gap-2 text-xs">
-            <div className="flex items-center gap-1">
+          <ul className="flex flex-col gap-2 text-xs">
+            <li className="flex items-center gap-1">
               <CheckIcon className="size-3" />
               Hardware-Bound Security
-            </div>
-            <div className="flex items-center gap-1">
+            </li>
+            <li className="flex items-center gap-1">
               <CheckIcon className="size-3" />
               Local-Only Encryption
-            </div>
-            <div className="flex items-center gap-1">
+            </li>
+            <li className="flex items-center gap-1">
               <CheckIcon className="size-3" />
               No Cloud Syncing
-            </div>
-          </div>
+            </li>
+          </ul>
         }
         icon={UserRoundKeyIcon}
         className="flex-row md:col-span-2"
@@ -174,7 +177,7 @@ export const AuthenticatorBentoGrid = () => {
         }
         icon={DatabaseIcon}
         className="md:col-span-1"
-        contentClassName="flex-col gap-4"
+        contentClassName="flex-col"
       >
         <GridPattern
           width={24}
@@ -183,9 +186,11 @@ export const AuthenticatorBentoGrid = () => {
             'top-1 [mask-image:radial-gradient(200px_circle_at_center,rgba(255,255,255,0.1),transparent)]',
           )}
         />
-        <MetricsRow label="Importing Data" value={264.84} className="mr-5" />
-        <MetricsRow label="Exporting Data" value={426.18} className="ml-5" />
-        <MetricsRow label="Fetching Data" value={140.48} className="mr-5" />
+        <dl className="flex flex-col gap-4">
+          <MetricsRow label="Importing Data" value={264.84} className="mr-5" />
+          <MetricsRow label="Exporting Data" value={426.18} className="ml-5" />
+          <MetricsRow label="Fetching Data" value={140.48} className="mr-5" />
+        </dl>
       </BentoCard>
 
       <BentoCard

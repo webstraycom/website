@@ -104,7 +104,13 @@ export const StarlightPlaygroundDialog = () => {
   };
 
   const renderButton = (
-    <Button onClick={handleRender} className="gap-2" disabled={state.isRendering || !form.isValid}>
+    <Button
+      type="submit"
+      form="starlight-playground-form"
+      className="gap-2"
+      disabled={state.isRendering || !form.isValid}
+      aria-busy={state.isRendering}
+    >
       {state.isRendering ? (
         <>
           <Loader className="size-4 animate-spin" />
@@ -129,7 +135,7 @@ export const StarlightPlaygroundDialog = () => {
           </DialogHeader>
           <StarlightPlaygroundContent {...playgroundProps} />
           <DialogFooter>
-            <Button variant="outline" onClick={() => setOpen(false)}>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             {renderButton}
@@ -153,7 +159,9 @@ export const StarlightPlaygroundDialog = () => {
         <DrawerFooter>
           {renderButton}
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button type="button" variant="outline">
+              Cancel
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

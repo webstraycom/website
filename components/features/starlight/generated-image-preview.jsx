@@ -23,7 +23,8 @@ export const GeneratedImagePreview = ({ url, isRendering, onLoad }) => (
             variant="secondary"
             size="icon-sm"
             className="absolute top-3 right-3"
-            onClick={() => window.open(url, '_blank')}
+            onClick={() => window.open(url, '_blank', 'noreferrer')}
+            aria-label="Open image in fullscreen"
           >
             <FullscreenIcon />
           </Button>
@@ -39,9 +40,11 @@ export const GeneratedImagePreview = ({ url, isRendering, onLoad }) => (
       aria-hidden={!isRendering}
     >
       <div className="bg-muted rounded-lg p-2">
-        <Loader className="text-foreground size-4 animate-spin" />
+        <Loader className="text-foreground size-4 animate-spin" aria-hidden="true" />
       </div>
-      <p className="text-foreground text-sm font-medium">Processing your request...</p>
+      <p className="text-foreground text-sm font-medium" role="status">
+        Processing your request...
+      </p>
       <p className="text-muted-foreground max-w-3xs text-center text-xs font-medium">
         Please wait while we process your request. Do not refresh the page.
       </p>

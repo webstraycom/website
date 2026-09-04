@@ -23,7 +23,7 @@ export default function WebStrayPage() {
   return (
     <div className="flex flex-1 flex-col justify-center">
       <Hero
-        announcement={{ text: "Authenticator is out! See what's new", link: '/authenticator' }}
+        announcement={{ text: 'WebStray Authenticator v1.6.6', link: '/authenticator' }}
         title={title}
         description={description}
       >

@@ -10,7 +10,15 @@
   "bracketSameLine": false,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "importOrder": [
+    "^react(-dom)?(/.*)?$",
+    "^next(/.*)?$",
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "^@/.*$",
+    "^[./]"
+  ],
   "overrides": [
     {
       "files": "*.mdx",

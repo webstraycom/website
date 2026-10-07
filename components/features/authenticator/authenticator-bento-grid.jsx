@@ -11,10 +11,10 @@ import {
 } from 'lucide-react';
 import { CommandPalettePreview } from '@/components/features/authenticator/command-palette-preview';
 import { NotificationStackPreview } from '@/components/features/authenticator/notification-stack-preview';
+import { PluginPreview } from '@/components/features/authenticator/plugin-preview';
+import { StorageMetricsPreview } from '@/components/features/authenticator/storage-metrics-preview';
 import { TotpPreview } from '@/components/features/authenticator/totp-preview';
 import { DotPattern } from '@/components/ui/dot-pattern';
-import { GridPattern } from '@/components/ui/grid-pattern';
-import { NumberTicker } from '@/components/ui/number-ticker';
 import { Ripple } from '@/components/ui/ripple';
 import { cn } from '@/lib/utils';
 
@@ -30,7 +30,7 @@ const BentoCard = ({
 }) => (
   <div
     className={cn(
-      'dark:bg-muted/30 bg-background flex flex-col overflow-hidden rounded-xl border shadow-xs md:min-h-[280px] dark:shadow-none',
+      'dark:bg-muted/30 bg-background flex flex-col overflow-hidden rounded-xl border md:h-[280px]',
       className,
     )}
   >
@@ -42,7 +42,7 @@ const BentoCard = ({
         </h3>
         <p className="text-muted-foreground text-sm">{description}</p>
       </div>
-      <div className="text-muted-foreground hidden text-sm md:block">{footer}</div>
+      {footer && <div className="text-muted-foreground hidden text-sm md:block">{footer}</div>}
     </div>
     <div
       className={cn('relative hidden flex-1 items-center justify-center md:flex', contentClassName)}
@@ -52,33 +52,11 @@ const BentoCard = ({
   </div>
 );
 
-const MetricsRow = ({ label, value, className }) => (
-  <div
-    className={cn(
-      'bg-background text-muted-foreground flex w-50 items-center justify-between rounded-lg border px-2 py-1 dark:bg-neutral-900',
-      className,
-    )}
-  >
-    <dt>{label}</dt>
-    <dd className="font-mono">
-      <span className="sr-only">{value} milliseconds</span>
-      <span aria-hidden="true" className="flex items-baseline gap-1">
-        <NumberTicker
-          value={value}
-          decimalPlaces={2}
-          className="!text-muted-foreground font-mono tracking-tighter whitespace-pre-wrap"
-        />
-        <span>ms</span>
-      </span>
-    </dd>
-  </div>
-);
-
 export const AuthenticatorBentoGrid = () => {
   return (
     <div className="mx-auto grid w-full grid-cols-1 gap-3 px-4 text-sm md:max-w-[800px] md:grid-cols-2 md:px-6 lg:px-6 xl:max-w-[1200px] xl:grid-cols-4">
       <BentoCard
-        title="Zero-Knowledge Model"
+        title="Zero-Knowledge Architecture"
         description={
           <>
             All sensitive data is <span className="text-foreground">encrypted locally</span> and{' '}
@@ -89,15 +67,15 @@ export const AuthenticatorBentoGrid = () => {
           <ul className="flex flex-col gap-2 text-xs">
             <li className="flex items-center gap-1">
               <CheckIcon className="size-3" />
-              Hardware-Bound Security
+              Hardware-bound security
             </li>
             <li className="flex items-center gap-1">
               <CheckIcon className="size-3" />
-              Local-Only Encryption
+              Local-only encryption
             </li>
             <li className="flex items-center gap-1">
               <CheckIcon className="size-3" />
-              No Cloud Syncing
+              No cloud syncing
             </li>
           </ul>
         }
@@ -120,12 +98,13 @@ export const AuthenticatorBentoGrid = () => {
           </>
         }
         icon={CpuIcon}
-        className="md:col-span-1"
       >
         <DotPattern className="[mask-image:radial-gradient(150px_circle_at_center,rgba(255,255,255,0.4),transparent)]" />
-        <div className="bg-background border-border z-2 flex items-center gap-1 rounded-full border px-2 py-1 dark:bg-neutral-900">
+        <div className="bg-popover z-2 flex items-center gap-1 rounded-full border px-2 py-1">
           <CpuIcon className="text-muted-foreground size-3.5" />
-          <span className="shimmer shimmer-duration-2500 text-muted-foreground">Machine ID</span>
+          <span className="shimmer shimmer-duration-2500 shimmer-angle-0 text-muted-foreground">
+            Machine ID
+          </span>
         </div>
       </BentoCard>
 
@@ -133,21 +112,12 @@ export const AuthenticatorBentoGrid = () => {
         title="Secure Data Portability"
         description={
           <>
-            Built-in utilities for importing and exporting{' '}
-            <span className="text-foreground">encrypted JSON</span>.
+            Import and export of JSON data with{' '}
+            <span className="text-foreground"> encrypted sensitive values</span>.
           </>
         }
         icon={ArrowDownUp}
-        className="md:col-span-1"
       >
-        <GridPattern
-          width={25}
-          height={25}
-          strokeDasharray={'4 2'}
-          className={cn(
-            '[mask-image:radial-gradient(150px_circle_at_center,rgba(255,255,255,0.3),transparent)]',
-          )}
-        />
         <NotificationStackPreview />
       </BentoCard>
 
@@ -155,86 +125,54 @@ export const AuthenticatorBentoGrid = () => {
         title="Extensible Plugin System"
         description={
           <>
-            A robust core architecture implementing <span className="text-foreground">DI</span> and{' '}
-            <span className="text-foreground">IoC patterns</span>.
+            An extensible architecture for{' '}
+            <span className="text-foreground">additional functionality</span> integration.
           </>
         }
         icon={PackageIcon}
-        className="md:col-span-1"
       >
-        <DotPattern className="[mask-image:radial-gradient(150px_circle_at_center,rgba(255,255,255,0.4),transparent)]" />
-        <div className="bg-background z-2 rounded-xl border p-3 dark:bg-neutral-900">
-          <PackageIcon className="text-muted-foreground size-8" />
-        </div>
+        <PluginPreview />
       </BentoCard>
 
       <BentoCard
         title="Persistent Storage"
         description={
           <>
-            High-performance, NeDB-based <span className="text-foreground">storage engine</span>.
+            High-performance, local <span className="text-foreground">storage engine</span> for
+            secure data retention.
           </>
         }
         icon={DatabaseIcon}
-        className="md:col-span-1"
-        contentClassName="flex-col"
       >
-        <GridPattern
-          width={24}
-          height={24}
-          className={cn(
-            'top-1 [mask-image:radial-gradient(200px_circle_at_center,rgba(255,255,255,0.1),transparent)]',
-          )}
-        />
-        <dl className="flex flex-col gap-4">
-          <MetricsRow label="Importing Data" value={264.84} className="mr-5" />
-          <MetricsRow label="Exporting Data" value={426.18} className="ml-5" />
-          <MetricsRow label="Fetching Data" value={140.48} className="mr-5" />
-        </dl>
+        <StorageMetricsPreview />
       </BentoCard>
 
       <BentoCard
         title="Command-Driven Navigation"
         description={
           <>
-            Built-in <span className="text-foreground">Command Palette</span> for instant
+            Built-in <span className="text-foreground">command palette</span> for instant
             keyboard-centric workflows.
           </>
         }
         icon={CommandIcon}
-        className="max-h-[280px] overflow-hidden md:col-span-1"
-        contentClassName="flex-col gap-4"
       >
-        <div className="min-h-[245px] w-full max-w-2xs overflow-hidden px-4">
+        <div className="w-full max-w-2xs px-4">
           <CommandPalettePreview />
         </div>
       </BentoCard>
 
       <BentoCard
-        title="High-Performance UI"
+        title="Modern Interface"
         description={
           <>
-            Fluid interface transitions and state-driven animations using{' '}
-            <span className="text-foreground">Motion</span>.
+            Clean, minimal design with <span className="text-foreground">fluid transitions</span>{' '}
+            and <span className="text-foreground">visual feedback</span>.
           </>
         }
         icon={PencilRulerIcon}
-        className="md:col-span-1"
-        contentClassName="flex-col gap-4"
       >
-        <GridPattern
-          width={124}
-          height={48}
-          x="49.7%"
-          y={10}
-          strokeDasharray={'4 2'}
-          className={cn(
-            'top-1 [mask-image:radial-gradient(200px_circle_at_center,rgba(255,255,255,0.5),transparent)]',
-          )}
-        />
         <TotpPreview />
-        <TotpPreview initialIndex={1} />
-        <TotpPreview initialIndex={2} />
       </BentoCard>
     </div>
   );

@@ -1,11 +1,11 @@
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 
 const VALUES = ['814602', '987654', '024852'];
 
-export const TotpPreview = ({ initialIndex = 0 }) => {
+const TotpPreviewItem = ({ initialIndex = 0 }) => {
   const [index, setIndex] = useState(initialIndex);
   const currentToken = VALUES[index];
 
@@ -17,31 +17,39 @@ export const TotpPreview = ({ initialIndex = 0 }) => {
   }, []);
 
   return (
-    <div className="flex items-center gap-1.5" aria-hidden="true">
+    <div className="flex items-center gap-1.5 select-none">
       {currentToken.split('').map((char, charIndex) => (
-        <Fragment key={charIndex}>
-          <span className="bg-accent relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-md">
-            <AnimatePresence mode="popLayout">
-              <motion.span
-                key={`${index}-${charIndex}`}
-                initial={{ y: '100%' }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: '-100%' }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 300,
-                  damping: 20,
-                  delay: charIndex * 0.05,
-                }}
-                className="absolute inset-0 flex items-center justify-center font-mono text-base leading-none font-medium will-change-transform"
-              >
-                {char}
-              </motion.span>
-            </AnimatePresence>
-          </span>
-          {charIndex === 2 && <span />}
-        </Fragment>
+        <span
+          key={charIndex}
+          className={`bg-popover relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-md border font-mono font-medium ${charIndex === 2 ? 'mr-1.5' : ''}`}
+        >
+          <AnimatePresence mode="popLayout">
+            <motion.span
+              key={`${index}-${charIndex}`}
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '-100%' }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 20,
+                delay: charIndex * 0.05,
+              }}
+              className="absolute inset-0 flex items-center justify-center text-base will-change-transform"
+            >
+              {char}
+            </motion.span>
+          </AnimatePresence>
+        </span>
       ))}
     </div>
   );
 };
+
+export const TotpPreview = () => (
+  <div className="flex flex-col gap-4" aria-hidden="true">
+    <TotpPreviewItem />
+    <TotpPreviewItem initialIndex={1} />
+    <TotpPreviewItem initialIndex={2} />
+  </div>
+);

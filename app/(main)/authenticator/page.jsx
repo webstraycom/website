@@ -6,7 +6,7 @@ import { REPOSITORIES } from '@/config/github';
 
 const title = 'WebStray Authenticator';
 const description =
-  'Secure, hardware-bound desktop password manager. Built for privacy. Engineered for extensibility. Powered by NW.js.';
+  'Secure, hardware-bound desktop password manager. Built for privacy. Engineered for extensibility. Completely open source.';
 
 export const generateMetadata = () => {
   return {

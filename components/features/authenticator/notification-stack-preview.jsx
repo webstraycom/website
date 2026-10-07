@@ -33,7 +33,7 @@ export const NotificationStackPreview = () => {
       <button
         type="button"
         onClick={nextItem}
-        className="relative h-12 w-52 cursor-pointer select-none focus-visible:outline-none"
+        className="relative h-12 w-52 select-none focus-visible:outline-none"
         aria-label="Show next notification"
       >
         <AnimatePresence mode="popLayout" initial={false}>
@@ -56,12 +56,11 @@ export const NotificationStackPreview = () => {
               }}
               transition={{
                 type: 'spring',
-                stiffness: 200,
-                damping: 20,
-                mass: 1.2,
+                stiffness: 300,
+                damping: 30,
               }}
               className={cn(
-                'bg-background absolute inset-0 flex items-center justify-center rounded-lg border text-neutral-600 shadow-xs outline-none backface-hidden dark:bg-neutral-900 dark:text-neutral-300 dark:shadow-none',
+                'bg-popover absolute inset-0 flex items-center justify-center rounded-lg border outline-none backface-hidden',
               )}
               aria-hidden={index !== 0}
             >

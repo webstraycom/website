@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { CommandPalette } from '@/components/shared/command-palette';
+import { Icons } from '@/components/shared/icons';
 import { Logo } from '@/components/shared/logo';
 import { MobileSheet } from '@/components/shared/mobile-sheet';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
@@ -13,6 +13,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { GITHUB_BASE } from '@/config/github';
 import { cn } from '@/lib/utils';
 
@@ -40,7 +41,7 @@ export const Header = () => {
                   <span>WebStray</span>
                 </Link>
               </NavigationMenuItem>
-              <Separator orientation="vertical" className="mx-1 h-5 !self-center" />
+              <Separator orientation="vertical" className="mx-1 h-4 !self-center" />
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <NavigationMenuLink
@@ -58,16 +59,20 @@ export const Header = () => {
         <div className="flex items-center gap-2">
           <div className="flex hidden items-center gap-2 lg:flex">
             <CommandPalette />
-            <Separator orientation="vertical" className="ml-2 h-5 !self-center" />
+            <Separator orientation="vertical" className="ml-2 h-4 !self-center" />
           </div>
           <ThemeToggle />
-          <Separator orientation="vertical" className="mr-2 h-5 !self-center" />
-          <Button asChild className="gap-1">
-            <a href={GITHUB_BASE} target="_blank" rel="noreferrer">
-              Open on GitHub
-              <ArrowRight />
-            </a>
-          </Button>
+          <Separator orientation="vertical" className="h-4 !self-center" />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button asChild size="icon" variant="ghost">
+                <a href={GITHUB_BASE} target="_blank" rel="noreferrer" aria-label="Open on GitHub">
+                  <Icons.gitHub />
+                </a>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Open on GitHub</TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </header>

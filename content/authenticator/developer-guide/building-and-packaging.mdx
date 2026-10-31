@@ -99,7 +99,7 @@ The `setup/` directory is used for packaging. It contains the `build.iss` script
 ```ini title="build.iss" showLineNumbers collapsible
 [Setup]
 AppName=WebStray Authenticator
-AppVersion=1.6.4
+AppVersion=1.6.8
 AppVerName=WebStray Authenticator
 AppPublisher=WebStray
 AppId={{84011864-B354-4631-8FF7-F98CB2F246DB}
@@ -129,6 +129,10 @@ Name: "{commondesktop}\WebStray Authenticator"; Filename: "{app}\authenticator.e
 
 [Run]
 Filename: "{app}\authenticator.exe"; Description: "{cm:LaunchProgram,WebStray Authenticator}"; Flags: nowait postinstall skipifsilent
+
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}"
+Type: filesandordirs; Name: "{localappdata}\WebStray Authenticator"
 ```
 
 The final installer is generated in `setup/release/`, a directory created by Inno Setup during compilation.
@@ -158,6 +162,10 @@ Handles the creation of shortcuts in the **Start Menu** and on the **Desktop**.
 #### [Run] Section
 
 Uses the `postinstall` flag to offer the user the option to launch the application immediately after the setup completes.
+
+#### [UninstallDelete] Section
+
+Defines files and directories that must be forcefully removed during the application uninstallation process.
 
 ## Summary
 

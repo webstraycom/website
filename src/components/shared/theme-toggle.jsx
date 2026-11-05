@@ -22,19 +22,10 @@ export const ThemeToggle = () => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-4.5"
+            fill="currentColor"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-            <path d="M12 3l0 18" />
-            <path d="M12 9l4.65 -4.65" />
-            <path d="M12 14.3l7.37 -7.37" />
-            <path d="M12 19.6l8.85 -8.85" />
+            <path d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m-9 1.732a8 8 0 0 0 4.001 14.928l-.001 -16a8 8 0 0 0 -4 1.072" />
           </svg>
         </Button>
       </TooltipTrigger>

@@ -6,7 +6,7 @@ import { rehypePreMetadata } from '@/lib/rehype-pre-metadata.mjs';
 import { buildSearchIndex } from '@/scripts/build-search-index.mjs';
 
 export default defineConfig({
-  root: 'content',
+  root: 'src/content',
   mdx: {
     rehypePlugins: [
       rehypeSlug,
@@ -43,7 +43,7 @@ export default defineConfig({
           raw: s.raw(),
         })
         .transform((data, { meta }) => {
-          const path = meta.path.replace(/\\/g, '/').replace(/.*content\//, 'content/');
+          const path = meta.path.replace(/\\/g, '/').replace(/.*src\/content\//, 'src/content/');
           return {
             ...data,
             githubUrl: `${REPOSITORIES.WEBSITE}/blob/main/${path}`,

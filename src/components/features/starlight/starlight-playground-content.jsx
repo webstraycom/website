@@ -56,7 +56,7 @@ const TABS_CONFIG = {
     {
       id: 'styledProgress',
       title: 'Styled Language Bar',
-      description: 'Apply styled bar.',
+      description: 'Apply styled language bar.',
       type: 'switch',
     },
   ],
@@ -64,13 +64,13 @@ const TABS_CONFIG = {
     {
       id: 'singleLanguage',
       title: 'Single Language',
-      description: 'Show main language.',
+      description: 'Show only main language.',
       type: 'switch',
     },
     {
       id: 'sharpProgress',
-      title: 'Sharp Progress Bar',
-      description: 'Apply sharp bar.',
+      title: 'Sharp Language Bar',
+      description: 'Apply sharp language bar.',
       type: 'switch',
     },
   ],
